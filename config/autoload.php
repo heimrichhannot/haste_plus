@@ -24,6 +24,7 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
+	'HeimrichHannot\HastePlus\DOM'         => 'system/modules/haste_plus/classes/DOM.php',
 	'HeimrichHannot\HastePlus\Arrays'      => 'system/modules/haste_plus/classes/Arrays.php',
 	'HeimrichHannot\HastePlus\Strings'     => 'system/modules/haste_plus/classes/Strings.php',
 	'HeimrichHannot\HastePlus\Environment' => 'system/modules/haste_plus/classes/Environment.php',
