@@ -26,7 +26,7 @@ class DOM
 	 *
 	 * @throws \TijsVerkoyen\CssToInlineStyles\Exception
 	 */
-	public static function convertToInlineCss($strText, array $strCssText)
+	public static function convertToInlineCss($strText, $strCssText)
 	{
 		// apply the css inliner
 		$objCssInliner = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles($strText, $strCssText);
