@@ -100,4 +100,12 @@ class Arrays
 		return json_decode(json_encode($array), false);
 	}
 
+	public static function insertInArrayByName(&$arrOld, $strKey, $arrNew, $intOffset = 0)
+	{
+		if (($intIndex = array_search($strKey, array_keys($arrOld))) !== false)
+		{
+			array_insert($arrOld, $intIndex + $intOffset, $arrNew);
+		}
+	}
+
 }
