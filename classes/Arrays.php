@@ -108,4 +108,10 @@ class Arrays
 		}
 	}
 
+	public static function isSerialized($varValue)
+	{
+		$data = @unserialize($varValue);
+		return $varValue === 'b:0;' || $data !== false;
+	}
+
 }
