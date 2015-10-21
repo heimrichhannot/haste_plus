@@ -29,4 +29,22 @@ class Utilities
 			is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleType));
 	}
 
+	public function setDateAdded(\DataContainer $objDc)
+	{
+		// Return if there is no active record (override all)
+		if (!$objDc->activeRecord || $objDc->activeRecord->dateAdded > 0) {
+			return;
+		}
+
+		// Fallback solution for existing accounts
+		if ($objDc->activeRecord->lastLogin > 0) {
+			$time = $objDc->activeRecord->lastLogin;
+		} else {
+			$time = time();
+		}
+
+		\Database::getInstance()->prepare("UPDATE $objDc->getTable() SET dateAdded=? WHERE id=?")
+			->execute($time, $objDc->id);
+	}
+
 }
