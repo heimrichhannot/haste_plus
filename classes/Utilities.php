@@ -43,7 +43,9 @@ class Utilities
 			$time = time();
 		}
 
-		\Database::getInstance()->prepare("UPDATE $objDc->getTable() SET dateAdded=? WHERE id=?")
+		$strTable = $objDc->__get('table');
+
+		\Database::getInstance()->prepare("UPDATE $strTable SET dateAdded=? WHERE id=?")
 			->execute($time, $objDc->id);
 	}
 
