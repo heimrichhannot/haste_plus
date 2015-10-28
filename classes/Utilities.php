@@ -36,17 +36,12 @@ class Utilities
 			return;
 		}
 
-		// Fallback solution for existing accounts
-		if ($objDc->activeRecord->lastLogin > 0) {
-			$time = $objDc->activeRecord->lastLogin;
-		} else {
-			$time = time();
-		}
+		$time = time();
 
 		$strTable = $objDc->__get('table');
 
 		\Database::getInstance()->prepare("UPDATE $strTable SET dateAdded=? WHERE id=?")
-			->execute($time, $objDc->id);
+			->execute($time, $objDc->activeRecord->id);
 	}
 
 }
