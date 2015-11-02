@@ -101,8 +101,9 @@ class Files {
 
 	public static function sanitizeFileName($strFileName)
 	{
-		$strFileName = str_replace(array('ä', 'ö', 'ü', 'ß'), array('ae', 'oe', 'ue', 'ss'), $strFileName);
-		preg_replace('/[^a-z0-9\.]/', '_', strtolower($strFileName));
+		$strFileName = str_replace(array('ä', 'ö', 'ü', 'ß', ' '), array('ae', 'oe', 'ue', 'ss', '_'), $strFileName);
+		$strFileName = strtolower($strFileName);
+		preg_replace('/[^a-z0-9\/._-]/', '_', $strFileName);
 		return $strFileName;
 	}
 

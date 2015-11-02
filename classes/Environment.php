@@ -122,4 +122,12 @@ abstract class Environment {
 		}
 		return implode('&', $result);
 	}
+
+	public static function getParametersFromUri($strUri)
+	{
+		$arrResult = array();
+		parse_str(parse_url($strUri, PHP_URL_QUERY), $arrResult);
+
+		return $arrResult;
+	}
 }
