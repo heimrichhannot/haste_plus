@@ -75,25 +75,9 @@ class Files {
 		return pathinfo($strPath, PATHINFO_EXTENSION);
 	}
 	
-	public static function getFileObjectByBinary($varBinary)
+	public static function getPathFromUuid($varUuid)
 	{
-		if (!$varBinary || !($intId = \String::binToUuid($varBinary)) || !($objDir = \FilesModel::findByUuid($intId)))
-			return false;
-		else
-			return $objDir;
-	}
-	
-	public static function getFileObjectById($intId)
-	{
-		if (!($objFile = \FilesModel::findByUuid($intId)))
-			return false;
-		else
-			return $objFile;
-	}
-	
-	public static function getPathFromUuid($strUuid)
-	{
-		if (($objFile = \FilesModel::findByUuid($strUuid)) !== null)
+		if (($objFile = \FilesModel::findByUuid($varUuid)) !== null)
 		{
 			return $objFile->path;
 		}
@@ -101,9 +85,9 @@ class Files {
 
 	public static function sanitizeFileName($strFileName)
 	{
-		$strFileName = str_replace(array('ä', 'ö', 'ü', 'ß', ' '), array('ae', 'oe', 'ue', 'ss', '_'), $strFileName);
 		$strFileName = strtolower($strFileName);
-		preg_replace('/[^a-z0-9\/._-]/', '_', $strFileName);
+		$strFileName = preg_replace("@[^a-z0-9_-]@", '_', $strFileName);
+		$strFileName = preg_replace("@_+@", '_', $strFileName);
 		return $strFileName;
 	}
 

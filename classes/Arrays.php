@@ -114,4 +114,19 @@ class Arrays
 		return $varValue === 'b:0;' || $data !== false;
 	}
 
+	/**
+	 * Uniques an array by key, not by value
+	 */
+	public static function array_unique_keys($array)
+	{
+		$arrResult = array();
+
+		foreach (array_unique(array_keys($array)) as $varKey)
+		{
+			$arrResult[$varKey] = $array[$varKey];
+		}
+
+		return $arrResult;
+	}
+
 }
