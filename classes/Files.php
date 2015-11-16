@@ -83,6 +83,12 @@ class Files {
 		}
 	}
 
+	public static function getFileFromUuid($varUuid, $blnDoNotCreate = false)
+	{
+		if ($strPath = static::getPathFromUuid($varUuid))
+			return new \File($strPath, $blnDoNotCreate);
+	}
+
 	public static function sanitizeFileName($strFileName)
 	{
 		$strFileName = strtolower($strFileName);
