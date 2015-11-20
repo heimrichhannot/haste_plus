@@ -69,6 +69,12 @@ class Files {
 		}
 		return $bytes;
 	}
+
+	public static function getPathWithoutFilename($strPathToFile)
+	{
+		$path = pathinfo($strPathToFile);
+		return $path['dirname'];
+	}
 	
 	public static function getFileExtension($strPath)
 	{
@@ -87,6 +93,12 @@ class Files {
 	{
 		if ($strPath = static::getPathFromUuid($varUuid))
 			return new \File($strPath, $blnDoNotCreate);
+	}
+
+	public static function getFolderFromUuid($varUuid, $blnDoNotCreate = false)
+	{
+		if ($strPath = static::getPathFromUuid($varUuid))
+			return new \Folder($strPath, $blnDoNotCreate);
 	}
 
 	public static function sanitizeFileName($strFileName)
