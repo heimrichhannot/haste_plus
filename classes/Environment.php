@@ -23,10 +23,9 @@ abstract class Environment {
 		return \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
 	}
 
-	public static function getUrlBasename($includeExtension = false) {
-		$basename = basename($_SERVER['REQUEST_URI']);
-		$path = pathinfo($basename);
-		return $includeExtension ? $basename : $path['filename'];
+	public static function getUrlBasename($includeExtension = false, $includeParameters = false) {
+		$arrPathInfo = pathinfo($includeParameters ? \Environment::get('requestUri') : static::removeAllParametersFromUri(\Environment::get('requestUri')));
+		return $includeExtension ? $arrPathInfo['basename'] : $arrPathInfo['filename'];
 	}
 
 	public static function getUriParameters($uri)
@@ -68,6 +67,16 @@ abstract class Environment {
 	{
 		$arrParameters = static::getUriParameters($uri);
 		foreach ($arrKeys as $strKey)
+		{
+			unset($arrParameters[$strKey]);
+		}
+		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+	}
+
+	public static function removeAllParametersFromUri($uri)
+	{
+		$arrParameters = static::getUriParameters($uri);
+		foreach ($arrParameters as $strKey => $strValue)
 		{
 			unset($arrParameters[$strKey]);
 		}
