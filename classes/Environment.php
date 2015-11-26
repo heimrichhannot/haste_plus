@@ -19,8 +19,13 @@ namespace HeimrichHannot\HastePlus;
 
 abstract class Environment {
 
-	public static function getUrl($includeRequestUri = true, $includeFragments = true) {
-		return \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
+	public static function getUrl($includeRequestUri = true, $includeFragments = true, $includeParameters = true) {
+		$strUrl = \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
+
+		if (!$includeParameters)
+			$strUrl = static::removeAllParametersFromUri($strUrl);
+
+		return $strUrl;
 	}
 
 	public static function getUrlBasename($includeExtension = false, $includeParameters = false) {
