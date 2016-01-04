@@ -116,6 +116,11 @@ abstract class Environment {
 		return $strResult;
 	}
 
+	public static function replaceParameterInUri($uri, $key, $value)
+	{
+		return static::addParameterToUri(static::removeParameterFromUri($uri, $key), $key, $value);
+	}
+
 	public static function getTld()
 	{
 		$arrParsed = parse_url(\Environment::get('base'));
