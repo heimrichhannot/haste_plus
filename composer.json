@@ -18,7 +18,8 @@
     },
     "require": {
         "contao/core": ">=3.2,<4-dev",
-        "tijsverkoyen/css-to-inline-styles": "~1.5"
+        "tijsverkoyen/css-to-inline-styles": "~1.5",
+        "codefog/contao-haste" : ">=4.0,<5-dev"
     },
     "autoload": {
         "classmap": [""]
