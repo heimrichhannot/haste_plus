@@ -2,46 +2,36 @@
 
 namespace HeimrichHannot\HastePlus;
 
-	/**
-	 * Contao Open Source CMS
-	 *
-	 * Copyright (C) 2005-2013 Leo Feyer
-	 *
-	 * @package   haste_plus
-	 * @author    d.patzer@heimrich-hannot.de
-	 * @license   GNU/LGPL
-	 * @copyright Heimrich & Hannot GmbH
-	 */
-
 /**
- * helper class for offering contao functionality
+ * @deprecated since 1.1 - add new functionality to Classes in \HeimrichHannot\Haste\Util
  */
 
 class Utilities
 {
 
+	/**
+	 * @deprecated since 1.1 - use \HeimrichHannot\Haste\Util\Module
+	 * @param      $strModuleType
+	 * @param      $strModuleGroup
+	 * @param      $strParentModuleType
+	 * @param bool $blnBackendModule
+	 *
+	 * @return bool
+	 */
 	public static function isSubModuleOf($strModuleType, $strModuleGroup, $strParentModuleType, $blnBackendModule = false)
 	{
-		$strIndex = ($blnBackendModule ? 'BE' : 'FE') . '_MOD';
-
-		return (isset($GLOBALS[$strIndex][$strModuleGroup][$strModuleType]) &&
-		($GLOBALS[$strIndex][$strModuleGroup][$strModuleType] == $strParentModuleType) ||
-			is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleType));
+		return \HeimrichHannot\Haste\Util\Module::isSubModuleOf($strModuleType, $strModuleGroup, $strParentModuleType, $blnBackendModule);
 	}
 
+	/**
+	 * @deprecated since 1.1 - use \HeimrichHannot\HastePlus\Dca\Calendar::setDateAdded()
+	 * @param \DataContainer $objDc
+	 *
+	 * @return mixed
+	 */
 	public function setDateAdded(\DataContainer $objDc)
 	{
-		// Return if there is no active record (override all)
-		if (!$objDc->activeRecord || $objDc->activeRecord->dateAdded > 0) {
-			return;
-		}
-
-		$time = time();
-
-		$strTable = $objDc->__get('table');
-
-		\Database::getInstance()->prepare("UPDATE $strTable SET dateAdded=? WHERE id=?")
-			->execute($time, $objDc->activeRecord->id);
+		return \HeimrichHannot\Haste\Dca\Calendar::setDateAdded($objDc);
 	}
 
 }
