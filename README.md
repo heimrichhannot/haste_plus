@@ -11,7 +11,7 @@ Haste plus extends [codefog/contao-haste](https://packagist.org/packages/codefog
 The following Classes and Methods are helpers that ease the working with Contao.
 
 Type | Name | Method | Description
----- | -----------
+---- | ---- | ---- | ----
 Url | addScheme | \HeimrichHannot\Haste\Util\Url::addScheme($strUrl, $strScheme) | Add the given protocol/scheme (http://,https://,ftp://…) to the given url if not present.
 
 ### Google Maps 
