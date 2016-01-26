@@ -22,7 +22,11 @@
         "tijsverkoyen/css-to-inline-styles": "~1.5"
     },
     "autoload": {
-        "classmap": [""]
+        "psr-0": {
+            "HeimrichHannot\\Haste\\": [
+                "library/"
+            ]
+        }
     },
     "extra": {
         "contao": {
