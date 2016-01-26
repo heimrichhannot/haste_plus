@@ -23,9 +23,6 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
-	// Test
-	'HeimrichHannot\Haste\Test\Util\UrlTest'   => 'system/modules/haste_plus/test/tests/Haste/Test/Util/UrlTest.php',
-
 	// Classes
 	'HeimrichHannot\HastePlus\Classes'         => 'system/modules/haste_plus/classes/Classes.php',
 	'HeimrichHannot\HastePlus\Environment'     => 'system/modules/haste_plus/classes/Environment.php',
