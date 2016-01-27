@@ -13,6 +13,7 @@ The following Classes and Methods are helpers that ease the working with Contao.
 Type | Name | Method | Description
 ---- | ---- | ---- | ----
 Url | addScheme | \HeimrichHannot\Haste\Util\Url::addScheme($strUrl, $strScheme) | Add the given protocol/scheme (http://,https://,ftp://…) to the given url if not present.
+Arrays | filterByPrefixes | \HeimrichHannot\Haste\Util\Arrays::filterByPrefixes($arrData, $arrayPrefixes) | Filter an array by given prefixes and return the filtered array.
 
 ### Google Maps 
 

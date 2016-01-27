@@ -15,6 +15,37 @@ namespace HeimrichHannot\Haste\Util;
 class Arrays
 {
 	/**
+	 * Filter an Array by a given prefix
+	 *
+	 * @param array  $arrData
+	 * @param array  $arrPrefixes
+	 *
+	 * @return array the filtered array or $arrData if $strPrefix is empty
+	 */
+	public static function filterByPrefixes(array $arrData = array(), $arrPrefixes = array())
+	{
+		$arrExtract = array();
+
+		if(!is_array($arrPrefixes) || empty($arrPrefixes))
+		{
+			return $arrData;
+		}
+
+		foreach($arrData as $key => $value)
+		{
+			foreach($arrPrefixes as $strPrefix)
+			{
+				if(\HeimrichHannot\Haste\Util\StringUtil::startsWith($key, $strPrefix))
+				{
+					$arrExtract[$key] = $value;
+				}
+			}
+		}
+		
+		return $arrExtract;
+	}
+
+	/**
 	 * shuffle an array (associative or non-associative) preserving keys
 	 *
 	 * @param string $array
