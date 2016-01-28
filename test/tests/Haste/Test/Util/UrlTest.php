@@ -23,7 +23,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      * @dataProvider addSchemeProvider
      * @test
      */
-    public function tesAddScheme($strUrl, $strScheme, $expectedResult)
+    public function testAddScheme($strUrl, $strScheme, $expectedResult)
     {
         $this->assertSame($expectedResult, Url::addScheme($strUrl, $strScheme));
     }

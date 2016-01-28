@@ -41,6 +41,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\Haste\Util\DOMUtil'        => 'system/modules/haste_plus/library/Haste/Util/DOMUtil.php',
 	'HeimrichHannot\Haste\Util\Module'         => 'system/modules/haste_plus/library/Haste/Util/Module.php',
 	'HeimrichHannot\Haste\Util\StringUtil'     => 'system/modules/haste_plus/library/Haste/Util/StringUtil.php',
+	'HeimrichHannot\Haste\DateUtil'            => 'system/modules/haste_plus/library/Haste/Util/DateUtil.php',
 	'HeimrichHannot\Haste\Util\Url'            => 'system/modules/haste_plus/library/Haste/Util/Url.php',
 	'HeimrichHannot\Haste\Dca\Calendar'        => 'system/modules/haste_plus/library/Haste/Dca/Calendar.php',
 ));
