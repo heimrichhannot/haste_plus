@@ -86,8 +86,7 @@ class GoogleMap
 
 		if (!isset($GLOBALS['TL_JAVASCRIPT']['googlemaps'])) {
 			$GLOBALS['TL_JAVASCRIPT']['googlemaps'] =
-				'http' . (\Environment::get('ssl') ? 's' : '') . '://maps.google.com/maps/api/js?language=' . $this->arrOptions['language']
-				. '&amp;sensor=' . ($this->arrOptions['sensor'] ? 'true' : 'false');
+				'http' . (\Environment::get('ssl') ? 's' : '') . '://maps.google.com/maps/api/js?language=' . $this->arrOptions['language'];
 		}
 
 		$objTemplate->map    = $arrData;
@@ -105,8 +104,7 @@ class GoogleMap
 
 		$strMap =
 			'<img src="http' . (\Environment::get('ssl') ? 's' : '') . '://maps.google.com/maps/api/staticmap?center=' . $arrData['center']
-			. '&amp;zoom=' . $arrData['zoom'] . '&amp;maptype=' . strtolower($arrData['mapTypeId']) . '&amp;sensor='
-			. ($arrData['sensor'] ? 'true' : 'false') . '&amp;language=' . $arrData['language'] . '&amp;size=';
+			. '&amp;zoom=' . $arrData['zoom'] . '&amp;maptype=' . strtolower($arrData['mapTypeId']) . '&amp;language=' . $arrData['language'] . '&amp;size=';
 
 		if ($arrData['mapSize'][2] == 'px') {
 			$strMap .= $arrData['mapSize'][0] . 'x' . $arrData['mapSize'][1];
@@ -180,7 +178,6 @@ class GoogleMap
 			'mapTypeId'                     => 'ROADMAP',
 			'mapTypesAvailable'             => array('HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN'),
 			'staticMapNoScript'             => 1,
-			'sensor'                        => '',
 			'useMapTypeControl'             => 1,
 			'mapTypeControlStyle'           => 'DEFAULT',
 			'mapTypeControlStyleAvailable'  => array('DEFAULT', 'DROPDOWN_MENU', 'HORIZONTAL_BAR'),
