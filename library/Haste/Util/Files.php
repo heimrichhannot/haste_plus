@@ -77,24 +77,56 @@ class Files
 		return pathinfo($strPath, PATHINFO_EXTENSION);
 	}
 
-	public static function getPathFromUuid($varUuid)
+	/**
+	 * @param      $varUuid
+	 * @param bool $blnCheckExists
+	 *
+	 * @return null|string Return the path of the file, or null if not exists
+	 */
+	public static function getPathFromUuid($varUuid, $blnCheckExists = true)
 	{
 		if (($objFile = \FilesModel::findByUuid($varUuid)) !== null)
 		{
-			return $objFile->path;
+			if(!$blnCheckExists)
+			{
+				return $objFile->path;
+			}
+
+			if(file_exists(TL_ROOT . '/' . $objFile->path))
+			{
+				return $objFile->path;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param      $varUuid
+	 * @param bool $blnDoNotCreate
+	 *
+	 * @return \File|null Return the file object
+	 */
+	public static function getFileFromUuid($varUuid, $blnDoNotCreate = true)
+	{
+		if ($strPath = static::getPathFromUuid($varUuid))
+		{
+			return new \File($strPath, $blnDoNotCreate);
 		}
 	}
 
-	public static function getFileFromUuid($varUuid, $blnDoNotCreate = false)
+	/**
+	 * @param      $varUuid
+	 * @param bool $blnDoNotCreate
+	 *
+	 * @return \Folder Return the folder object
+	 */
+	public static function getFolderFromUuid($varUuid, $blnDoNotCreate = true)
 	{
 		if ($strPath = static::getPathFromUuid($varUuid))
-			return new \File($strPath, $blnDoNotCreate);
-	}
-
-	public static function getFolderFromUuid($varUuid, $blnDoNotCreate = false)
-	{
-		if ($strPath = static::getPathFromUuid($varUuid))
+		{
 			return new \Folder($strPath, $blnDoNotCreate);
+		}
 	}
 
 	public static function sanitizeFileName($strFileName)
