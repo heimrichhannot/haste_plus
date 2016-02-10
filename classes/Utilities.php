@@ -31,7 +31,7 @@ class Utilities
 	 */
 	public function setDateAdded(\DataContainer $objDc)
 	{
-		\HeimrichHannot\Haste\Dca\Calendar::setDateAdded($objDc);
+		\HeimrichHannot\Haste\Dca\General::setDateAdded($objDc);
 	}
 
 }

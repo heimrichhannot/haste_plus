@@ -24,7 +24,7 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Library
-	'HeimrichHannot\Haste\Dca\Calendar'        => 'system/modules/haste_plus/library/Haste/Dca/Calendar.php',
+	'HeimrichHannot\Haste\Dca\General'         => 'system/modules/haste_plus/library/Haste/Dca/General.php',
 	'HeimrichHannot\Haste\Util\Format'         => 'system/modules/haste_plus/library/Haste/Util/Format.php',
 	'HeimrichHannot\Haste\Util\Module'         => 'system/modules/haste_plus/library/Haste/Util/Module.php',
 	'HeimrichHannot\Haste\Util\Url'            => 'system/modules/haste_plus/library/Haste/Util/Url.php',

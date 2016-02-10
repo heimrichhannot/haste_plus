@@ -12,9 +12,9 @@
 namespace HeimrichHannot\Haste\Dca;
 
 
-class Calendar
+class General
 {
-	public function setDateAdded(\DataContainer $objDc)
+	public static function setDateAdded(\DataContainer $objDc)
 	{
 		// Return if there is no active record (override all)
 		if (!$objDc->activeRecord || $objDc->activeRecord->dateAdded > 0) {
