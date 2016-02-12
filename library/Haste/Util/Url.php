@@ -156,4 +156,53 @@ class Url extends \Haste\Util\Url
 
 		return $arrResult;
 	}
+
+	public static function generateFrontendUrl($intPage)
+	{
+		if (($objPageJumpTo = \PageModel::findByPk($intPage)) !== null)
+		{
+			return \Controller::generateFrontendUrl($objPageJumpTo->row());
+		}
+
+		return false;
+	}
+
+	public static function generateAbsoluteUrl($intPage)
+	{
+		$strDomain = static::getRootDomain($intPage);
+		$strRequest = static::generateFrontendUrl($intPage);
+
+		if ($strDomain !== false && $strRequest !== false)
+			return $strDomain . '/' . $strRequest;
+		else
+			return false;
+	}
+
+	public static function getRootDomain($intPage)
+	{
+		if (($objTarget = \PageModel::findByPk($intPage)) !== null)
+		{
+			if ($objTarget->type == 'root')
+			{
+				return static::doGetRootDomain($objTarget);
+			}
+			else
+			{
+				foreach (\PageModel::findParentsById($objTarget->id) as $objParent)
+				{
+					if ($objParent->type == 'root')
+					{
+						return static::doGetRootDomain($objParent);
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private static function doGetRootDomain($objPage)
+	{
+		return ($objPage->useSSL ? 'https://' : 'http://') . $objPage->dns;
+	}
 }
