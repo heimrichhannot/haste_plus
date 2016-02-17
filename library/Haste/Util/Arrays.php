@@ -15,6 +15,41 @@ namespace HeimrichHannot\Haste\Util;
 class Arrays
 {
 	/**
+	 * Create the class names for an item within a array list
+	 *
+	 * @param $key mixed The current index
+	 * @param $arrList array The array list
+	 * @param $blnReturnAsArray boolean Return as array, or String
+	 *
+	 * @return string | array String of class names, or an array if $blnReturnAsArray is true.
+	 */
+	public static function getListPositonCssClass($key, array $arrList, $blnReturnAsArray=false)
+	{
+		$arrClasses = array();
+
+		$idx = array_search($key, array_keys($arrList), true);
+
+		if($idx === false)
+		{
+			return $blnReturnAsArray ? $arrClasses : '';
+		}
+
+		if($idx == 0)
+		{
+			$arrClasses[] = 'first';
+		}
+
+		$arrClasses[] = ($idx%2 == 0) ? 'odd' : 'even';
+
+		if($idx + 1 == count($arrList))
+		{
+			$arrClasses[] = 'last';
+		}
+
+		return $blnReturnAsArray ? $arrClasses : implode(' ', $arrClasses);
+	}
+
+	/**
 	 * Filter an Array by a given prefix
 	 *
 	 * @param array  $arrData

@@ -121,7 +121,9 @@ function gmap<?php echo $this->map['id']; ?>_initialize() {
 	<?php endforeach; ?>
 
 	//now fit the map to the newly inclusive bounds
-	gmap<?php echo $this->map['id']; ?>.fitBounds(bounds);
+	<?php if(count($this->map['elements']) > 1): ?>
+		gmap<?php echo $this->map['id']; ?>.fitBounds(bounds);
+	<?php endif; ?>
 
 	if(window.gmap<?php echo $this->map['id']; ?>_dynmap){
 		gmap<?php echo $this->map['id']; ?>_dynmap(gmap<?php echo $this->map['id']; ?>);

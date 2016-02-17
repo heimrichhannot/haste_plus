@@ -16,8 +16,17 @@ include_once __DIR__ . '/../../../../../library/Haste/Util/Arrays.php';
 
 use HeimrichHannot\Haste\Util\Arrays;
 
+
 class ArraysTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * @dataProvider getListPositonCssClassProvider
+	 * @test
+	 */
+	public function testGetListPositonCssClass($key, $arrList, $blnReturnAsArray, $expectedResult)
+	{
+		$this->assertSame($expectedResult, Arrays::getListPositonCssClass($key, $arrList, $blnReturnAsArray));
+	}
 
 	/**
 	 * @dataProvider filterByPrefixesProvider
@@ -26,6 +35,50 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
 	public function testFilterByPrefixes($arrData, $arrPrefixes, $expectedResult)
 	{
 		$this->assertSame($expectedResult, Arrays::filterByPrefixes($arrData, $arrPrefixes));
+	}
+
+	public function getListPositonCssClassProvider()
+	{
+		$arrList = array
+		(
+			0   => 'foo',
+			'a' => 'bar',
+			'b' => 'fu',
+			1   => 'ba',
+		);
+
+		return array(
+			array(
+				0,
+				$arrList,
+				false,
+				'first odd'
+			),
+			array(
+				'a',
+				$arrList,
+				false,
+				'even'
+			),
+			array(
+				'b',
+				$arrList,
+				false,
+				'odd'
+			),
+			array(
+				1,
+				$arrList,
+				false,
+				'even last'
+			),
+			array(
+				1,
+				$arrList,
+				true,
+				array('even', 'last')
+			),
+		);
 	}
 
 
@@ -41,7 +94,6 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
 			''                       => 'Bar',
 		);
 
-		// current request -> query to add -> expected result
 		return array(
 			array(
 				$arrData,
