@@ -157,7 +157,12 @@ class Arrays
 
 	public static function arrayToObject($array)
 	{
-		return json_decode(json_encode($array), false);
+		$objResult = new \stdClass();
+		foreach ($array as $varKey => $varValue)
+		{
+			$objResult->{$varKey} = $varValue;
+		}
+		return $objResult;
 	}
 
 	public static function insertInArrayByName(&$arrOld, $strKey, $arrNew, $intOffset = 0)
