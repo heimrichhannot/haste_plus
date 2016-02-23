@@ -13,3 +13,9 @@ if(TL_MODE == 'FE')
 		'haste_plus_dom' => '/system/modules/haste_plus/assets/js/dom.min.js|static'
 	));
 }
+
+
+/**
+ * Hooks
+ */
+$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders');

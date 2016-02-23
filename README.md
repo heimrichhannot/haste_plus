@@ -6,6 +6,14 @@ Haste plus extends [codefog/contao-haste](https://packagist.org/packages/codefog
 
 ## Features
 
+### Security
+Add security headers to http request (configurable in tl_settings)
+
+- IFRAME Clickjacking Protection: X-Frame-Options: SAMEORIGIN
+- Allow Origins Check: Access-Control-Allow-Origins & Access-Control-Allow-Headers
+
+
+
 ### Utils
 
 The following Classes and Methods are helpers that ease the working with Contao.
