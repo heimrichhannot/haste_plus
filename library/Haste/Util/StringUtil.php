@@ -65,7 +65,7 @@ class StringUtil extends \Haste\Util\StringUtil
 		return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
 	}
 
-	public static function truncateHtml($text, $length = 100, $ending = '...', $exact = false, $considerHtml = true) {
+	public static function truncateHtml($text, $length = 100, $ending = '&nbsp;&hellip;', $exact = false, $considerHtml = true) {
 		if ($considerHtml) {
 			// if the plain text is shorter than the maximum length, return the whole text
 			if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
