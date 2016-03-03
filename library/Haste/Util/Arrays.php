@@ -193,4 +193,30 @@ class Arrays
 
 		return $arrResult;
 	}
+
+	/**
+	 * Merges multiple arrays wrapped in another array by concating the values which must be concatable
+	 *
+	 * @param array $arrArray
+	 *
+	 * @return array|mixed
+	 */
+	public static function concatArrays($strDelimiter) {
+		$arrArrays = func_get_args();
+		array_shift($arrArrays);
+		$arrResult = array();
+
+		foreach ($arrArrays as $arrArray)
+		{
+			foreach ($arrArray as $varKey => $varValue)
+			{
+				if (isset($arrResult[$varKey]))
+					$arrResult[$varKey] .= ($arrArray[$varKey] ? $strDelimiter : '') . $varValue;
+				else
+					$arrResult[$varKey] = $varValue;
+			}
+		}
+
+		return $arrResult;
+	}
 }
