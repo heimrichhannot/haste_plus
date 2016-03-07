@@ -31,6 +31,35 @@ class General
 			->execute($time, $objDc->activeRecord->id);
 	}
 
+	public static function generateAlias($varValue, $intId, $strTable, $strAlias)
+	{
+		$autoAlias = false;
+
+		// Generate alias if there is none
+		if ($varValue == '')
+		{
+			$autoAlias = true;
+			$varValue = \StringUtil::generateAlias($strAlias);
+		}
+
+		$objAlias = \Database::getInstance()->prepare("SELECT id FROM $strTable WHERE alias=?")
+				->execute($varValue);
+
+		// Check whether the alias exists
+		if ($objAlias->numRows > 1 && !$autoAlias)
+		{
+			throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+		}
+
+		// Add ID to alias
+		if ($objAlias->numRows && $autoAlias)
+		{
+			$varValue .= '-' . $intId;
+		}
+
+		return $varValue;
+	}
+
 	public static function getMembersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
 		$objDatabase = \Database::getInstance();
