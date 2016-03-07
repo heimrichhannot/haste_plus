@@ -60,6 +60,12 @@ class General
 		return $varValue;
 	}
 
+	public static function getAliasIfAvailable($objItem, $strAutoItem = 'items')
+	{
+		return ltrim(((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ? '/' : '/' . $strAutoItem . '/') .
+				((!\Config::get('disableAlias') && $objItem->alias != '') ? $objItem->alias : $objItem->id), '/');
+	}
+
 	public static function getMembersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
 		$objDatabase = \Database::getInstance();
