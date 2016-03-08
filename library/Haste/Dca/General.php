@@ -12,6 +12,7 @@
 namespace HeimrichHannot\Haste\Dca;
 
 
+use Haste\Geodesy\Datum\WGS84;
 use HeimrichHannot\Haste\Util\Arrays;
 
 class General
@@ -124,5 +125,20 @@ class General
 	public static function getUsersAsOptionsIncludingIds(\DataContainer $objDc)
 	{
 		return static::getUsersAsOptions($objDc, true);
+	}
+
+	public static function setCoordinatesForDc($varValue, $objDc)
+	{
+		$objCoordinates = WGS84::findAddressOnGoogleMaps($objDc->activeRecord->street, $objDc->activeRecord->postal,
+				$objDc->activeRecord->city, $GLOBALS['TL_LANG']['CNT'][$objDc->activeRecord->country]);
+
+		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
+	}
+
+	public static function setCoordinates($strStreet, $strPostal, $strCity, $strCountry)
+	{
+		$objCoordinates = WGS84::findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry);
+
+		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
 	}
 }
