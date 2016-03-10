@@ -22,7 +22,7 @@ class GoogleMap
 
 	protected $arrOptions = array();
 
-	protected $arrMarkers = array();
+	protected $arrOverlays = array();
 
 	protected function __construct()
 	{
@@ -61,11 +61,32 @@ class GoogleMap
 		return $this;
 	}
 
+	public function setScrollWheel($blnScrollWheel)
+	{
+		$this->scrollWheel = $blnScrollWheel;
+
+		return $this;
+	}
+
+	public function setInfoWindowUnique($blnInfoWindowUnique)
+	{
+		$this->infoWindowUnique = $blnInfoWindowUnique;
+		return $this;
+	}
+
+	/**
+	 * @deprecated 1.3 - use addOverlay
+	 */
 	public function addMarker(GoogleMapMarker $objMarker)
 	{
-		$this->arrMarkers[] = $objMarker;
+		return $this->addOverlay($objMarker);
+	}
+
+	public function addOverlay(GoogleMapOverlay $objOverlay)
+	{
+		$this->arrOverlays[] = $objOverlay;
 		// add options to elements, to provide a better individual map id
-		$this->arrOptions['elements'][] = $objMarker->getOptions();
+		$this->arrOptions['elements'][] = $objOverlay->getOptions();
 
 		return $this;
 	}
@@ -148,12 +169,12 @@ class GoogleMap
 		// empty markers before
 		$arrData['elements'] = array();
 
-		foreach ($this->arrMarkers as $objMarker) {
+		foreach ($this->arrOverlays as $objOverlay) {
 			$arrData['elements'][] = array
 			(
-				'data'          => $objMarker->getOptions(),
-				'parsed'        => $objMarker->generate(array('map' => $arrData['id'])),
-				'staticMapPart' => $objMarker->generateStatic(array('map' => $arrData['id'])),
+				'data'          => $objOverlay->getOptions(),
+				'parsed'        => $objOverlay->generate(array('map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique'])),
+				'staticMapPart' => $objOverlay->generateStatic(array('map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique'])),
 			);
 		}
 		
@@ -178,6 +199,7 @@ class GoogleMap
 			'mapTypeId'                     => 'ROADMAP',
 			'mapTypesAvailable'             => array('HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN'),
 			'staticMapNoScript'             => 1,
+			'infoWindowUnique'              => false,
 			'useMapTypeControl'             => 1,
 			'mapTypeControlStyle'           => 'DEFAULT',
 			'mapTypeControlStyleAvailable'  => array('DEFAULT', 'DROPDOWN_MENU', 'HORIZONTAL_BAR'),
