@@ -10,7 +10,7 @@ if(TL_MODE == 'FE')
 		'haste_plus_environment' => '/system/modules/haste_plus/assets/js/environment.min.js|static',
 		'haste_plus_files' => '/system/modules/haste_plus/assets/js/files.min.js|static',
 		'haste_plus_arrays' => '/system/modules/haste_plus/assets/js/arrays.min.js|static',
-		'haste_plus_dom' => '/system/modules/haste_plus/assets/js/dom.min.js|static'
+		'haste_plus_dom' => '/system/modules/haste_plus/assets/js/dom.min.js|static',
 	));
 }
 
