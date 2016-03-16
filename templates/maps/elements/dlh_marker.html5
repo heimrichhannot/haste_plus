@@ -58,7 +58,9 @@
             pixelOffset: new google.maps.Size(<?= $this->element['infoWindowAnchor'][0].','.$this->element['infoWindowAnchor'][1]; ?>),
         <?php endif; ?>
         content: '<div<?= $this->element['infoWindowSize']; ?>><?= $this->element['infoWindow'] . $routingLink; ?><\/div>'
-
+        <?php if ($this->element['infoWindowMaxWidth']) : ?>
+            , maxWidth: <?= $this->element['infoWindowMaxWidth'] ?>
+        <?php endif; ?>
         });
         google.maps.event.addListener(gmap<?= $this->element['id']; ?>_overlay, 'click', function() {
             <?php if ($this->element['infoWindowUnique']): ?>

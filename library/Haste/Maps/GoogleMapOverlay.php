@@ -225,6 +225,7 @@ class GoogleMapOverlay
 			'infoWindow'             => '',
 			'infoWindowSize'         => array(320, 160, 'px'),
 			'infoWindowAnchor'       => array(0, 0, 'px'),
+			'infoWindowMaxWidth'     => '',
 			'url'                    => '',
 			'target'                 => '',
 			'linkTitle'              => '',
@@ -239,6 +240,11 @@ class GoogleMapOverlay
 		);
 
 		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
+	}
+
+	public function getId()
+	{
+		return $this->arrOptions['id'];
 	}
 
 	/**
@@ -325,6 +331,12 @@ class GoogleMapOverlay
 	public function setInfoWindowSize($strInfoWindowSize)
 	{
 		$this->infoWindowSize = $strInfoWindowSize;
+		return $this;
+	}
+
+	public function setInfoWindowMaxWidth($strInfoWindowMaxWidth)
+	{
+		$this->infoWindowMaxWidth = $strInfoWindowMaxWidth;
 		return $this;
 	}
 
