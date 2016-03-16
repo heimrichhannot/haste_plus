@@ -5,23 +5,9 @@
 	<<?= $this->hl; ?>><?= $this->headline; ?></<?= $this->hl; ?>>
 <?php endif; ?>
 
-<div class="dlh_googlemap block" id="dlh_googlemap_<?= $this->map['id']; ?>"><noscript><p><?= ($this->map['staticMapNoscript'] ? $this->map['staticMap'] : $this->labels['noscript']); ?></p></noscript></div>
+<div class="dlh_googlemap block" id="dlh_googlemap_<?= $this->map['id']; ?>" style="width:<?= $this->map['mapSize'][0].$this->map['mapSize'][2]; ?>;height:<?= $this->map['mapSize'][1].$this->map['mapSize'][2]; ?>;"><noscript><p><?= ($this->map['staticMapNoscript'] ? $this->map['staticMap'] : $this->labels['noscript']); ?></p></noscript></div>
 
 <script>
-	if(typeof jQuery == "function") {
-		jQuery('#dlh_googlemap_<?= $this->map['id']; ?>').css('width', '<?= $this->map['mapSize'][0].$this->map['mapSize'][2]; ?>');
-		jQuery('#dlh_googlemap_<?= $this->map['id']; ?>').css('height', '<?= $this->map['mapSize'][1].$this->map['mapSize'][2]; ?>');
-
-		<?php if (!empty($this->map['responsiveSizes'])): ?>
-			<?php sort($this->map['responsiveSizes']); foreach ($this->map['responsiveSizes'] as $intBreakpointMax => $arrSize): ?>
-				if ($(window).width() <= <?= $intBreakpointMax ?>)
-				{
-					jQuery('#dlh_googlemap_<?= $this->map['id']; ?>').css('width', '<?= $arrSize[0].$arrSize[2]; ?>');
-					jQuery('#dlh_googlemap_<?= $this->map['id']; ?>').css('height', '<?= $arrSize[1].$arrSize[2]; ?>');
-				}
-			<?php endforeach; ?>
-		<?php endif; ?>
-	}
 
 	function gmap<?= $this->map['id']; ?>_initialize() {
 		var <?php if ($this->map['infoWindowUnique']): ?>lastInfoWindow = null,<?php endif; ?>
@@ -120,7 +106,7 @@
 
 				};
 
-		var gmap<?= $this->map['id']; ?> = new google.maps.Map(document.getElementById("dlh_googlemap_<?= $this->map['id']; ?>"), gmap<?= $this->map['id']; ?>_Options);
+		gmap<?= $this->map['id']; ?> = new google.maps.Map(document.getElementById("dlh_googlemap_<?= $this->map['id']; ?>"), gmap<?= $this->map['id']; ?>_Options);
 
 		<?php if ($this->map['moreParameter']) : echo $this->map['moreParameter']; endif; ?>
 

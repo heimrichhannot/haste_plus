@@ -11,6 +11,8 @@
 
 namespace HeimrichHannot\Haste\Map;
 
+use HeimrichHannot\Haste\Visualization\GoogleChartWrapper;
+
 class GoogleMap
 {
 	/**
@@ -18,40 +20,13 @@ class GoogleMap
 	 *
 	 * @var object
 	 */
-	protected static $objInstance;
-
 	protected $arrOptions = array();
 
 	protected $arrOverlays = array();
 
-	protected function __construct()
+	public function __construct()
 	{
 		$this->prepare();
-	}
-
-	/**
-	 * Prevent cloning of the object (Singleton)
-	 */
-	final public function __clone()
-	{
-	}
-
-	/**
-	 * Instantiate a new user object (Factory)
-	 *
-	 * @return static The object instance
-	 */
-	public static function getInstance()
-	{
-		if (!static::init()) {
-			return null;
-		}
-
-		if (static::$objInstance === null) {
-			static::$objInstance = new static();
-		}
-
-		return static::$objInstance;
 	}
 
 	public function setCenter($strCoordinates)
@@ -75,33 +50,6 @@ class GoogleMap
 	}
 
 	/**
-	 * Adds different sizes for specific viewport scales (0..$intBreakpointMax)
-	 * @param $arrResponsiveSizes array e.g. array(767 => array(100, 200, 'px'))
-	 *
-	 * @return $this
-	 */
-	public function setResponsiveSizes(array $arrResponsiveSizes)
-	{
-		$this->responsiveSizes = $arrResponsiveSizes;
-
-		return $this;
-	}
-
-	/**
-	 * Adds a different size for a specific viewport scale (0..$intBreakpointMax)
-	 * @param $intBreakpointMax
-	 * @param $arrSize
-	 *
-	 * @return $this
-	 */
-	public function addResponsiveSize($intBreakpointMax, $arrSize)
-	{
-		$this->responsiveSizes[$intBreakpointMax] = $arrSize;
-
-		return $this;
-	}
-
-	/**
 	 * @deprecated 1.3 - use addOverlay
 	 */
 	public function addMarker(GoogleMapMarker $objMarker)
@@ -116,6 +64,16 @@ class GoogleMap
 		$this->arrOptions['elements'][] = $objOverlay->getOptions();
 
 		return $this;
+	}
+
+	public function initId()
+	{
+		$this->arrOptions['id'] = $this->arrOptions['id'] ?: substr(md5(implode('', $this->arrOptions) . rand(0, 10000)), 0, 8);
+	}
+
+	public function getId()
+	{
+		return $this->arrOptions['id'];
 	}
 
 	public function generate(array $arrOptions = array())
@@ -191,7 +149,7 @@ class GoogleMap
 
 	protected function getData(array $arrData)
 	{
-		$arrData['id'] = $arrData['id'] ?: substr(md5(implode('', $arrData)), 0, 8);
+		$arrData['id'] = $arrData['id'] ?: substr(md5(implode('', $arrData) . rand(0, 10000)), 0, 8);
 
 		// empty markers before
 		$arrData['elements'] = array();
@@ -221,7 +179,6 @@ class GoogleMap
 			'dlh_googlemap_template'        => 'dlh_googlemaps_haste',
 			'dlh_googlemap_tabs'            => false,
 			'mapSize'                       => array(600, 400, 'px'),
-			'responsiveSizes'               => array(),
 			'zoom'                          => 10,
 			'language'                      => $GLOBALS['TL_LANGUAGE'],
 			'mapTypeId'                     => 'ROADMAP',

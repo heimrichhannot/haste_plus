@@ -13,39 +13,11 @@ namespace HeimrichHannot\Haste\Visualization;
 
 class GoogleChartWrapper
 {
-	/**
-	 * Current object instance (do not remove)
-	 *
-	 * @var object
-	 */
-	protected static $objInstance;
-
 	protected $arrOptions = array();
 
-	protected function __construct()
+	public function __construct()
 	{
 		$this->prepare();
-	}
-
-	/**
-	 * Prevent cloning of the object (Singleton)
-	 */
-	final public function __clone()
-	{
-	}
-
-	/**
-	 * Instantiate a new user object (Factory)
-	 *
-	 * @return static The object instance
-	 */
-	public static function getInstance()
-	{
-		if (static::$objInstance === null) {
-			static::$objInstance = new static();
-		}
-
-		return static::$objInstance;
 	}
 
 	public function generate(array $arrOptions = array())
@@ -76,6 +48,7 @@ class GoogleChartWrapper
 	{
 		$arrDefaults = array
 		(
+			'map' => '',
 			'chartColumns'          => array(),
 			'chartRows'             => array(),
 			'chartSize'             => array(400, 300, 'px'),
@@ -108,6 +81,11 @@ class GoogleChartWrapper
 		$this->arrOptions['chartSize'][2] = ($this->arrOptions['chartSize'][2] == 'pcnt' ? '%' : $this->arrOptions['chartSize'][2]);
 
 		return $this;
+	}
+
+	public function setMap($intId)
+	{
+		$this->map = $intId;
 	}
 
 	/**
