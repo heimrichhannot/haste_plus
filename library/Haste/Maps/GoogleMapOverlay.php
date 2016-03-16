@@ -23,6 +23,7 @@ class GoogleMapOverlay
 	const TYPE_RECTANGLE = 'RECTANGLE';
 	const TYPE_CIRCLE = 'CIRCLE';
 	const TYPE_KML = 'KML';
+	const TYPE_KML_GEOXML = 'KML_GEOXML';
 
 	const MARKERTYPE_SIMPLE = 'SIMPLE';
 	const MARKERTYPE_ICON = 'ICON';
@@ -175,6 +176,8 @@ class GoogleMapOverlay
 
 		//supporting insertags
 		$arrData['kmlUrl'] =  \Controller::replaceInsertTags($arrData['kmlUrl'],false);
+		$objFile = \FilesModel::findByPk($arrData['kmlUrl']);
+		$arrData['kmlUrl'] = $objFile->path;
 
 		return $arrData;
 	}
@@ -352,6 +355,12 @@ class GoogleMapOverlay
 	public function setFillOpacity($intFillOpacity)
 	{
 		$this->fillOpacity = $intFillOpacity;
+		return $this;
+	}
+
+	public function setKmlUrl($strUrl)
+	{
+		$this->kmlUrl = $strUrl;
 		return $this;
 	}
 

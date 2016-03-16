@@ -1,0 +1,36 @@
+<div class="company">
+	<?php if ($this->addLogo): ?>
+		<img class="logo" src="<?= \Image::get($this->logo, 300, 100, 'box') ?>">
+	<?php endif; ?>
+
+	<h4><?= $this->title ?></h4>
+	<p><small><?= $this->branches ?></small></p>
+
+	<p class="address">
+		<?= $this->street ?><br>
+		<?= $this->postal ?> <?= $this->city ?>
+	</p>
+
+	<p class="contact">
+		<?php if ($this->website): ?>
+			<a class="website" href="<?= $this->website ?>" target="_blank"><i class="fa fa-desktop"></i> <?= str_replace('http://', '', $this->website) ?></a>
+		<?php endif; ?>
+	</p>
+
+	<p class="teaser">
+		<?= $this->radarTeaser ?>
+	</p>
+
+	<div class="info">
+		<?php if ($this->additional): ?>
+			<p class="additional">
+				<?= $this->additional ?>
+			</p>
+		<?php endif; ?>
+
+		<h5><?= $this->radarInnovationTitle ?></h5>
+
+		<p><?= $this->radarInnovationTeaser ?></p>
+	</div>
+
+</div>

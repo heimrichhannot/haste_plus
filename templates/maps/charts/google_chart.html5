@@ -1,0 +1,37 @@
+<!-- indexer::stop -->
+<div class="<?= $this->class; ?>block"<?= $this->cssID; ?><?php if ($this->style): ?> style="<?= $this->style; ?>"<?php endif; ?>>
+	<div class="google_chart block" id="google_chart_<?= $this->chart['id']; ?>" style="width:<?= $this->chart['chartSize'][0].$this->chart['chartSize'][2]; ?>;height:<?= $this->chart['chartSize'][1].$this->chart['chartSize'][2]; ?>;">
+		<noscript><p><?= $this->labels['noscript']; ?></p></noscript>
+	</div>
+
+	<script>
+
+		function gchart<?= $this->chart['id']; ?>_initialize()
+		{
+			google.charts.load('current', {'packages':['corechart']}); // Don't need to specify chart libraries!
+			google.charts.setOnLoadCallback(drawChart);
+		}
+
+		function drawChart()
+		{
+			var data = google.visualization.arrayToDataTable([], false);
+			var chart = new google.visualization.ChartWrapper();
+			chart.draw(data);
+		}
+
+		if(window.addEvent) {
+			window.addEvent('domready', function() {
+				gchart<?= $this->chart['id']; ?>_initialize();
+			});
+		} else if(typeof jQuery == "function") {
+			jQuery(document).ready(function(){
+				gchart<?= $this->chart['id']; ?>_initialize();
+			});
+		} else {
+			window.setTimeout("gchart<?= $this->chart['id']; ?>_initialize", 500);
+		}
+
+	</script>
+
+</div>
+<!-- indexer::continue -->

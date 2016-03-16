@@ -1,0 +1,8 @@
+<?php if ($this->element['kmlUrl']) : ?>
+	gmap<?php echo $this->element['id']; ?>_overlay = new geoXML3.parser({
+		map: gmap<?= $this->map; ?>,
+		suppressInfoWindows: true,
+		screenOverlays: false
+	});
+	gmap<?php echo $this->element['id']; ?>_overlay.parse('<?= $this->element['kmlUrl']; ?>');
+<?php endif; ?>
