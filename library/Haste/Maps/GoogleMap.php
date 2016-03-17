@@ -50,6 +50,30 @@ class GoogleMap
 	}
 
 	/**
+	 * Adds different sizes for specific viewport scales (0..$intBreakpointMax)
+	 * @param $arrResponsiveSizes array e.g. array(767 => array(100, 200, 'px'))
+	 *
+	 * @return $this
+	 */
+	public function setResponsiveSizes(array $arrResponsiveSizes)
+	{
+		$this->responsiveSizes = $arrResponsiveSizes;
+		return $this;
+	}
+	/**
+	 * Adds a different size for a specific viewport scale (0..$intBreakpointMax)
+	 * @param $intBreakpointMax
+	 * @param $arrSize
+	 *
+	 * @return $this
+	 */
+	public function addResponsiveSize($intBreakpointMax, $arrSize)
+	{
+		$this->responsiveSizes[$intBreakpointMax] = $arrSize;
+		return $this;
+	}
+
+	/**
 	 * @deprecated 1.3 - use addOverlay
 	 */
 	public function addMarker(GoogleMapMarker $objMarker)
@@ -179,6 +203,7 @@ class GoogleMap
 			'dlh_googlemap_template'        => 'dlh_googlemaps_haste',
 			'dlh_googlemap_tabs'            => false,
 			'mapSize'                       => array(600, 400, 'px'),
+			'responsiveSizes'               => array(),
 			'zoom'                          => 10,
 			'language'                      => $GLOBALS['TL_LANGUAGE'],
 			'mapTypeId'                     => 'ROADMAP',

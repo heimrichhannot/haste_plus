@@ -24,13 +24,13 @@ Url | addScheme | \HeimrichHannot\Haste\Util\Url::addScheme($strUrl, $strScheme)
 Arrays | filterByPrefixes | \HeimrichHannot\Haste\Util\Arrays::filterByPrefixes($arrData, $arrayPrefixes) | Filter an array by given prefixes and return the filtered array.
 Arrays | getListPositonCssClass | \HeimrichHannot\Haste\Util\Arrays::getListPositonCssClass($key, $arrList, $blnReturnAsArray) | Create the class names for an item within a array list
 
-### Google Maps 
+### Google Maps
 
 If you want to add google maps with ease that are build from dynamic entities, and not withing dlh_googlemaps backend module, use the following code.
 
 ```
 # news_full.html5
-<?php $objMap = \HeimrichHannot\Haste\Map\GoogleMap::getInstance(); ?>
+<?php $objMap = new \HeimrichHannot\Haste\Map\GoogleMap(); ?>
 
 <?php foreach ($this->venues as $arrVenue): ?>
 	<?php $objMap->setCenter($arrVenue['venueSingleCoords']); // lat and lon seperated by comma ?>
