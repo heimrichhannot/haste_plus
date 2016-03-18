@@ -16,7 +16,7 @@ class Image
 {
 	public static function getBackgroundHtml($image, $width, $height, $mode='', $class='', $target=null, $force=false)
 	{
-		return '<span class="image_container background"' . ($class ? ' ' . $class : '') . '" style="background-image: url(' .
+		return '<span class="image_container background"' . ($class ? ' ' . $class : '') . '" style="display: block; background-image: url(' .
 			\Image::get($image, $width, $height, $mode, $target, $force) . ')"></span>';
 	}
 }
