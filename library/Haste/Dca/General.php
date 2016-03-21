@@ -17,6 +17,17 @@ use HeimrichHannot\Haste\Util\Arrays;
 
 class General
 {
+	public static function addDateAddedToDca($strDca)
+	{
+		\Controller::loadDataContainer($strDca);
+
+		$arrDca = &$GLOBALS['TL_DCA'][$strDca];
+
+		$arrDca['config']['onsubmit_callback']['setDateAdded'] = array('HeimrichHannot\\HastePlus\\Utilities', 'setDateAdded');
+
+		$arrDca['fields'] += static::getDateAddedField();
+	}
+
 	public static function setDateAdded(\DataContainer $objDc)
 	{
 		// Return if there is no active record (override all)
@@ -30,6 +41,17 @@ class General
 
 		\Database::getInstance()->prepare("UPDATE $strTable SET dateAdded=? WHERE id=?")
 			->execute($time, $objDc->activeRecord->id);
+	}
+
+	public static function getDateAddedField()
+	{
+		return array('dateAdded' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['MSC']['dateAdded'],
+			'sorting'                 => true,
+			'eval'                    => array('rgxp'=>'datim', 'doNotCopy' => true),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		));
 	}
 
 	public static function generateAlias($varValue, $intId, $strTable, $strAlias)
