@@ -163,4 +163,33 @@ class General
 
 		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
 	}
+
+	public static function getFields($strTable, $blnLocalized = true, $varInputType = null, $arrEvalFilters = array()) {
+		\Controller::loadDataContainer($strTable);
+		\System::loadLanguageFile($strTable);
+
+		$arrOptions = array();
+
+		foreach($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData) {
+			// input type
+			if ($varInputType && (is_array($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType))
+				continue;
+
+			// eval filters
+			foreach ($arrEvalFilters as $strKey => $varValue)
+			{
+				if (!isset($arrData['eval'][$strKey]) || $arrData['eval'][$strKey] != $varValue)
+					continue 2;
+			}
+
+			if ($blnLocalized)
+				$arrOptions[$strField] = $GLOBALS['TL_LANG'][$strTable][$strField][0] ?: $strField;
+			else
+				$arrOptions[$strField] = $strField;
+		}
+
+		asort($arrOptions);
+
+		return $arrOptions;
+	}
 }
