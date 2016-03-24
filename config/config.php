@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Config
+ */
+$GLOBALS['TL_CONFIG']['phpfastcachePath'] = 'system/cache/phpfastcache';
+
+/**
  * Assets
  */
 if(TL_MODE == 'FE')
@@ -22,3 +27,12 @@ if(TL_MODE == 'FE')
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders');
+
+
+/**
+ * PurgeData
+ */
+$GLOBALS['TL_PURGE']['folders']['phpfastcache'] = array(
+	'affected'		=> array(\Config::get('phpfastcachePath')),
+	'callback'		=> array('\\HeimrichHannot\\Haste\\Backend\\Automator', 'purgePhpFastCache')
+);

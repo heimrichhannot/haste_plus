@@ -6,6 +6,43 @@ Haste plus extends [codefog/contao-haste](https://packagist.org/packages/codefog
 
 ## Features
 
+### Cache
+The PHP high-performance object caching system, [phpfastcache](https://github.com/PHPSocialNetwork/phpfastcache) is part of hast_plus.
+Currently only File-Caching is supported, but Pull-Request are welcome.
+
+#### Example : FileCache 
+```
+// MyClass.php
+
+public function getSelectOptions(array $arrNewsArchives)
+{
+	// select a unique key
+	$strCacheKey = 'my_select_options' . implode('_', $arrNewsArchives);
+	
+	if(FileCache::getInstance()->isExisting($strCacheKey))
+	{
+		return FileCache::getInstance()->get($strCacheKey);
+	}
+	
+	$arrItems = array();
+	
+	// heavy sql queries or http-requests (just an example)
+	$objItems = \NewsModel::findPublishedByPids($arrNewsArchives);
+	
+	if($objItems === null)
+	{
+		return $arrItems;
+	}
+	
+	$arrItems = $objItems->fetchEach('headline');
+	
+	FileCache::getInstance()->set($strCacheKey, $arrItems);
+  
+	return $arrItems;
+}
+
+```
+
 ### Security
 Add security headers to http request (configurable in tl_settings)
 
