@@ -3,7 +3,7 @@
 /**
  * Config
  */
-$GLOBALS['TL_CONFIG']['phpfastcachePath'] = 'system/cache/phpfastcache';
+$GLOBALS['TL_CONFIG']['phpfastcachePath'] = 'system/cache/phpfastcache/';
 
 /**
  * Assets
