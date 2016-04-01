@@ -215,7 +215,7 @@ class General extends \Backend
 		}
 
 		// Add ID to alias
-		if ($objAlias->numRows && $autoAlias)
+		if ($objAlias->numRows && $objAlias->id != $intId && $autoAlias)
 		{
 			$varValue .= '-' . $intId;
 		}
