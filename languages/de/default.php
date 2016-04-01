@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Fields
+ */
+$GLOBALS['TL_LANG']['MSC']['alias'] = array('Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.');
+
+/**
  * Counties
  */
 $GLOBALS['TL_LANG']['COUNTIES']['de']['bw']	= 'Baden-Württemberg';
