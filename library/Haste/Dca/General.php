@@ -304,7 +304,7 @@ class General extends \Backend
 		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
 	}
 
-	public static function getFields($strTable, $blnLocalized = true, $varInputType = null, $arrEvalFilters = array()) {
+	public static function getFields($strTable, $blnLocalized = true, $varInputType = null, $arrEvalFilters = array(), $blnSort = true) {
 		\Controller::loadDataContainer($strTable);
 		\System::loadLanguageFile($strTable);
 
@@ -328,7 +328,8 @@ class General extends \Backend
 				$arrOptions[$strField] = $strField;
 		}
 
-		asort($arrOptions);
+		if ($blnSort)
+			asort($arrOptions);
 
 		return $arrOptions;
 	}
