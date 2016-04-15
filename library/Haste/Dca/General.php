@@ -304,6 +304,34 @@ class General extends \Backend
 		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
 	}
 
+	public static function getDataContainers()
+	{
+		$arrDCA = array();
+
+		$arrModules = \ModuleLoader::getActive();
+
+		if (!is_array($arrModules)) {
+			return $arrDCA;
+		}
+
+		foreach ($arrModules as $strModule) {
+			$strDir = TL_ROOT . '/system/modules/' . $strModule . '/dca';
+
+			if (file_exists($strDir)) {
+				foreach (scandir($strDir) as $strFile) {
+					if (substr($strFile, 0, 1) != '.' && file_exists($strDir . '/' . $strFile)) {
+						$arrDCA[] = str_replace('.php', '', $strFile);
+					}
+				}
+			}
+		}
+
+		$arrDCA = array_unique($arrDCA);
+		sort($arrDCA);
+
+		return $arrDCA;
+	}
+
 	public static function getFields($strTable, $blnLocalized = true, $varInputType = null, $arrEvalFilters = array(), $blnSort = true) {
 		\Controller::loadDataContainer($strTable);
 		\System::loadLanguageFile($strTable);
