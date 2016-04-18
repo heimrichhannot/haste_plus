@@ -362,14 +362,30 @@ class General extends \Backend
 		return $arrOptions;
 	}
 
-	public static function getEditLink($strModule, $intId)
+	public static function getEditLink($strModule, $intId, $strLabel = null)
 	{
 		if ($intId)
 		{
+			$strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
+
 			return sprintf(' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s&amp;rt=%s" title="%s" style="padding-left:3px">%s</a>',
-					$strModule, $intId, \RequestToken::get(),
-					sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId),
-					\Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"'));
+					$strModule, $intId, \RequestToken::get(), $strLabel,
+					\Image::getHtml('alias.gif', $strLabel, 'style="vertical-align:top"'));
+		}
+	}
+
+	public static function getModalEditLink($strModule, $intId, $strLabel = null, $strTable = '')
+	{
+		if ($intId)
+		{
+			$strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
+			return sprintf(
+					' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" ' .
+ 					'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' .
+					'\',\'url\':this.href});return false">%s</a>',
+					$strModule, $intId, ($strTable ? '&amp;table=' . $strTable : ''), \RequestToken::get(), $strLabel,
+					$strLabel, \Image::getHtml('alias.gif', $strLabel, 'style="vertical-align:top"')
+			);
 		}
 	}
 }
