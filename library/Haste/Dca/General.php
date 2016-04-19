@@ -340,14 +340,17 @@ class General extends \Backend
 
 		foreach($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData) {
 			// input type
-			if ($varInputType && (is_array($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType))
+			if ($varInputType && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType))
 				continue;
 
 			// eval filters
-			foreach ($arrEvalFilters as $strKey => $varValue)
+			if (!empty($arrEvalFilters))
 			{
-				if (!isset($arrData['eval'][$strKey]) || $arrData['eval'][$strKey] != $varValue)
-					continue 2;
+				foreach ($arrEvalFilters as $strKey => $varValue)
+				{
+					if (!isset($arrData['eval'][$strKey]) || $arrData['eval'][$strKey] != $varValue)
+						continue 2;
+				}
 			}
 
 			if ($blnLocalized)
