@@ -154,4 +154,14 @@ class StringUtil extends \Haste\Util\StringUtil
 		}
 		return $truncate;
 	}
+
+	public static function randomChar($includeAmbigiousChars = true)
+	{
+		if ($includeAmbigiousChars)
+			$arrChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		else
+			$arrChars = 'abcdefghjkmnpqrstuvwxABCDEFGHJKLMNPQRSTUVWX';
+
+		return $arrChars[rand(0,51)];
+	}
 }

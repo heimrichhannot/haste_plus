@@ -391,4 +391,11 @@ class General extends \Backend
 			);
 		}
 	}
+
+	public static function getInstance($strTable, $intId)
+	{
+		$strItemClass = \Model::getClassFromTable($strTable);
+
+		return $strItemClass::findByPk($intId);
+	}
 }
