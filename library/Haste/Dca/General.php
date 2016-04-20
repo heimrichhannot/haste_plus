@@ -392,7 +392,7 @@ class General extends \Backend
 		}
 	}
 
-	public static function getInstance($strTable, $intId)
+	public static function getModelInstance($strTable, $intId)
 	{
 		$strItemClass = \Model::getClassFromTable($strTable);
 
