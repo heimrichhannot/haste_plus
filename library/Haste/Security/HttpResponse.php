@@ -46,10 +46,13 @@ class HttpResponse
 	{
 		$arrPaths = \HeimrichHannot\Haste\Util\Environment::getAvailableOrigins();
 
+		$arrReferer = parse_url(\Environment::get('httpReferer'));
+		$strRefereHost = $arrReferer['scheme'] . '://' . $arrReferer['host'];
+
 		// check if current request url http://<host> is part of available origins
-		if(!empty($arrPaths) && is_array($arrPaths) && in_array(\Environment::get('url'), $arrPaths))
+		if(!empty($arrPaths) && is_array($arrPaths) && in_array($strRefereHost, $arrPaths))
 		{
-			header('Access-Control-Allow-Origins: ' . \Environment::get('url'));
+			header('Access-Control-Allow-Origin: ' . $strRefereHost);
 			header('Access-Control-Allow-Headers: X-Requested-With');
 		}
 	}
