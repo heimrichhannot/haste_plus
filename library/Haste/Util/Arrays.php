@@ -220,19 +220,6 @@ class Arrays
 		return $arrResult;
 	}
 
-	public static function getAllValuesByKey($strKey, array $arrArray)
-	{
-		$arrResult = array();
-
-		foreach ($arrArray as $key => $value)
-		{
-			if ($key == $strKey)
-				$arrResult[$key] = $value;
-		}
-
-		return $arrResult;
-	}
-
 	public static function getRowInMcwArray($strKey, $varValue, array $arrArray)
 	{
 		foreach ($arrArray as $arrRow)
