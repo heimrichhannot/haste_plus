@@ -205,4 +205,22 @@ class Url extends \Haste\Util\Url
 	{
 		return ($objPage->useSSL ? 'https://' : 'http://') . $objPage->dns;
 	}
+
+	public static function getJumpToPageObject($strJumpToProperty)
+	{
+		global $objPage;
+
+		if ($strJumpToProperty && $strJumpToProperty != $objPage->id &&
+			($objTargetPage = \PageModel::findByPk($strJumpToProperty)) !== null)
+		{
+			return $objTargetPage;
+		}
+
+		return $objPage;
+	}
+
+	public static function getJumpToPageUrl($strJumpToProperty)
+	{
+		return \Controller::generateFrontendUrl(static::getJumpToPageObject($strJumpToProperty)->row());
+	}
 }
