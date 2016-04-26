@@ -14,12 +14,18 @@ namespace HeimrichHannot\Haste\Util;
 
 class Module
 {
-	public static function isSubModuleOf($strModuleType, $strModuleGroup, $strParentModuleType, $blnBackendModule = false)
+	public static function isSubModuleOf($strModuleType, $strParentModuleType, $blnBackendModule = false)
 	{
 		$strIndex = ($blnBackendModule ? 'BE' : 'FE') . '_MOD';
 
-		return (isset($GLOBALS[$strIndex][$strModuleGroup][$strModuleType]) &&
+		foreach ($GLOBALS[$strIndex] as $strModuleGroup => $arrModuleTypes)
+		{
+			if (isset($GLOBALS[$strIndex][$strModuleGroup][$strModuleType]) &&
 				($GLOBALS[$strIndex][$strModuleGroup][$strModuleType] == $strParentModuleType) ||
-				is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleType));
+				is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleType))
+				return true;
+		}
+
+		return false;
 	}
 }
