@@ -14,6 +14,28 @@ namespace HeimrichHannot\Haste\Util;
 
 class StringUtil extends \Haste\Util\StringUtil
 {
+	/**
+	 * Strip tags from text and truncate if needed
+	 * @param        $strText The text
+	 * @param null   $intLength Truncate length or null if not needed
+	 * @param string $allowedTags Allowed tags for strip_tags
+	 *
+	 * @return string The slim text
+	 */
+	public static function slimText($strText, $intLength = null, $allowedTags='<p><br><br/>')
+	{
+		$strText = strip_tags($strText, $allowedTags);
+
+		if($intLength !== null)
+		{
+			$strText = static::truncateHtml($strText, $intLength);
+		}
+
+		$strText = str_replace(array('[-]', '&shy;', '[nbsp]', '&nbsp;'), array('', '', ' ', ' '), $strText);
+
+		return $strText;
+	}
+
 	public static function underscoreToCamelCase($strValue, $blnFirstCharCapital = false)
 	{
 		if ($blnFirstCharCapital == true) {
