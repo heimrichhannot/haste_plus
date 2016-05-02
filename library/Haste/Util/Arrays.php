@@ -230,4 +230,22 @@ class Arrays
 
 		return false;
 	}
+
+	/**
+	 * Removes a value in an array
+	 * @param       $varValue
+	 * @param array $arrArray
+	 *
+	 * @return bool Returns true if the value has been found and removed, false in other cases
+	 */
+	public static function removeValue($varValue, array &$arrArray)
+	{
+		if (($intPosition = array_search($varValue, $arrArray)) !== false)
+		{
+			unset($arrArray[$intPosition]);
+			return true;
+		}
+
+		return false;
+	}
 }

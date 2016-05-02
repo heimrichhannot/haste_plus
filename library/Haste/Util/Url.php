@@ -206,12 +206,12 @@ class Url extends \Haste\Util\Url
 		return ($objPage->useSSL ? 'https://' : 'http://') . $objPage->dns;
 	}
 
-	public static function getJumpToPageObject($strJumpToProperty)
+	public static function getJumpToPageObject($intJumpTo)
 	{
 		global $objPage;
 
-		if ($strJumpToProperty && $strJumpToProperty != $objPage->id &&
-			($objTargetPage = \PageModel::findByPk($strJumpToProperty)) !== null)
+		if ($intJumpTo && $intJumpTo != $objPage->id &&
+			($objTargetPage = \PageModel::findByPk($intJumpTo)) !== null)
 		{
 			return $objTargetPage;
 		}
@@ -219,8 +219,8 @@ class Url extends \Haste\Util\Url
 		return $objPage;
 	}
 
-	public static function getJumpToPageUrl($strJumpToProperty)
+	public static function getJumpToPageUrl($intJumpTo)
 	{
-		return \Controller::generateFrontendUrl(static::getJumpToPageObject($strJumpToProperty)->row());
+		return \Controller::generateFrontendUrl(static::getJumpToPageObject($intJumpTo)->row());
 	}
 }
