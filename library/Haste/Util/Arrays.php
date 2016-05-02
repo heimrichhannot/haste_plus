@@ -248,4 +248,17 @@ class Arrays
 
 		return false;
 	}
+
+	public static function flattenArray(array $array)
+	{
+		$return = array();
+		array_walk_recursive(
+			$array,
+			function ($a) use (&$return) {
+				$return[] = $a;
+			}
+		);
+
+		return $return;
+	}
 }
