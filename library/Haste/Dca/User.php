@@ -16,10 +16,17 @@ use HeimrichHannot\Haste\Util\Arrays;
 
 class User extends \Backend
 {
-	protected static $arrCache = array();
+	protected static $arrUserOptionsCache = array();
+	protected static $arrUserOptionsIdsCache = array();
 
 	public static function getUsersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
+		if (!$blnIncludeId && !empty(static::$arrUserOptionsCache))
+			return static::$arrUserOptionsCache;
+
+		if ($blnIncludeId && !empty(static::$arrUserOptionsIdsCache))
+			return static::$arrUserOptionsIdsCache;
+
 		$objDatabase = \Database::getInstance();
 		$objMembers = $objDatabase->execute('SELECT id, name FROM tl_user');
 		$arrOptions = array();

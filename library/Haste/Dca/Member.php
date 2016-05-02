@@ -21,10 +21,10 @@ class Member extends \Backend
 
 	public static function getMembersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
-		if ($blnIncludeId && !empty(static::$arrMemberOptionsCache))
+		if (!$blnIncludeId && !empty(static::$arrMemberOptionsCache))
 			return static::$arrMemberOptionsCache;
 
-		if (!$blnIncludeId && !empty(static::$arrMemberOptionsIdsCache))
+		if ($blnIncludeId && !empty(static::$arrMemberOptionsIdsCache))
 			return static::$arrMemberOptionsIdsCache;
 
 		$objDatabase = \Database::getInstance();
