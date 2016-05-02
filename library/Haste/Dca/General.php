@@ -229,64 +229,36 @@ class General extends \Backend
 				((!\Config::get('disableAlias') && $objItem->alias != '') ? $objItem->alias : $objItem->id), '/');
 	}
 
+	/**
+	 * @deprecated - use Member::getMembersAsOptions() instead
+	 */
 	public static function getMembersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
-		$objDatabase = \Database::getInstance();
-		$objMembers = $objDatabase->execute('SELECT id, firstname, lastname FROM tl_member');
-		$arrOptions = array();
-
-		if ($objMembers->numRows > 0)
-		{
-			if ($blnIncludeId)
-			{
-				$arrIds = array_values($objMembers->fetchEach('id'));
-				$arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('firstname'), $objMembers->fetchEach('lastname'),
-						array_map(function($val) {return '(ID ' . $val . ')';}, array_combine($arrIds, $arrIds)));
-			}
-			else
-			{
-				$arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('firstname'), $objMembers->fetchEach('lastname'));
-			}
-		}
-
-		asort($arrOptions);
-
-		return $arrOptions;
+		return Member::getMembersAsOptions($objDc, $blnIncludeId);
 	}
 
+	/**
+	 * @deprecated - use Member::getMembersAsOptionsIncludingIds() instead
+	 */
 	public static function getMembersAsOptionsIncludingIds(\DataContainer $objDc)
 	{
-		return static::getMembersAsOptions($objDc, true);
+		return Member::getMembersAsOptionsIncludingIds($objDc);
 	}
 
+	/**
+	 * @deprecated - use User::getUsersAsOptions() instead
+	 */
 	public static function getUsersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
 	{
-		$objDatabase = \Database::getInstance();
-		$objMembers = $objDatabase->execute('SELECT id, name FROM tl_user');
-		$arrOptions = array();
-
-		if ($objMembers->numRows > 0)
-		{
-			if ($blnIncludeId)
-			{
-				$arrIds = array_values($objMembers->fetchEach('id'));
-				$arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('name'),
-						array_map(function($val) {return '(ID ' . $val . ')';}, array_combine($arrIds, $arrIds)));
-			}
-			else
-			{
-				$arrOptions = $objMembers->fetchEach('name');
-			}
-		}
-
-		asort($arrOptions);
-
-		return $arrOptions;
+		return User::getUsersAsOptions($objDc, $blnIncludeId);
 	}
 
+	/**
+	 * @deprecated - use User::getUsersAsOptionsIncludingIds() instead
+	 */
 	public static function getUsersAsOptionsIncludingIds(\DataContainer $objDc)
 	{
-		return static::getUsersAsOptions($objDc, true);
+		return User::getUsersAsOptionsIncludingIds($objDc);
 	}
 
 	public static function setCoordinatesForDc($varValue, $objDc)
