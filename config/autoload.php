@@ -46,6 +46,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\Haste\Map\GoogleMapMarker'              => 'system/modules/haste_plus/library/Haste/Maps/GoogleMapMarker.php',
 	'HeimrichHannot\Haste\Map\GoogleMapOverlay'             => 'system/modules/haste_plus/library/Haste/Maps/GoogleMapOverlay.php',
 	'HeimrichHannot\Haste\Map\GoogleMap'                    => 'system/modules/haste_plus/library/Haste/Maps/GoogleMap.php',
+	'HeimrichHannot\Haste\Model\MemberModel'                => 'system/modules/haste_plus/library/Haste/Model/MemberModel.php',
 	'HeimrichHannot\Haste\Visualization\GoogleChartWrapper' => 'system/modules/haste_plus/library/Haste/Visualization/GoogleChartWrapper.php',
 
 	// Classes

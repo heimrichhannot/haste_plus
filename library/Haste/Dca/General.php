@@ -458,4 +458,14 @@ class General extends \Backend
 		// Convert special characters (see #1890)
 		return specialchars($varValue);
 	}
+
+	/**
+	 * Convenience method for lower casing in a save callback
+	 * @param               $varValue
+	 * @param \DataContainer $objDc
+	 */
+	public static function lowerCase($varValue, \DataContainer $objDc)
+	{
+		return trim(strtolower($varValue));
+	}
 }
