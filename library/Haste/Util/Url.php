@@ -219,8 +219,20 @@ class Url extends \Haste\Util\Url
 		return $objPage;
 	}
 
-	public static function getJumpToPageUrl($intJumpTo)
+	public static function getJumpToPageUrl($intJumpTo, $blnAbsolute = false)
 	{
-		return \Controller::generateFrontendUrl(static::getJumpToPageObject($intJumpTo)->row());
+		$strUrl = \Controller::generateFrontendUrl(static::getJumpToPageObject($intJumpTo)->row());
+
+		if ($blnAbsolute)
+		{
+			$strHost = \Environment::get('url');
+
+			if (strpos($strUrl, $strHost) === false)
+			{
+				$strUrl = $strHost . '/' . $strUrl;
+			}
+		}
+
+		return $strUrl;
 	}
 }
