@@ -14,7 +14,7 @@ $dc = &$GLOBALS['TL_DCA']['tl_settings'];
  * Palettes
  */
 
-$strPalette = '{haste_legend},headerAddXFrame, headerAllowOrigins;';
+$strPalette = '{haste_legend},headerAddXFrame,headerAllowOrigins,hpProxy;';
 
 $dc['palettes']['default'] = str_replace('defaultChmod;', 'defaultChmod;' . $strPalette, $dc['palettes']['default']);
 
@@ -30,6 +30,11 @@ $arrFields = array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['headerAllowOrigins'],
 		'inputType'               => 'checkbox',
+		'eval'                    => array('tl_class'=>'w50')
+	),
+	'hpProxy' => array(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['hpProxy'],
+		'inputType'               => 'text',
 		'eval'                    => array('tl_class'=>'w50')
 	)
 );

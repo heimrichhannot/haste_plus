@@ -262,9 +262,38 @@ class General extends \Backend
 		return User::getUsersAsOptionsIncludingIds($objDc);
 	}
 
+	public static function findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry)
+	{
+		$strAddress = sprintf('%s, %s %s %s', $strStreet, $strPostal, $strCity, $strCountry);
+		$strAddress = urlencode($strAddress);
+
+		$objCurl = curl_init();
+		curl_setopt($objCurl, CURLOPT_URL, 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $strAddress . '&sensor=false');
+		curl_setopt($objCurl, CURLOPT_RETURNTRANSFER, 1);
+
+		if (\Config::get('hpProxy'))
+		{
+			curl_setopt($objCurl, CURLOPT_PROXY, \Config::get('hpProxy'));
+		}
+
+		$strResult = curl_exec($objCurl);
+		curl_close($objCurl);
+
+		// Request failed
+		if (!$strResult) {
+			\System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
+
+			return null;
+		}
+
+		$objResponse = json_decode($strResult);
+
+		return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
+	}
+
 	public static function setCoordinatesForDc($varValue, $objDc)
 	{
-		$objCoordinates = WGS84::findAddressOnGoogleMaps($objDc->activeRecord->street, $objDc->activeRecord->postal,
+		$objCoordinates = static::findAddressOnGoogleMaps($objDc->activeRecord->street, $objDc->activeRecord->postal,
 				$objDc->activeRecord->city, $GLOBALS['TL_LANG']['CNT'][$objDc->activeRecord->country]);
 
 		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
@@ -272,7 +301,7 @@ class General extends \Backend
 
 	public static function setCoordinates($strStreet, $strPostal, $strCity, $strCountry)
 	{
-		$objCoordinates = WGS84::findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry);
+		$objCoordinates = static::findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry);
 
 		return $objCoordinates->getLatitude() . ',' . $objCoordinates->getLongitude();
 	}
