@@ -235,4 +235,20 @@ class Url extends \Haste\Util\Url
 
 		return $strUrl;
 	}
+
+	/**
+	 * Adds the auto_item to a page's url
+	 * @param        $objPage
+	 * @param        $objEvent
+	 * @param string $strAutoItemType
+	 *
+	 * @return string
+	 */
+	public static function addAutoItemToPageUrl($objPage, $objItem, $strAutoItemType = 'items')
+	{
+		$strAutoItem = ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ? '/' : '/' . $strAutoItemType . '/') .
+			((!\Config::get('disableAlias') && $objItem->alias != '') ? $objItem->alias : $objItem->id);
+
+		return \Controller::generateFrontendUrl($objPage->row(), $strAutoItem);
+	}
 }
