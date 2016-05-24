@@ -26,19 +26,10 @@ class Event extends \Backend
 		if (is_numeric($varEvent))
 		{
 			if (($objEvent = \CalendarEventsModel::findByPk($varEvent)) === null)
-				return;
+				return '';
 		}
 
-		if ($objEvent->addTime)
-		{
-			if ($blnSeparatedDateTime)
-				$strDateTime = DateUtil::getSeparatedNumericDateTimeInterval($objEvent->startDate, $objEvent->endDate,
-					$objEvent->startTime, $objEvent->endTime);
-			else
-				$strDateTime = DateUtil::getNumericDateInterval($objEvent->startTime, $objEvent->endTime);
-		}
-		else
-			$strDateTime = DateUtil::getNumericDateInterval($objEvent->startDate, $objEvent->endDate);
+		$strDateTime = DateUtil::getFormattedDateTime($objEvent, $blnSeparatedDateTime);
 
 		return sprintf($strFormat, $objEvent->title, $strDateTime);
 	}

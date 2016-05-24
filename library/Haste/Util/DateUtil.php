@@ -138,6 +138,22 @@ class DateUtil {
 		return $strResult;
 	}
 
+	public static function getFormattedDateTime($objEvent, $blnSeparatedDateTime = true)
+	{
+		if ($objEvent->addTime)
+		{
+			if ($blnSeparatedDateTime)
+				$strDateTime = DateUtil::getSeparatedNumericDateTimeInterval($objEvent->startDate, $objEvent->endDate,
+					$objEvent->startTime, $objEvent->endTime);
+			else
+				$strDateTime = DateUtil::getNumericDateInterval($objEvent->startTime, $objEvent->endTime);
+		}
+		else
+			$strDateTime = DateUtil::getNumericDateInterval($objEvent->startDate, $objEvent->endDate);
+
+		return $strDateTime;
+	}
+
 	// TODO
 //	public static function getSymbolicDate($intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ') {
 //		$intStartMonth = date('n', $intStart) - 1;
