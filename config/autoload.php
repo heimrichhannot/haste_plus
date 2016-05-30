@@ -24,6 +24,7 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Library
+	'HeimrichHannot\Haste\Security\CodeGenerator'           => 'system/modules/haste_plus/library/Haste/Security/CodeGenerator.php',
 	'HeimrichHannot\Haste\Security\HttpResponse'            => 'system/modules/haste_plus/library/Haste/Security/HttpResponse.php',
 	'HeimrichHannot\Haste\Database\QueryHelper'             => 'system/modules/haste_plus/library/Haste/Database/QueryHelper.php',
 	'HeimrichHannot\Haste\Image\Image'                      => 'system/modules/haste_plus/library/Haste/Image/Image.php',

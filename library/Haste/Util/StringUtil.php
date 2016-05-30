@@ -14,6 +14,13 @@ namespace HeimrichHannot\Haste\Util;
 
 class StringUtil extends \Haste\Util\StringUtil
 {
+	const CAPITAL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const CAPITAL_LETTERS_NONAMBIGUOUS = 'ABCDEFGHJKLMNPQRSTUVWX';
+	const SMALL_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+	const SMALL_LETTERS_NONAMBIGUOUS = 'abcdefghjkmnpqrstuvwx';
+	const NUMBERS = '0123456789';
+	const NUMBERS_NONAMBIGUOUS = '23456789';
+
 	/**
 	 * Strip tags from text and truncate if needed
 	 * @param        $strText The text
@@ -177,13 +184,39 @@ class StringUtil extends \Haste\Util\StringUtil
 		return $truncate;
 	}
 
-	public static function randomChar($includeAmbigiousChars = true)
+	public static function randomChar($includeAmbiguousChars = false)
 	{
-		if ($includeAmbigiousChars)
-			$arrChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		if ($includeAmbiguousChars)
+			$arrChars = static::CAPITAL_LETTERS . static::SMALL_LETTERS . static::NUMBERS;
 		else
-			$arrChars = 'abcdefghjkmnpqrstuvwxABCDEFGHJKLMNPQRSTUVWX';
+			$arrChars = static::CAPITAL_LETTERS_NONAMBIGUOUS . static::SMALL_LETTERS_NONAMBIGUOUS .
+				static::NUMBERS_NONAMBIGUOUS;
 
-		return $arrChars[rand(0,51)];
+		return $arrChars[rand(0, $includeAmbiguousChars ? 61 : 50)];
+	}
+
+	public static function randomLetter($includeAmbiguousChars = false)
+	{
+		if ($includeAmbiguousChars)
+			$arrChars = static::CAPITAL_LETTERS . static::SMALL_LETTERS;
+		else
+			$arrChars = static::CAPITAL_LETTERS_NONAMBIGUOUS . static::SMALL_LETTERS_NONAMBIGUOUS;
+
+		return $arrChars[rand(0,$includeAmbiguousChars ? 51 : 42)];
+	}
+
+	public static function randomNumber($includeAmbiguousChars = false)
+	{
+		if ($includeAmbiguousChars)
+			$arrChars = static::NUMBERS;
+		else
+			$arrChars = static::NUMBERS_NONAMBIGUOUS;
+
+		return $arrChars[rand(0, $includeAmbiguousChars ? 9 : 7)];
+	}
+
+	public static function random($strCharList)
+	{
+		return $strCharList[rand(0, strlen($strCharList) - 1)];
 	}
 }
