@@ -136,4 +136,13 @@ class Files
 		$strFileName = preg_replace("@_+@", '_', $strFileName);
 		return $strFileName;
 	}
+
+	public static function sendTextAsFileToBrowser($strContent, $strFileName)
+	{
+		header('Content-Disposition: attachment; filename="' . $strFileName . '"');
+		header('Content-Type: text/plain');
+		header('Connection: close');
+		echo $strContent;
+		die();
+	}
 }
