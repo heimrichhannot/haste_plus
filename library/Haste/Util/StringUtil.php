@@ -219,4 +219,53 @@ class StringUtil extends \Haste\Util\StringUtil
 	{
 		return $strCharList[rand(0, strlen($strCharList) - 1)];
 	}
+
+	private function str_replace_once($search, $replace, $text)
+	{
+		$pos = strpos($text, $search);
+		return $pos!==false ? substr_replace($text, $replace, $pos, strlen($search)) : $text;
+	}
+
+	/**
+	 * Replace all script tags before processing with phpQuery
+	 * -> see http://stackoverflow.com/questions/11901364/phpquery-dom-parser-changing-the-contents-inside-the-script-tag
+	 *
+	 * @param $strHtml
+	 *
+	 * @return array
+	 */
+	public static function replaceScripts($strHtml){
+		preg_match_all('/<script.*?>[\s\S]*?<\/script>/', $strHtml, $tmp);
+		$arrScripts = $tmp[0];
+
+		foreach ($arrScripts as $script_id => $script_item)
+		{
+			$strHtml = self::str_replace_once(
+				$script_item, '<div class="script_item_num_' . $script_id . '"></div>', $strHtml
+			);
+		}
+
+		return array('content' => $strHtml, 'scripts' => $arrScripts);
+	}
+
+	/**
+	 * Restore all script tags after processing with phpQuery
+	 * -> see http://stackoverflow.com/questions/11901364/phpquery-dom-parser-changing-the-contents-inside-the-script-tag
+	 *
+	 * @param $strHtml
+	 * @param $arrScripts
+	 *
+	 * @return mixed
+	 */
+	public static function unreplaceScripts($strHtml, $arrScripts){
+		preg_match_all('/<div class="script_item_num_(.*?)"><\/div>/', $strHtml, $tmp);
+
+		foreach ($tmp[1] as $script_num_item)
+		{
+			$strHtml = str_replace(
+				'<div class="script_item_num_' . $script_num_item . '"></div>', $arrScripts[$script_num_item], $strHtml
+			);
+		}
+		return $strHtml;
+	}
 }
