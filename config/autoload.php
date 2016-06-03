@@ -36,7 +36,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\Haste\Dca\User'                         => 'system/modules/haste_plus/library/Haste/Dca/User.php',
 	'HeimrichHannot\Haste\Dca\Event'                        => 'system/modules/haste_plus/library/Haste/Dca/Event.php',
 	'HeimrichHannot\Haste\Dca\Member'                       => 'system/modules/haste_plus/library/Haste/Dca/Member.php',
-	'HeimrichHannot\Haste\Util\Format'                      => 'system/modules/haste_plus/library/Haste/Util/Format.php',
+	'HeimrichHannot\Haste\Util\FormSubmission'              => 'system/modules/haste_plus/library/Haste/Util/FormSubmission.php',
 	'HeimrichHannot\Haste\Util\Module'                      => 'system/modules/haste_plus/library/Haste/Util/Module.php',
 	'HeimrichHannot\Haste\Util\Url'                         => 'system/modules/haste_plus/library/Haste/Util/Url.php',
 	'HeimrichHannot\Haste\Util\Arrays'                      => 'system/modules/haste_plus/library/Haste/Util/Arrays.php',
