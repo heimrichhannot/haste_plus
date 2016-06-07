@@ -22,7 +22,10 @@
         "tijsverkoyen/css-to-inline-styles": "~1.5",
         "phpFastCache/phpFastCache":">=4.0.0,<5.0.0-dev",
 		"roderik/pwgen-php": ">=0.1.5",
-		"mpdf/mpdf":"6.1.*"
+		"":""
+    },
+    "suggest": {
+        "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*"
     },
     "autoload": {
         "psr-0": {
