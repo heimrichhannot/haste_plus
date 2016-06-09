@@ -1,7 +1,6 @@
 <?php
 
 namespace HeimrichHannot\Haste;
-use HeimrichHannot\SymbolicDateTime\Contao\Date;
 
 /**
 	 * Contao Open Source CMS
@@ -14,65 +13,6 @@ use HeimrichHannot\SymbolicDateTime\Contao\Date;
 	 */
 
 class DateUtil {
-
-	/**
-	 * Helper function for getting a symbolic date
-	 * @param int
-	 */
-	public static function getSymbolicDate1($start = null, $end = null) {
-		switch ($GLOBALS['TL_LANGUAGE']) {
-			case 'en':
-				if (!$start)
-					$start = time();
-
-				if ($end)
-					return date('jS ', $start) . XCommonLocalization::getMonthName(date('m', $start), XCommonLocalization::ENGLISH) . date(' Y', $start) . ' &ndash; ' .
-					date('jS ', $end) . XCommonLocalization::getMonthName(date('m', $end), XCommonLocalization::ENGLISH) . date(' Y', $end);
-				else
-					return date('jS ', $start) . XCommonLocalization::getMonthName(date('m', $start), XCommonLocalization::ENGLISH) . date(' Y', $start);
-				break;
-		}
-
-		if (!$start)
-			$start = time();
-		if ($end)
-			return date('d. ', $start) . XCommonLocalization::getMonthName(date('m', $start)) . date(' Y', $start) . ' &ndash; ' .
-				date('d. ', $end) . XCommonLocalization::getMonthName(date('m', $end)) . date(' Y', $end);
-		else
-			return date('d. ', $start) . XCommonLocalization::getMonthName(date('m', $start)) . date(' Y', $start);
-	}
-
-	public static function getSymbolicDateTime1($start = null, $end = null, $startTime = null, $endTime = null) {
-		switch ($GLOBALS['TL_LANGUAGE']) {
-			case 'en':
-				if (!$start)
-					$start = time();
-
-				$strTime = '';
-				if ($startTime)
-					$strTime = ', ' . date('h.i A', $startTime) . ($endTime && $startTime != $endTime ? ' &ndash; ' . date('h.i A', $endTime) : '');
-
-				if ($end)
-					return date('jS ', $start) . XCommonLocalization::getMonthName(date('m', $start), XCommonLocalization::ENGLISH) . date(' Y', $start) . ' &ndash; ' .
-					date('jS ', $end) . XCommonLocalization::getMonthName(date('m', $end), XCommonLocalization::ENGLISH) . date(' Y', $end) . $strTime;
-				else
-					return date('jS ', $start) . XCommonLocalization::getMonthName(date('m', $start), XCommonLocalization::ENGLISH) . date(' Y', $start) . $strTime;
-				break;
-		}
-
-		if (!$start)
-			$start = time();
-
-		$strTime = '';
-		if ($startTime)
-			$strTime = ', ' . date('H:i', $startTime) . ' Uhr' . ($endTime && $startTime != $endTime ? ' &ndash; ' . date('H:i', $endTime) . ' Uhr' : '');
-
-		if ($end)
-			return date('d. ', $start) . XCommonLocalization::getMonthName(date('m', $start)) . date(' Y', $start) . ' &ndash; ' .
-			date('d. ', $end) . XCommonLocalization::getMonthName(date('m', $end)) . date(' Y', $end) . $strTime;
-		else
-			return date('d. ', $start) . XCommonLocalization::getMonthName(date('m', $start)) . date(' Y', $start) . $strTime;
-	}
 
 	protected static function getDateTimeInterval($strFormat, $intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ',
 			$arrStartReplacements = array(), $arrEndReplacements = array())
@@ -152,6 +92,82 @@ class DateUtil {
 			$strDateTime = DateUtil::getNumericDateInterval($objEvent->startDate, $objEvent->endDate);
 
 		return $strDateTime;
+	}
+
+	public static function getTimeElapsed($intDatime, $intCompareTo = null)
+	{
+		$objDatime = new \DateTime();
+		$objDatime->setTimestamp($intDatime);
+
+		if (!is_null($intCompareTo))
+		{
+			$objCompareTo = new \DateTime();
+			$objCompareTo->setTimestamp($intCompareTo);
+		}
+		else
+		{
+			$objCompareTo = new \DateTime('now');
+		}
+
+		$intDiff = $objCompareTo->format('U') - $objDatime->format('U');
+		$intDayDiff = floor($intDiff / 86400);
+
+		if(is_nan($intDayDiff) || $intDayDiff < 0)
+		{
+			return '';
+		}
+
+		if($intDayDiff == 0)
+		{
+			if($intDiff < 60)
+			{
+				return $GLOBALS['TL_LANG']['MSC']['datediff']['just_now'];
+			}
+			elseif($intDiff < 120)
+			{
+				return $GLOBALS['TL_LANG']['MSC']['datediff']['min_ago'];
+			}
+			elseif($intDiff < 3600)
+			{
+				return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nmins_ago'], floor($intDiff/60));
+			}
+			elseif($intDiff < 7200)
+			{
+				return $GLOBALS['TL_LANG']['MSC']['datediff']['hour_ago'];
+			}
+			elseif($intDiff < 86400)
+			{
+				return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nhours_ago'], floor($intDiff/3600));
+			}
+		}
+		elseif($intDayDiff == 1)
+		{
+			return $GLOBALS['TL_LANG']['MSC']['datediff']['yesterday'];
+		}
+		elseif($intDayDiff < 7)
+		{
+			return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['ndays_ago'], $intDayDiff);
+		}
+		elseif($intDayDiff == 7)
+		{
+			return $GLOBALS['TL_LANG']['MSC']['datediff']['week_ago'];
+		}
+		elseif($intDayDiff < (7*6))
+		{ // Modifications Start Here
+			// 6 weeks at most
+			return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nweeks_ago'], ceil($intDayDiff/7));
+		}
+		elseif($intDayDiff < 365)
+		{
+			return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nmonths_ago'], ceil($intDayDiff/(365/12)));
+		}
+		else
+		{
+			$years = round($intDayDiff/365);
+			return sprintf(($years > 1 ? $GLOBALS['TL_LANG']['MSC']['datediff']['years_ago'] : $GLOBALS['TL_LANG']['MSC']['datediff']['year_ago']), $years);
+		}
+
+		return '';
 	}
 
 	// TODO
