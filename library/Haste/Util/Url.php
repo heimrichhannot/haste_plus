@@ -25,6 +25,11 @@ class Url extends \Haste\Util\Url
 		return parse_url($strUrl, PHP_URL_SCHEME) === null ? $strScheme . $strUrl : $strUrl;
 	}
 
+	public static function getCurrentUrlWithoutParameters()
+	{
+		return \Environment::get('url') . parse_url(\Environment::get('uri'), PHP_URL_PATH);
+	}
+
 	public static function getUrl($includeRequestUri = true, $includeFragments = true, $includeParameters = true)
 	{
 		$strUrl = \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
