@@ -195,6 +195,15 @@ class General extends \Backend
 		return $arrButtons;
 	}
 
+	/**
+	 * @param $varValue mixed The current alias (if available)
+	 * @param $intId int The entity's id
+	 * @param $strTable string The entity's table
+	 * @param $strAlias string The value to use as a base for the alias
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
 	public static function generateAlias($varValue, $intId, $strTable, $strAlias)
 	{
 		$autoAlias = false;
