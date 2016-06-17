@@ -137,7 +137,7 @@
 		<?php endforeach; ?>
 
 		//now fit the map to the newly inclusive bounds
-		<?php if(count($this->map['elements']) > 1): ?>
+		<?php if(count($this->map['elements']) >= 1): ?>
 		gmap<?= $this->map['id']; ?>.fitBounds(bounds);
 		<?php endif; ?>
 
