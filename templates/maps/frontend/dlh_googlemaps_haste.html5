@@ -137,8 +137,20 @@
 		<?php endforeach; ?>
 
 		//now fit the map to the newly inclusive bounds
-		<?php if(count($this->map['elements']) >= 1): ?>
+		<?php if(count($this->map['elements']) > 1): ?>
 		gmap<?= $this->map['id']; ?>.fitBounds(bounds);
+		<?php endif; ?>
+
+		<?php if(count($this->map['elements']) == 1): ?>
+		gmap<?= $this->map['id']; ?>.fitBounds(bounds);
+		zoomChangeBoundsListener = google.maps.event.addListenerOnce(gmap<?= $this->map['id']; ?>, 'bounds_changed', function()
+		{
+			if (this.getZoom())
+			{
+				this.setZoom(<?= $this->map['zoom']; ?>);
+			}
+		});
+		setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
 		<?php endif; ?>
 
 		if(window.gmap<?= $this->map['id']; ?>_dynmap){
