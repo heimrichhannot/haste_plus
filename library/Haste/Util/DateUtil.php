@@ -41,10 +41,19 @@ class DateUtil {
 		return static::getDateTimeInterval(\Contao\Date::getNumericTimeFormat(), $intStart, $intEnd, $strDelimiter);
 	}
 
-	public static function getNumericDateTimeInterval($intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ')
+	public static function getNumericDateTimeInterval($intStart = null, $intEnd = null, $strIntervalDelimiter = ' &ndash; ',
+		$strDelimiter = ', ')
 	{
-		return static::getDateTimeInterval(\Contao\Date::getNumericDatimFormat(), $intStart,
-				$intEnd, $strDelimiter);
+		if (date(\Contao\Date::getNumericDateFormat(), $intStart) == date(\Contao\Date::getNumericDateFormat(), $intEnd))
+		{
+			return static::getNumericDateInterval($intStart, $intEnd, $strIntervalDelimiter) . $strDelimiter .
+				static::getNumericTimeInterval($intStart, $intEnd, $strIntervalDelimiter);
+		}
+		else
+		{
+			return static::getDateTimeInterval(\Contao\Date::getNumericDatimFormat(), $intStart,
+				$intEnd, $strIntervalDelimiter);
+		}
 	}
 
 	public static function getSeparatedNumericDateTimeInterval($intStartDate = null, $intEndDate = null,
