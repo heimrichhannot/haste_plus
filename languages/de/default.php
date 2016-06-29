@@ -20,6 +20,24 @@ $GLOBALS['TL_LANG']['MSC']['datediff']['nweeks_ago'] = 'Vor %d Wochen';
 $GLOBALS['TL_LANG']['MSC']['datediff']['nmonths_ago'] = 'Vor %d Monaten';
 $GLOBALS['TL_LANG']['MSC']['datediff']['year_ago'] = 'Vor %d Jahr';
 $GLOBALS['TL_LANG']['MSC']['datediff']['years_ago'] = 'Vor %d Jahren';
+$GLOBALS['TL_LANG']['MSC']['second'] = 'Sekunde';
+$GLOBALS['TL_LANG']['MSC']['seconds'] = 'Sekunden';
+$GLOBALS['TL_LANG']['MSC']['minute'] = 'Minute';
+$GLOBALS['TL_LANG']['MSC']['minutes'] = 'Minuten';
+$GLOBALS['TL_LANG']['MSC']['hour'] = 'Stunde';
+$GLOBALS['TL_LANG']['MSC']['hours'] = 'Stunden';
+$GLOBALS['TL_LANG']['MSC']['day'] = 'Tag';
+$GLOBALS['TL_LANG']['MSC']['days'] = 'Tage';
+$GLOBALS['TL_LANG']['MSC']['week'] = 'Woche';
+$GLOBALS['TL_LANG']['MSC']['weeks'] = 'Wochen';
+$GLOBALS['TL_LANG']['MSC']['month'] = 'Monat';
+$GLOBALS['TL_LANG']['MSC']['months'] = 'Monate';
+$GLOBALS['TL_LANG']['MSC']['year'] = 'Jahr';
+$GLOBALS['TL_LANG']['MSC']['years'] = 'Jahre';
+$GLOBALS['TL_LANG']['MSC']['timePeriod']['s'] = 'Sekunde(n)';
+$GLOBALS['TL_LANG']['MSC']['timePeriod']['m'] = 'Minute(n)';
+$GLOBALS['TL_LANG']['MSC']['timePeriod']['h'] = 'Stunde(n)';
+$GLOBALS['TL_LANG']['MSC']['timePeriod']['d'] = 'Tage(n)';
 
 /**
  * Counties

@@ -179,6 +179,30 @@ class DateUtil {
 		return '';
 	}
 
+	public static function getTimePeriodInSeconds($arrTimePeriod)
+	{
+		$arrTimePeriod = deserialize($arrTimePeriod, true);
+
+		if (!isset($arrTimePeriod['unit']) || !isset($arrTimePeriod['value']))
+			return null;
+
+		$intFactor = 1;
+		switch ($arrTimePeriod['unit'])
+		{
+			case 'm':
+				$intFactor = 60;
+				break;
+			case 'h':
+				$intFactor = 60*60;
+				break;
+			case 'd':
+				$intFactor = 24*60*60;
+				break;
+		}
+
+		return $arrTimePeriod['value'] * $intFactor;
+	}
+
 	// TODO
 //	public static function getSymbolicDate($intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ') {
 //		$intStartMonth = date('n', $intStart) - 1;
