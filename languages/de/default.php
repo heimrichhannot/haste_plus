@@ -58,3 +58,9 @@ $GLOBALS['TL_LANG']['COUNTIES']['de']['sn']	= 'Sachsen';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['st']	= 'Sachsen-Anhalt';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['sh']	= 'Schleswig-Holstein';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['th']	= 'Thüringen';
+
+/**
+ * Misc
+ */
+$GLOBALS['TL_LANG']['MSC']['yes'] = 'Ja';
+$GLOBALS['TL_LANG']['MSC']['no'] = 'Nein';
