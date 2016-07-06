@@ -3,6 +3,7 @@
 namespace HeimrichHannot\Haste\Model;
 
 use HeimrichHannot\Haste\Dca\General;
+use HeimrichHannot\Haste\Util\Files;
 
 class MemberModel extends \MemberModel
 {
@@ -50,14 +51,15 @@ class MemberModel extends \MemberModel
 	/**
 	 * Adds a new home dir to a member. Therefore a folder named with the members's id is created in $varRootFolder
 	 * @param            $varMember object|int The member as object or member id
-	 * @param            $strPropertyName string The name of the member property (e.g. "homeDir")
 	 * @param            $strBooleanPropertyName string The name of the boolean member property (e.g. "assignDir")
+	 * @param            $strPropertyName string The name of the member property (e.g. "homeDir")
 	 * @param            $varRootFolder string|object The base folder as instance of \FilesModel, path string or uuid
-	 * @param bool|false $blnOverwrite
+	 * @param bool|false $blnOverwrite bool Determines if an existing folder can be overridden
 	 *
 	 * @return bool|string Returns true, if a directory has already been linked with the member, the folders uuid if successfully added and false if errors occured.
 	 */
-	public static function addHomeDir($varMember, $strBooleanPropertyName, $strPropertyName, $varRootFolder, $blnOverwrite = false)
+	public static function addHomeDir($varMember, $strBooleanPropertyName = 'assignDir', $strPropertyName = 'homeDir',
+		$varRootFolder = 'files/members', $blnOverwrite = false)
 	{
 		if (($objMember = is_numeric($varMember) ? \MemberModel::findByPk($varMember) : $varMember) === null)
 			return false;
@@ -98,6 +100,31 @@ class MemberModel extends \MemberModel
 		$objMember->save();
 
 		return $objHomeDir->getModel()->uuid;
+	}
+
+	/**
+	 * Returns a member home dir and creates one, if desired.
+	 *
+	 * @param            $varMember object|int The member as object or member id
+	 * @param            $strBooleanPropertyName string The name of the boolean member property (e.g. "assignDir")
+	 * @param            $strPropertyName string The name of the member property (e.g. "homeDir")
+	 * @param            $varRootFolder string|object The base folder as instance of \FilesModel, path string or uuid
+	 * @param bool|false $blnOverwrite bool Determines if an existing folder can be overridden
+	 *
+	 * @return bool|string Returns the home dir or false if an error occurred.
+	 */
+	public static function getHomeDir($varMember, $strBooleanPropertyName = 'assignDir', $strPropertyName = 'homeDir',
+		$varRootFolder = 'files/members', $blnOverwrite = false)
+	{
+		if (($objMember = is_numeric($varMember) ? \MemberModel::findByPk($varMember) : $varMember) === null)
+			return false;
+
+		$varResult = static::addHomeDir($objMember, $strBooleanPropertyName, $strPropertyName, $varRootFolder, $blnOverwrite);
+
+		if ($varResult === false)
+			return false;
+		else
+			return Files::getPathFromUuid($objMember->{$strPropertyName});
 	}
 
 }
