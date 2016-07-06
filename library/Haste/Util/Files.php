@@ -129,12 +129,12 @@ class Files
 		}
 	}
 
-	public static function sanitizeFileName($strFileName)
+	public static function sanitizeFileName($strFileName, $maxCount = 64)
 	{
 		$strFileName = strtolower($strFileName);
 		$strFileName = preg_replace("@[^a-z0-9_-]@", '_', $strFileName);
 		$strFileName = preg_replace("@_+@", '_', $strFileName);
-		return $strFileName;
+		return substr($strFileName, 0, $maxCount - 1);
 	}
 
 	public static function sendTextAsFileToBrowser($strContent, $strFileName)
