@@ -60,6 +60,20 @@ $GLOBALS['TL_LANG']['COUNTIES']['de']['sh']	= 'Schleswig-Holstein';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['th']	= 'Thüringen';
 
 /**
+ * Operators
+ */
+$GLOBALS['TL_LANG']['MSC']['operators']['like'] = 'enthält';
+$GLOBALS['TL_LANG']['MSC']['operators']['unlike'] = 'enthält nicht';
+$GLOBALS['TL_LANG']['MSC']['operators']['equal'] = '=';
+$GLOBALS['TL_LANG']['MSC']['operators']['unequal'] = '!=';
+$GLOBALS['TL_LANG']['MSC']['operators']['lower'] = '<';
+$GLOBALS['TL_LANG']['MSC']['operators']['greater'] = '>';
+$GLOBALS['TL_LANG']['MSC']['operators']['lowerequal'] = '<=';
+$GLOBALS['TL_LANG']['MSC']['operators']['greaterequal'] = '>=';
+$GLOBALS['TL_LANG']['MSC']['operators']['in'] = 'in';
+$GLOBALS['TL_LANG']['MSC']['operators']['notin'] = 'nicht in';
+
+/**
  * Misc
  */
 $GLOBALS['TL_LANG']['MSC']['yes'] = 'Ja';

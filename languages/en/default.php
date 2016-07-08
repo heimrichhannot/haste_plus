@@ -3,7 +3,7 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['MSC']['alias'] = array('Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.');
+$GLOBALS['TL_LANG']['MSC']['alias'] = array('Alias', 'The alias is a unique reference that can be used instead of the numeric id.');
 
 /**
  * Date/time
@@ -42,22 +42,36 @@ $GLOBALS['TL_LANG']['MSC']['timePeriod']['d'] = 'Day(s)';
 /**
  * Counties
  */
-$GLOBALS['TL_LANG']['COUNTIES']['de']['bw']	= 'Baden-Württemberg';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['by']	= 'Bavaria';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['be']	= 'Berlin';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['bb']	= 'Brandenburg';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['hb']	= 'Bremen';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['hh']	= 'Hamburg';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['he']	= 'Hesse';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['mv']	= 'Mecklenburg Western Pomerania';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['ni']	= 'Lower Saxony';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['nw']	= 'Northrhine-Westphalia';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['rp']	= 'Rhineland Palatinate';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['sl']	= 'Saarland';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['sn']	= 'Saxony';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['st']	= 'Saxony-Anhalt';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['sh']	= 'Schleswig-Holstein';
-$GLOBALS['TL_LANG']['COUNTIES']['de']['th']	= 'Thuringia';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['bw'] = 'Baden-Württemberg';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['by'] = 'Bavaria';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['be'] = 'Berlin';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['bb'] = 'Brandenburg';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['hb'] = 'Bremen';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['hh'] = 'Hamburg';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['he'] = 'Hesse';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['mv'] = 'Mecklenburg Western Pomerania';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['ni'] = 'Lower Saxony';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['nw'] = 'Northrhine-Westphalia';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['rp'] = 'Rhineland Palatinate';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['sl'] = 'Saarland';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['sn'] = 'Saxony';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['st'] = 'Saxony-Anhalt';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['sh'] = 'Schleswig-Holstein';
+$GLOBALS['TL_LANG']['COUNTIES']['de']['th'] = 'Thuringia';
+
+/**
+ * Operators
+ */
+$GLOBALS['TL_LANG']['MSC']['operators']['like'] = 'like';
+$GLOBALS['TL_LANG']['MSC']['operators']['unlike'] = 'not like';
+$GLOBALS['TL_LANG']['MSC']['operators']['equal'] = '=';
+$GLOBALS['TL_LANG']['MSC']['operators']['unequal'] = '!=';
+$GLOBALS['TL_LANG']['MSC']['operators']['lower'] = '<';
+$GLOBALS['TL_LANG']['MSC']['operators']['greater'] = '>';
+$GLOBALS['TL_LANG']['MSC']['operators']['lowerequal'] = '<=';
+$GLOBALS['TL_LANG']['MSC']['operators']['greaterequal'] = '>=';
+$GLOBALS['TL_LANG']['MSC']['operators']['in'] = 'in';
+$GLOBALS['TL_LANG']['MSC']['operators']['notin'] = 'not in';
 
 /**
  * Misc

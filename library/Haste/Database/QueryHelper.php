@@ -51,4 +51,110 @@ class QueryHelper
 		return "($where)";
 	}
 
+	/**
+	 * Transforms verbose operators to valid MySQL operators (aka junctors).
+	 * Supports: like, unlike, equal, unequal, lower, greater, lowerequal, greaterequal, in, notin
+	 * @param $strVerboseOperator
+	 *
+	 * @return string|boolean The transformed operator or false if not supported
+	 */
+	public static function transformVerboseOperator($strVerboseOperator)
+	{
+		switch ($strVerboseOperator)
+		{
+			case 'like':
+				return 'LIKE';
+				break;
+			case 'unlike':
+				return 'NOT LIKE';
+				break;
+			case 'equal':
+				return '=';
+				break;
+			case 'unequal':
+				return '!=';
+				break;
+			case 'lower':
+				return '<';
+				break;
+			case 'greater':
+				return '>';
+				break;
+			case 'lowerequal':
+				return '<=';
+				break;
+			case 'greaterequal':
+				return '>=';
+				break;
+			case 'in':
+				return 'IN';
+				break;
+			case 'notin':
+				return 'NOT IN';
+				break;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Computes a MySQL condition appropriate for the given operator
+	 * @param $strField
+	 * @param $strOperator
+	 * @param $varValue
+	 *
+	 * @return array Returns array($strQuery, $arrValues)
+	 */
+	public static function computeCondition($strField, $strOperator, $varValue)
+	{
+		$strOperator = trim(strtolower($strOperator));
+		$arrValues = array();
+		$strPattern = '?';
+
+		switch ($strOperator)
+		{
+			case 'unlike':
+				$arrValues[] = '%' . $varValue . '%';
+				break;
+			case '=':
+				$arrValues[] = $varValue;
+				break;
+			case '!=':
+			case '<>':
+				$arrValues[] = $varValue;
+				break;
+			case '<':
+				$strPattern = 'CAST(? AS DECIMAL)';
+				$arrValues[] = $varValue;
+				break;
+			case '>':
+				$strPattern = 'CAST(? AS DECIMAL)';
+				$arrValues[] = $varValue;
+				break;
+			case '<=':
+				$strPattern = 'CAST(? AS DECIMAL)';
+				$arrValues[] = $varValue;
+				break;
+			case '>=':
+				$strPattern = 'CAST(? AS DECIMAL)';
+				$arrValues[] = $varValue;
+				break;
+			case 'in':
+				$strPattern = '(' . implode(',', array_map(function($value) {
+						return '\'' . $value . '\'';
+					}, explode(',', $varValue))) . ')';
+				break;
+			case 'not in':
+				$strPattern = '(' . implode(',', array_map(function($value) {
+						return '\'' . $value . '\'';
+					}, explode(',', $varValue))) . ')';
+				break;
+			default:
+				$arrValues[] = '%' . $varValue . '%';
+				break;
+		}
+
+		return array("$strField $strOperator $strPattern", $arrValues);
+	}
+
 }
