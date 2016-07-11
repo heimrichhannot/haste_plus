@@ -50,7 +50,7 @@ class Arrays
 	}
 
 	/**
-	 * Filter an Array by a given prefix
+	 * Filter an Array by given prefixes
 	 *
 	 * @param array  $arrData
 	 * @param array  $arrPrefixes
@@ -77,6 +77,40 @@ class Arrays
 			}
 		}
 		
+		return $arrExtract;
+	}
+
+
+	/**
+	 * Filter out values from an Array by given prefixes
+	 *
+	 * @param array  $arrData
+	 * @param array  $arrPrefixes
+	 *
+	 * @return array the filtered array or $arrData if $strPrefix is empty
+	 */
+	public static function filterOutByPrefixes(array $arrData = array(), $arrPrefixes = array())
+	{
+		$arrExtract = array();
+
+		if(!is_array($arrPrefixes) || empty($arrPrefixes))
+		{
+			return $arrData;
+		}
+
+		foreach($arrData as $key => $value)
+		{
+			foreach($arrPrefixes as $strPrefix)
+			{
+				if(\HeimrichHannot\Haste\Util\StringUtil::startsWith($key, $strPrefix))
+				{
+					continue;
+				}
+
+				$arrExtract[$key] = $value;
+			}
+		}
+
 		return $arrExtract;
 	}
 

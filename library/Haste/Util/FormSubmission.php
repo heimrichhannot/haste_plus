@@ -20,7 +20,7 @@ class FormSubmission
 		$arrOpts  = $arrData['options'];
 		$arrReference  = $arrData['reference'];
 		$strRegExp = $arrData['eval']['rgxp'];
-		
+
 		// get options
 		if ((is_array($arrData['options_callback']) || is_callable($arrData['options_callback'])) &&
 			!$arrData['reference'])
