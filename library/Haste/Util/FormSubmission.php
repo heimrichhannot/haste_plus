@@ -64,23 +64,23 @@ class FormSubmission
 			if (($arrTags = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $objItem->id)) !== null)
 				$varValue = implode(', ', $arrTags);
 		}
-		elseif ($arrData['inputType'] == 'multifileupload')
+		elseif (in_array($arrData['inputType'], array('fileTree', 'multifileupload')))
 		{
 			if (is_array($varValue))
 			{
-				$varValue = implode(', ', array_map(
+				$varValue = array_map(
 					function ($val) {
 						$strPath = Files::getPathFromUuid($val);
-
-						return $strPath ?: $val;
+						
+						return $strPath ? (\Environment::get('url') . '/' . $strPath) : $val;
 					},
 					$varValue
-				));
+				);
 			}
 			else
 			{
 				$strPath = Files::getPathFromUuid($varValue);
-				$varValue   = $strPath ?: $varValue;
+				$varValue = $strPath ? (\Environment::get('url') . '/' . $strPath) : $varValue;
 			}
 		}
 		elseif (is_array($varValue))
@@ -122,30 +122,17 @@ class FormSubmission
 				((is_array($arrReference[$varValue])) ? $arrReference[$varValue][0] : $arrReference[$varValue])
 				: $varValue;
 		}
-		elseif ($arrData['inputType'] == 'fileTree')
-		{
-			if ($arrData['eval']['multiple'] && is_array($varValue))
-			{
-				$varValue = array_map(
-					function ($val) {
-						$strPath = Files::getPathFromUuid($val);
-
-						return $strPath ?: $val;
-					},
-					$varValue
-				);
-			}
-			else
-			{
-				$strPath = Files::getPathFromUuid($varValue);
-				$varValue   = $strPath ?: $varValue;
-			}
-		}
-		elseif (\Validator::isBinaryUuid($varValue))
+		
+		if (\Validator::isBinaryUuid($varValue))
 		{
 			$varValue = \StringUtil::binToUuid($varValue);
 		}
 
+		if(is_array($varValue))
+		{
+			$varValue = implode(', ', $varValue);
+		}
+		
 		// Convert special characters (see #1890)
 		return specialchars($varValue);
 	}
