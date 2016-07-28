@@ -62,29 +62,35 @@ class FormSubmission
 		elseif ($arrData['inputType'] == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
 		{
 			if (($arrTags = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $objItem->id)) !== null)
-				$varValue = implode(', ', $arrTags);
+			{
+				$varValue = $arrTags;
+			}
 		}
-		elseif (in_array($arrData['inputType'], array('fileTree', 'multifileupload')))
+		elseif(!is_array($varValue) && \Validator::isBinaryUuid($varValue))
 		{
-			if (is_array($varValue))
-			{
-				$varValue = array_map(
-					function ($val) {
-						$strPath = Files::getPathFromUuid($val);
-						
-						return $strPath ? (\Environment::get('url') . '/' . $strPath) : $val;
-					},
-					$varValue
-				);
-			}
-			else
-			{
-				$strPath = Files::getPathFromUuid($varValue);
-				$varValue = $strPath ? (\Environment::get('url') . '/' . $strPath) : $varValue;
-			}
+			$strPath = Files::getPathFromUuid($varValue);
+			$varValue = $strPath ? (\Environment::get('url') . '/' . $strPath) : \StringUtil::binToUuid($varValue);
 		}
 		elseif (is_array($varValue))
 		{
+			// transform binary uuids to paths
+			$varValue = array_map(function($varValue) {
+
+				if(\Validator::isBinaryUuid($varValue))
+				{
+					$strPath = Files::getPathFromUuid($varValue);
+
+					if($strPath) {
+						return \Environment::get('url') . '/' . $strPath;
+					}
+
+					return \StringUtil::binToUuid($varValue);
+				}
+
+				return $varValue;
+
+			}, $varValue);
+
 			if (!$arrReference)
 			{
 				$varValue = array_map(function($varValue) use ($arrOpts) {
@@ -96,20 +102,17 @@ class FormSubmission
 
 			$varValue = array_filter($varValue); // remove empty elements
 
-			$varValue = implode(
-				', ',
-				array_map(
-					function ($varValue) use ($arrReference) {
-						if (is_array($arrReference)) {
-							return isset($arrReference[$varValue]) ?
-								((is_array($arrReference[$varValue])) ? $arrReference[$varValue][0] : $arrReference[$varValue])
-								: $varValue;
-						} else {
-							return $varValue;
-						}
-					},
-					$varValue
-				)
+			$varValue = array_map(
+				function ($varValue) use ($arrReference) {
+					if (is_array($arrReference)) {
+						return isset($arrReference[$varValue]) ?
+							((is_array($arrReference[$varValue])) ? $arrReference[$varValue][0] : $arrReference[$varValue])
+							: $varValue;
+					} else {
+						return $varValue;
+					}
+				},
+				$varValue
 			);
 		}
 		elseif (is_array($arrOpts) && array_is_assoc($arrOpts))
@@ -121,11 +124,6 @@ class FormSubmission
 			$varValue = isset($arrReference[$varValue]) ?
 				((is_array($arrReference[$varValue])) ? $arrReference[$varValue][0] : $arrReference[$varValue])
 				: $varValue;
-		}
-		
-		if (\Validator::isBinaryUuid($varValue))
-		{
-			$varValue = \StringUtil::binToUuid($varValue);
 		}
 
 		if(is_array($varValue))
