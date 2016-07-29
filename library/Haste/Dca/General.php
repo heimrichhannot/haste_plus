@@ -28,7 +28,7 @@ class General extends \Backend
 
 		$arrDca = &$GLOBALS['TL_DCA'][$strDca];
 
-		$arrDca['config']['onsubmit_callback']['setDateAdded'] = array('HeimrichHannot\\HastePlus\\Utilities', 'setDateAdded');
+		$arrDca['config']['onload_callback']['setDateAdded'] = array('HeimrichHannot\Haste\Dca\General', 'setDateAdded', true);
 
 		$arrDca['fields']['dateAdded'] = static::getDateAddedField();
 	}
@@ -39,18 +39,20 @@ class General extends \Backend
 	 */
 	public static function setDateAdded(\DataContainer $objDc)
 	{
+		if(($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null)
+		{
+			return false;
+		}
+		
 		// Return if there is no active record (override all)
-		if (!$objDc->activeRecord || $objDc->activeRecord->dateAdded > 0) {
-			return;
+		if ($objModel->dateAdded > 0) {
+			return false;
 		}
 
-		$time = time();
-
-		$strTable = $objDc->__get('table');
-
-		\Database::getInstance()->prepare("UPDATE $strTable SET dateAdded=? WHERE id=?")
-			->execute($time, $objDc->activeRecord->id);
+		$objModel->dateAdded = time();
+		$objModel->save();
 	}
+
 
 	/**
 	 * @return array The dca for the data added field
