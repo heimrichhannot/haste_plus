@@ -73,9 +73,11 @@ class FormSubmission
 		}
 		elseif (is_array($varValue))
 		{
+			$varValue = Arrays::flattenArray($varValue);
+			$varValue = array_filter($varValue); // remove empty elements
+
 			// transform binary uuids to paths
 			$varValue = array_map(function($varValue) {
-
 				if(\Validator::isBinaryUuid($varValue))
 				{
 					$strPath = Files::getPathFromUuid($varValue);
@@ -88,7 +90,6 @@ class FormSubmission
 				}
 
 				return $varValue;
-
 			}, $varValue);
 
 			if (!$arrReference)
@@ -97,10 +98,6 @@ class FormSubmission
 					return isset($arrOpts[$varValue]) ? $arrOpts[$varValue] : $varValue;
 				}, $varValue);
 			}
-
-			$varValue = Arrays::flattenArray($varValue);
-
-			$varValue = array_filter($varValue); // remove empty elements
 
 			$varValue = array_map(
 				function ($varValue) use ($arrReference) {
