@@ -3,21 +3,43 @@
 namespace HeimrichHannot\Haste\Dca;
 
 
+use NotificationCenter\Model\Message;
+
 class Notification extends \Backend
 {
-	public static function getNotificationMessagesAsOptions($strType)
+	public static function getNotificationMessagesAsOptions($objDc, $strType = null)
 	{
-		$arrChoices = array();
-		$objNotifications = \Database::getInstance()->execute("SELECT m.id,m.title FROM tl_nc_message m INNER JOIN tl_nc_notification n ON m.pid=n.id WHERE n.type='$strType' ORDER BY m.title");
+		$arrOptions = array();
 
-		if ($objNotifications->numRows > 0)
+		if (!$strType)
 		{
-			while ($objNotifications->next()) {
-				$arrChoices[$objNotifications->id] = $objNotifications->title;
+			$objMessages = Message::findAll();
+
+			if ($objMessages === null) {
+				return $arrOptions;
+			}
+
+			while ($objMessages->next()) {
+				if (($objNotification = $objMessages->getRelated('pid')) === null) {
+					continue;
+				}
+
+				$arrOptions[$objNotification->title][$objMessages->id] = $objMessages->title;
+			}
+		}
+		else
+		{
+			$objMessages = \Database::getInstance()->execute("SELECT m.id,m.title FROM tl_nc_message m INNER JOIN tl_nc_notification n ON m.pid=n.id WHERE n.type='$strType' ORDER BY m.title");
+
+			if ($objMessages->numRows > 0)
+			{
+				while ($objMessages->next()) {
+					$arrOptions[$objMessages->id] = $objMessages->title;
+				}
 			}
 		}
 
-		return $arrChoices;
+		return $arrOptions;
 	}
 
 	public static function getNewNotificationTypeArray($blnIncludeNotificationCenterPlusTokens = false)
