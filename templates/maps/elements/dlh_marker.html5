@@ -83,5 +83,39 @@
             window.location.href='<?= $this->element['url']; ?>';
         <?php endif; ?>
         });
+    <?php elseif($this->element['markerAction'] == 'MODAL') : ?>
+        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_overlay, 'click', function(e) {
+            var $modal = $('<?= $this->element['target']?>');
+            var  $replace = $modal.find('.modal-dialog');
+
+            history.pushState({url: '<?= $this->element['url']?>'}, null, '<?= $this->element['url']?>');
+
+            $.ajax({
+                'url': '<?= $this->element['url']?>',
+                'data' : {
+                    'scope' : 'modal',
+                    'target': $modal.attr('id')
+                }
+            }).done(function(responseText, textStatus, jqXHR){
+                try {
+                    dataJson = $.parseJSON(responseText);
+
+                    if (dataJson.type == 'redirect') {
+                        if (typeof history.replaceState !== 'undefined')
+                        {
+                        history.replaceState({url: dataJson.url}, null, dataJson.url);
+                        }
+                        $replace.load(dataJson.url, function (responseText, textStatus, jqXHR) {
+                            $modal.modal('show');
+                         });
+                        return false;
+                    }
+                } catch (e) {
+                // fail silently
+                }
+                $replace.html(responseText);
+                $modal.modal('show');
+            });
+        });
     <?php endif; ?>
 <?php endif; ?>

@@ -31,6 +31,7 @@ class GoogleMapOverlay
 	const MARKERACTION_NONE = 'NONE';
 	const MARKERACTION_LINK = 'LINK';
 	const MARKERACTION_INFO = 'INFO';
+	const MARKERACTION_MODAL = 'MODAL';
 
 	public function __construct()
 	{
@@ -313,6 +314,18 @@ class GoogleMapOverlay
 	public function setMarkerAction($strMarkerAction)
 	{
 		$this->markerAction = $strMarkerAction;
+		return $this;
+	}
+
+	public function setUrl($strUrl)
+	{
+		$this->url = $strUrl;
+		return $this;
+	}
+
+	public function setTarget($strTarget)
+	{
+		$this->target = $strTarget;
 		return $this;
 	}
 
