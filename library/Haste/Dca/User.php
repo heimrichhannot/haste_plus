@@ -19,7 +19,7 @@ class User extends \Backend
 	protected static $arrUserOptionsCache = array();
 	protected static $arrUserOptionsIdsCache = array();
 
-	public static function getUsersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
+	public static function getUsersAsOptions(\DataContainer $objDc = null, $blnIncludeId = false)
 	{
 		if (!$blnIncludeId && !empty(static::$arrUserOptionsCache))
 			return static::$arrUserOptionsCache;

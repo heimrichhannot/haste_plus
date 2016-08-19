@@ -19,7 +19,7 @@ class Member extends \Backend
 	protected static $arrMemberOptionsCache = array();
 	protected static $arrMemberOptionsIdsCache = array();
 
-	public static function getMembersAsOptions(\DataContainer $objDc, $blnIncludeId = false)
+	public static function getMembersAsOptions(\DataContainer $objDc = null, $blnIncludeId = false)
 	{
 		if (!$blnIncludeId && !empty(static::$arrMemberOptionsCache))
 			return static::$arrMemberOptionsCache;
