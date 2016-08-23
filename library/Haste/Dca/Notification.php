@@ -7,7 +7,7 @@ use NotificationCenter\Model\Message;
 
 class Notification extends \Backend
 {
-	public static function getNotificationMessagesAsOptions($objDc, $strType = null)
+	public static function getNotificationMessagesAsOptions($objDc=null, $strType = null)
 	{
 		$arrOptions = array();
 
