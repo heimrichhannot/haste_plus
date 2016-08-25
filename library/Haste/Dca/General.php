@@ -39,6 +39,9 @@ class General extends \Backend
 	 */
 	public static function setDateAdded(\DataContainer $objDc)
 	{
+		if ($objDc === null || !$objDc->id)
+			return false;
+
 		if(($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null)
 		{
 			return false;
