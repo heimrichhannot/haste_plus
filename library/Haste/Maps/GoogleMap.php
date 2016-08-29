@@ -11,6 +11,7 @@
 
 namespace HeimrichHannot\Haste\Map;
 
+use HeimrichHannot\Haste\Util\Url;
 use HeimrichHannot\Haste\Visualization\GoogleChartWrapper;
 
 class GoogleMap
@@ -46,11 +47,13 @@ class GoogleMap
 	public function setInfoWindowUnique($blnInfoWindowUnique)
 	{
 		$this->infoWindowUnique = $blnInfoWindowUnique;
+
 		return $this;
 	}
 
 	/**
 	 * Adds different sizes for specific viewport scales (0..$intBreakpointMax)
+	 *
 	 * @param $arrResponsiveSizes array e.g. array(767 => array(100, 200, 'px'))
 	 *
 	 * @return $this
@@ -58,10 +61,13 @@ class GoogleMap
 	public function setResponsiveSizes(array $arrResponsiveSizes)
 	{
 		$this->responsiveSizes = $arrResponsiveSizes;
+
 		return $this;
 	}
+
 	/**
 	 * Adds a different size for a specific viewport scale (0..$intBreakpointMax)
+	 *
 	 * @param $intBreakpointMax
 	 * @param $arrSize
 	 *
@@ -70,6 +76,7 @@ class GoogleMap
 	public function addResponsiveSize($intBreakpointMax, $arrSize)
 	{
 		$this->responsiveSizes[$intBreakpointMax] = $arrSize;
+
 		return $this;
 	}
 
@@ -115,8 +122,17 @@ class GoogleMap
 		$objTemplate = new \FrontendTemplate($this->arrOptions['dlh_googlemap_template']);
 
 		if (!isset($GLOBALS['TL_JAVASCRIPT']['googlemaps'])) {
-			$GLOBALS['TL_JAVASCRIPT']['googlemaps'] =
-				'http' . (\Environment::get('ssl') ? 's' : '') . '://maps.google.com/maps/api/js?language=' . $this->arrOptions['language'];
+
+			$strUrl = '//maps.google.com/maps/api/js';
+			$strUrl = Url::addQueryString('language=' . $this->arrOptions['language'], $strUrl);
+
+			global $objPage;
+
+			if (($objRootPage = \PageModel::findPublishedById($objPage->rootId)) !== null && $objRootPage->dlh_googlemaps_apikey) {
+				$strUrl = Url::addQueryString('key=' . $objRootPage->dlh_googlemaps_apikey, $strUrl);
+			}
+
+			$GLOBALS['TL_JAVASCRIPT']['googlemaps'] = $strUrl;
 		}
 
 		$objTemplate->map    = $arrData;
@@ -134,7 +150,8 @@ class GoogleMap
 
 		$strMap =
 			'<img src="http' . (\Environment::get('ssl') ? 's' : '') . '://maps.google.com/maps/api/staticmap?center=' . $arrData['center']
-			. '&amp;zoom=' . $arrData['zoom'] . '&amp;maptype=' . strtolower($arrData['mapTypeId']) . '&amp;language=' . $arrData['language'] . '&amp;size=';
+			. '&amp;zoom=' . $arrData['zoom'] . '&amp;maptype=' . strtolower($arrData['mapTypeId']) . '&amp;language=' . $arrData['language']
+			. '&amp;size=';
 
 		if ($arrData['mapSize'][2] == 'px') {
 			$strMap .= $arrData['mapSize'][0] . 'x' . $arrData['mapSize'][1];
