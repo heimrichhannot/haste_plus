@@ -38,6 +38,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\Haste\Database\QueryHelper'             => 'system/modules/haste_plus/library/Haste/Database/QueryHelper.php',
 	'HeimrichHannot\Haste\Security\CodeGenerator'           => 'system/modules/haste_plus/library/Haste/Security/CodeGenerator.php',
 	'HeimrichHannot\Haste\Security\HttpResponse'            => 'system/modules/haste_plus/library/Haste/Security/HttpResponse.php',
+	'HeimrichHannot\Haste\DC_Table'                         => 'system/modules/haste_plus/library/Haste/Drivers/DC_Table.php',
 	'HeimrichHannot\Haste\Map\GoogleMap'                    => 'system/modules/haste_plus/library/Haste/Maps/GoogleMap.php',
 	'HeimrichHannot\Haste\Map\GoogleMapOverlay'             => 'system/modules/haste_plus/library/Haste/Maps/GoogleMapOverlay.php',
 	'HeimrichHannot\Haste\Map\GoogleMapMarker'              => 'system/modules/haste_plus/library/Haste/Maps/GoogleMapMarker.php',
