@@ -12,8 +12,158 @@
 namespace HeimrichHannot\Haste\Util;
 
 
+use HeimrichHannot\Haste\DC_Table;
+
 class FormSubmission
 {
+	public static function prepareData(\Model $objModel, $strTable, array $arrDca = array(), $objDc = null, $arrFields=array(), array $arrSkipFields = array())
+	{
+		if($objDc === null)
+		{
+			$objDc = DC_Table::getInstanceFromModel($objModel);
+		}
+
+		if(empty($arrDca))
+		{
+			\Controller::loadDataContainer($objModel->getTable());
+			$arrDca = $GLOBALS['TL_DCA'][$objModel->getTable()];
+		}
+
+		$arrSubmissionData = array();
+		$arrRow = $objModel->row();
+
+		if (empty($arrFields))
+			$arrFields = array_keys($arrRow);
+
+		foreach ($arrFields as $strName)
+		{
+			$varValue = $arrRow[$strName];
+			if(empty($varValue)) continue;
+
+			$arrData = $arrDca['fields'][$strName];
+
+			$arrFieldData = static::prepareDataField($strName, $varValue, $arrData, $strTable, $objDc);
+
+			$arrSubmissionData[$strName] = $arrFieldData;
+			$strSubmission = $arrFieldData['submission'];
+
+			$varValue = deserialize($varValue);
+
+			// multicolumnwizard support
+			if ($arrData['inputType'] == 'multiColumnWizard') {
+				foreach ($varValue as $arrSet) {
+					if (!is_array($arrSet)) {
+						continue;
+					}
+
+					// new line
+					$strSubmission .= "\n";
+
+					foreach ($arrSet as $strSetName => $strSetValue) {
+						$arrSetData   = $arrData['eval']['columnFields'][$strSetName];
+						$arrFieldData = static::prepareDataField($strSetName, $strSetValue, $arrSetData, $strTable, $objDc);
+						// intend new line
+						$strSubmission .= "\t" . $arrFieldData['submission'];
+					}
+
+					// new line
+					$strSubmission .= "\n";
+				}
+			}
+
+			$arrSubmissionData['submission_all'] .= $strSubmission;
+
+			if(in_array($strName, $arrFields) && !in_array($strName, $arrSkipFields))
+			{
+				$arrSubmissionData['submission'] .= $strSubmission;
+			}
+		}
+
+		return $arrSubmissionData;
+	}
+
+	public static function prepareDataField($strName, $varValue, $arrData, $strTable, $objDc)
+	{
+		$strLabel = isset($arrData['label'][0]) ? $arrData['label'][0] : $strName;
+
+		$strOutput = static::prepareSpecialValueForPrint($varValue, $arrData, $strTable ?: 'tl_submission', $objDc);
+
+		$varValue = deserialize($varValue);
+
+		if (is_array($varValue))
+		{
+			$varValue = Arrays::flattenArray($varValue);
+
+			$varValue = array_filter($varValue); // remove empty elements
+
+			$varValue = implode(', ', $varValue);
+		}
+
+		$strSubmission = $strLabel . ": " . $strOutput . "\n";
+
+		return array('value' => $varValue, 'output' => $strOutput, 'submission' => $strSubmission);
+	}
+
+	public static function tokenizeData(array $arrSubmissionData = array(), $strPrefix = 'form')
+	{
+		$arrTokens = array();
+
+		foreach($arrSubmissionData as $strName => $arrData)
+		{
+			if(!is_array($arrData))
+			{
+				if ($strName != 'submission' && $strName != 'submission_all' && !is_object($arrData))
+				{
+					$arrTokens[$strName] = $arrData;
+					continue;
+				}
+				else
+				{
+					continue;
+				}
+			}
+
+			foreach($arrData as $strType => $varValue)
+			{
+				switch($strType)
+				{
+					case 'output':
+						$arrTokens[$strPrefix . '_' . $strName] = $varValue;
+						$arrTokens[$strPrefix . '_plain_' . $strName] =
+							\HeimrichHannot\Haste\Util\StringUtil::convertToText(\StringUtil::decodeEntities($varValue), true);
+						break;
+					case 'value':
+						// check for values causing notification center's json_encode call to fail (unprintable characters like binary!)
+						if (ctype_print($varValue))
+						{
+							$arrTokens[$strPrefix . '_value_' . $strName] = $varValue;
+						}
+						break;
+					case 'submission':
+						$arrTokens[$strPrefix . '_submission_' . $strName] = rtrim($varValue, "\n");
+						break;
+				}
+			}
+		}
+
+		// token: ##formsubmission_all##
+		if(isset($arrSubmissionData['submission_all']))
+		{
+			$arrTokens[$strPrefix . 'submission_all'] = $arrSubmissionData['submission_all'];
+		}
+
+		// token: ##formsubmission##
+		if(isset($arrSubmissionData['submission']))
+		{
+			$arrTokens[$strPrefix . 'submission'] = $arrSubmissionData['submission'];
+		}
+
+		// prepare attachments
+
+
+		return $arrTokens;
+	}
+
 	public static function prepareSpecialValueForPrint($varValue, $arrData, $strTable, $objDc, $objItem = null)
 	{
 		$varValue = deserialize($varValue);

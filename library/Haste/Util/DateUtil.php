@@ -103,11 +103,11 @@ class DateUtil {
 		return $strDateTime;
 	}
 
-	public static function getTimeElapsed($intDatime, $intCompareTo = null)
+	public static function getTimeDiff($intDatime, $intCompareTo = null)
 	{
 		$objDatime = new \DateTime();
 		$objDatime->setTimestamp($intDatime);
-
+		
 		if (!is_null($intCompareTo))
 		{
 			$objCompareTo = new \DateTime();
@@ -117,8 +117,13 @@ class DateUtil {
 		{
 			$objCompareTo = new \DateTime('now');
 		}
+		
+		return $objCompareTo->format('U') - $objDatime->format('U');
+	}
 
-		$intDiff = $objCompareTo->format('U') - $objDatime->format('U');
+	public static function getTimeElapsed($intDatime, $intCompareTo = null)
+	{
+		$intDiff = static::getTimeDiff($intDatime, $intCompareTo);
 		$intDayDiff = floor($intDiff / 86400);
 
 		if(is_nan($intDayDiff) || $intDayDiff < 0)
