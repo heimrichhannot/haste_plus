@@ -62,11 +62,11 @@ class PdfTemplate extends \Controller
 	 *
 	 * @throws \MpdfException
 	 */
-	public function sendToBrowser($strFilename = '')
+	public function sendToBrowser($strFilename = '', $strDest = 'I')
 	{
 		$strFilename = $strFilename ?: $this->buildFilename();
 
-		$this->objPdf->Output($strFilename, 'I');
+		$this->objPdf->Output($strFilename, $strDest);
 	}
 
 	/**
