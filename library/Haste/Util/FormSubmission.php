@@ -262,6 +262,11 @@ class FormSubmission
 				$varValue
 			);
 		}
+		// Replace boolean checkbox value with "yes" and "no"
+		else if($arrData['eval']['isBoolean'] || ($arrData['inputType'] == 'checkbox' && !$arrData['eval']['multiple']))
+		{
+			$varValue = ($varValue != '') ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no'];
+		}
 		elseif (is_array($arrOpts) && array_is_assoc($arrOpts))
 		{
 			$varValue = isset($arrOpts[$varValue]) ? $arrOpts[$varValue] : $varValue;
