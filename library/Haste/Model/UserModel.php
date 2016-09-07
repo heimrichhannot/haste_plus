@@ -33,7 +33,7 @@ class UserModel extends \Contao\UserModel
 		$t    = static::$strTable;
 		$time = \Date::floorToMinute();
 
-		$arrColumns = array("$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+		$arrColumns = array("($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
 
 		if (!empty(array_filter($arrGroups)))
 		{
