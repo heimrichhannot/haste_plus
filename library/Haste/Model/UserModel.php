@@ -11,6 +11,8 @@
 namespace HeimrichHannot\Haste\Model;
 
 
+use HeimrichHannot\Haste\Database\QueryHelper;
+
 class UserModel extends \Contao\UserModel
 {
 	/**
