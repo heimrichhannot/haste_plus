@@ -4,6 +4,11 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['MSC']['alias'] = array('Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.');
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE] = array('Autorentyp', 'Wählen Sie hier den Typ des Autoren aus.');
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_NONE] = 'Kein Autor';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] = 'Mitglied (Frontend)';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER] = 'Benutzer (Backend)';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR] = array('Autor', 'Dieses Feld beinhaltet den Autoren des Datensatzes.');
 
 /**
  * Date/time

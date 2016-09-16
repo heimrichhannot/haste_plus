@@ -18,6 +18,14 @@ use HeimrichHannot\Haste\Util\Files;
 
 class General extends \Backend
 {
+	const PROPERTY_SESSION_ID = 'sessionID';
+	const PROPERTY_AUTHOR = 'author';
+	const PROPERTY_AUTHOR_TYPE = 'authorType';
+
+	const AUTHOR_TYPE_NONE = 'none';
+	const AUTHOR_TYPE_MEMBER = 'member';
+	const AUTHOR_TYPE_USER = 'user';
+
 	/**
 	 * Adds a date added field to the dca and sets the appropriate callback
 	 * @param $strDca
@@ -412,7 +420,7 @@ class General extends \Backend
 	{
 		$strItemClass = \Model::getClassFromTable($strTable);
 
-		return $strItemClass::findByPk($intId);
+		return $strItemClass ? $strItemClass::findByPk($intId) : null;
 	}
 
 	/**
@@ -423,5 +431,131 @@ class General extends \Backend
 	public static function lowerCase($varValue, \DataContainer $objDc)
 	{
 		return trim(strtolower($varValue));
+	}
+
+	public static function setSessionIDOnCreate($strTable, $intId, $arrRow, \DataContainer $dc)
+	{
+		$objModel = static::getModelInstance($strTable, $intId);
+
+		if ($objModel === null || !\Database::getInstance()->fieldExists(static::PROPERTY_SESSION_ID, $strTable))
+		{
+			return false;
+		}
+
+		$objModel->sessionID = session_id();
+		$objModel->save();
+	}
+
+	public static function addSessionIDFieldAndCallback($strTable)
+	{
+		\Controller::loadDataContainer($strTable);
+
+		// callback
+		$GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] = array('HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate');
+
+		// field
+		$GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = array
+		(
+				'sql' => "varchar(128) NOT NULL default ''",
+		);
+	}
+
+	public static function addAuthorFieldAndCallback($strTable)
+	{
+		\Controller::loadDataContainer($strTable);
+
+		// callbacks
+		$GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setAuthorIDOnCreate'] =
+				array('HeimrichHannot\Haste\Dca\General', 'setAuthorIDOnCreate');
+		$GLOBALS['TL_DCA'][$strTable]['config']['onload_callback']['modifyAuthorPaletteOnLoad'] =
+				array('HeimrichHannot\Haste\Dca\General', 'modifyAuthorPaletteOnLoad', true);
+
+
+		// fields
+		$GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR_TYPE] = array
+		(
+			'label'     => &$GLOBALS['TL_LANG']['MSC']['haste_plus']['authorType'],
+			'exclude'   => true,
+			'filter'    => true,
+			'default'   => static::AUTHOR_TYPE_NONE,
+			'inputType' => 'select',
+			'options'   => array(
+					static::AUTHOR_TYPE_NONE,
+					static::AUTHOR_TYPE_MEMBER,
+					static::AUTHOR_TYPE_USER,
+			),
+			'reference' => $GLOBALS['TL_LANG']['MSC']['haste_plus']['authorType'],
+			'eval'      => array('doNotCopy' => true, 'submitOnChange' => true, 'mandatory' => true, 'tl_class' => 'w50 clr'),
+			'sql'       => "varchar(255) NOT NULL default 'none'",
+		);
+
+		$GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR] = array
+		(
+			'label'            => &$GLOBALS['TL_LANG']['MSC']['haste_plus']['author'],
+			'exclude'          => true,
+			'search'           => true,
+			'filter'           => true,
+			'inputType'        => 'select',
+			'options_callback' => array('HeimrichHannot\Haste\Dca\General', 'getMembersAsOptions'),
+			'eval'             => array(
+				'doNotCopy'          => true,
+				'chosen'             => true,
+				'includeBlankOption' => true,
+				'tl_class'           => 'w50',
+			),
+			'sql'              => "int(10) unsigned NOT NULL default '0'",
+		);
+	}
+
+	public static function setAuthorIDOnCreate($strTable, $intId, $arrRow, \DataContainer $dc)
+	{
+		$objModel = static::getModelInstance($strTable, $intId);
+
+		if ($objModel === null || !\Database::getInstance()->fieldExists(static::PROPERTY_SESSION_ID, $strTable))
+		{
+			return false;
+		}
+
+		if (TL_MODE == 'FE')
+		{
+			if (FE_USER_LOGGED_IN)
+			{
+				$objModel->{static::PROPERTY_AUTHOR_TYPE} = static::AUTHOR_TYPE_MEMBER;
+				$objModel->{static::PROPERTY_AUTHOR} = \FrontendUser::getInstance()->id;
+				$objModel->save();
+			}
+		}
+		else
+		{
+			$objModel->{static::PROPERTY_AUTHOR_TYPE} = static::AUTHOR_TYPE_USER;
+			$objModel->{static::PROPERTY_AUTHOR} = \BackendUser::getInstance()->id;
+			$objModel->save();
+		}
+	}
+
+	public static function modifyAuthorPaletteOnLoad(\DataContainer $objDc)
+	{
+		if (TL_MODE != 'BE')
+			return;
+
+		if ($objDc === null || !$objDc->id)
+			return false;
+
+		if(($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null)
+		{
+			return false;
+		}
+
+		$arrDca = &$GLOBALS['TL_DCA'][$objDc->table];
+
+		// author handling
+		if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_NONE)
+		{
+			unset($arrDca['fields']['author']);
+		}
+
+		if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_USER) {
+			$arrDca['fields']['author']['options_callback'] = array('HeimrichHannot\Haste\Dca\User', 'getUsersAsOptions');
+		}
 	}
 }
