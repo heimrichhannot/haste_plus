@@ -30,6 +30,16 @@ class Url extends \Haste\Util\Url
 		return \Environment::get('url') . parse_url(\Environment::get('uri'), PHP_URL_PATH);
 	}
 
+	public static function getCurrentUrl($blnIncludeRequestUri = true, $blnIncludeParameters = true)
+	{
+		$strUrl = \Environment::get('url') . ($blnIncludeRequestUri ? \Environment::get('requestUri') : '');
+
+		if (!$blnIncludeParameters)
+			$strUrl = static::removeAllParametersFromUri($strUrl);
+
+		return $strUrl;
+	}
+
 	public static function getUrl($includeRequestUri = true, $includeFragments = true, $includeParameters = true)
 	{
 		$strUrl = \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
