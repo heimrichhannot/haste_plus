@@ -31,6 +31,7 @@ class FormSubmission
 
 		$arrSubmissionData = array();
 		$arrRow = $objModel->row();
+		$arrSubmission = array();
 
 		foreach (array_keys($arrRow) as $strName)
 		{
@@ -72,9 +73,18 @@ class FormSubmission
 
 			if(in_array($strName, $arrFields) && !in_array($strName, $arrSkipFields))
 			{
-				$arrSubmissionData['submission'] .= $strSubmission;
+				$arrSubmission[$strName] = $strSubmission;
 			}
 		}
+
+		// order submission by arrFields
+		$strSubmissionAll = '';
+		foreach ($arrFields as $strName)
+		{
+			$strSubmissionAll .= $arrSubmission[$strName];
+		}
+
+		$arrSubmissionData['submission'] = $strSubmissionAll;
 
 		return $arrSubmissionData;
 	}
