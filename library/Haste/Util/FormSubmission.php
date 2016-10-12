@@ -32,10 +32,7 @@ class FormSubmission
 		$arrSubmissionData = array();
 		$arrRow = $objModel->row();
 
-		if (empty($arrFields))
-			$arrFields = array_keys($arrRow);
-
-		foreach ($arrFields as $strName)
+		foreach (array_keys($arrRow) as $strName)
 		{
 			$varValue = $arrRow[$strName];
 			if(empty($varValue)) continue;
