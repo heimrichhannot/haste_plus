@@ -9,6 +9,8 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROP
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] = 'Mitglied (Frontend)';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER] = 'Benutzer (Backend)';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR] = array('Autor', 'Dieses Feld beinhaltet den Autoren des Datensatzes.');
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID] = array('Session-ID', 'Dieses Feld beinhaltet die Session-ID des berechtigten Bearbeiters.');
+
 
 /**
  * Date/time

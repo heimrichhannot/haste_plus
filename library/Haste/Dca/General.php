@@ -456,7 +456,8 @@ class General extends \Backend
 		// field
 		$GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = array
 		(
-				'sql' => "varchar(128) NOT NULL default ''",
+            'label' => &$GLOBALS['TL_LANG']['MSC']['haste_plus'][static::PROPERTY_SESSION_ID],
+            'sql' => "varchar(128) NOT NULL default ''",
 		);
 	}
 
