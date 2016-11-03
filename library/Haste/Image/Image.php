@@ -17,6 +17,11 @@ class Image
 	public static function getBackgroundHtml($image, $width, $height, $mode='', $class='', $target=null, $force=false)
 	{
 		return '<span class="background' . ($class ? ' ' . $class : '') . '" style="display: block; background-image: url(' .
-			\Image::get($image, $width, $height, $mode, $target, $force) . ')"></span>';
+			static::get($image, $width, $height, $mode, $target, $force) . ')"></span>';
+	}
+
+	public static function get($image, $width, $height, $mode='', $target=null, $force=false)
+	{
+		return \Image::get(str_replace(\Environment::get('url'), '', $image), $width, $height, $mode, $target, $force);
 	}
 }
