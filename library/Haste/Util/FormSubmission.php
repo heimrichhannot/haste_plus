@@ -204,7 +204,11 @@ class FormSubmission
 			}
 		}
 
-		if ($strRegExp == 'date')
+		if ($arrData['inputType'] == 'explanation')
+        {
+            $varValue = $arrData['eval']['text'];
+        }
+		elseif ($strRegExp == 'date')
 		{
 			$varValue = \Date::parse(\Config::get('dateFormat'), $varValue);
 		}

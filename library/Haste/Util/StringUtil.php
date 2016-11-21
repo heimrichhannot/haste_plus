@@ -70,8 +70,8 @@ class StringUtil extends \Haste\Util\StringUtil
 
 	/**
 	 * Check for the occurrence at the start of the string
-	 * @param $haystack The string to search in
-	 * @param $needle The needle
+	 * @param $haystack string The string to search in
+	 * @param $needle string The needle
 	 *
 	 * @return bool
 	 */
