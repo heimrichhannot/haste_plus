@@ -166,6 +166,8 @@ class Files
         $strFileName = ltrim($strFileName, '-');
         $strFileName = rtrim($strFileName, '-');
 
+
+
         return substr($strFileName, 0, $maxCount - 1);
     }
 
@@ -176,5 +178,53 @@ class Files
         header('Connection: close');
         echo $strContent;
         die();
+    }
+
+    /**
+     * Get real folder from datacontainer attribute
+     *
+     * @param  mixed              $varFolder The folder as uuid, function, callback array('CLASS', 'method') or string (files/...)
+     * @param \DataContainer|null $dc        Optional \DataContainer, required for function and callback
+     *
+     * @return mixed|null The folder path or null
+     * @throws \Exception If ../ is part of the path
+     */
+    public static function getFolderFromDca($varFolder, \DataContainer $dc = null, $blnDoNotCreate = true)
+    {
+
+        // upload folder
+        if (is_array($varFolder) && $dc !== null)
+        {
+            $arrCallback = $varFolder;
+            $varFolder   = \System::importStatic($arrCallback[0])->$arrCallback[1]($dc);
+        }
+        elseif (is_callable($varFolder) && $dc !== null)
+        {
+            $strMethod = $varFolder;
+            $varFolder = $strMethod($dc);
+        }
+        else
+        {
+            if (strpos($varFolder, '../') !== false)
+            {
+                throw new \Exception("Invalid target path $varFolder");
+            }
+        }
+
+        if($varFolder instanceof \File)
+        {
+            $varFolder = $varFolder->value;
+        }
+        else if($varFolder instanceof \FilesModel)
+        {
+            $varFolder = $varFolder->path;
+        }
+
+        if (\Validator::isUuid($varFolder))
+        {
+            $varFolder = static::getFolderFromUuid($varFolder, $blnDoNotCreate);
+        }
+
+        return $varFolder;
     }
 }
