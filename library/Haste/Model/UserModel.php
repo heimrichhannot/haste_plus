@@ -62,4 +62,14 @@ class UserModel extends \Contao\UserModel
 
 		return static::findOneBy($arrColumns, $intId, $arrOptions);
 	}
+
+    public static function hasAccessToField($strTable, $strField)
+    {
+        if (($objUser = \BackendUser::getInstance()) === null || !is_array(\BackendUser::getInstance()->alexf))
+        {
+            return false;
+        }
+
+        return $objUser->isAdmin || in_array($strTable . '::' . $strField, \BackendUser::getInstance()->alexf);
+    }
 }
