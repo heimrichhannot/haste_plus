@@ -12,7 +12,7 @@ if (TL_MODE == 'BE')
 {
     array_insert($GLOBALS['TL_JAVASCRIPT'], 0, array(
         'jquery' => 'assets/jquery/core/' . $GLOBALS['TL_ASSETS']['JQUERY'] . '/jquery.min.js',
-        'jquery-noconflict' => 'system/modules/hast_plus/assets/js/jquery-noconflict.min.js'
+        'jquery-noconflict' => 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js'
     ));
 }
 
