@@ -16,6 +16,64 @@ class Files
 {
 
     /**
+     * Get a unique filename within given target folder, remove uniqid() suffix from file (optional, add $strPrefix) and append file count by name to file if
+     * file with same name already exists in target folder
+     *
+     * @param string $strTarget The target file path
+     * @param string $strPrefix A uniqid prefix from the given target file, that was added to the file before and should be removed again
+     * @param        $i         integer Internal counter for recursion usage or if you want to add the number to the file
+     *
+     * @return string | false The filename with the target folder and unique id or false if something went wrong (e.g. target does not exist)
+     */
+    public static function getUniqueFileNameWithinTarget($strTarget, $strPrefix = null, $i = 0)
+    {
+        $objFile = new \File($strTarget, true);
+
+        $strTarget = ltrim(str_replace(TL_ROOT, '', $strTarget), '/');
+        $strPath   = str_replace('.' . $objFile->extension, '', $strTarget);
+
+        if ($strPrefix && ($pos = strpos($strPath, $strPrefix)) !== false)
+        {
+            $strPath   = str_replace(substr($strPath, $pos, strlen($strPath)), '', $strPath);
+            $strTarget = $strPath . '.' . $objFile->extension;
+        }
+
+        // Create the parent folder
+        if (!file_exists($objFile->dirname))
+        {
+            $objFolder = new \Folder(ltrim(str_replace(TL_ROOT, '', $objFile->dirname), '/'));
+
+            // something went wrong with folder creation
+            if ($objFolder->getModel() === null)
+            {
+                return false;
+            }
+        }
+
+        if (file_exists(TL_ROOT . '/' . $strTarget))
+        {
+            // remove suffix
+            if ($i > 0 && StringUtil::endsWith($strPath, '_' . $i))
+            {
+                $strPath = rtrim($strPath, '_' . $i);
+            }
+
+            // increment counter & add extension again
+            $i++;
+
+            // for performance reasons, add new unique id to path to make recursion come to end after 100 iterations
+            if ($i > 100)
+            {
+                return static::getUniqueFileNameWithinTarget(static::addUniqIdToFilename($strPath . '.' . $objFile->extension, null, false));
+            }
+
+            return static::getUniqueFileNameWithinTarget($strPath . '_' . $i . '.' . $objFile->extension, $strPrefix, $i);
+        }
+
+        return $strTarget;
+    }
+
+    /**
      * Returns the file list for a given directory
      *
      * @param string $strDir           - the absolute local path to the directory (e.g. /dir/mydir)
@@ -154,21 +212,51 @@ class Files
         }
     }
 
-    public static function sanitizeFileName($strFileName, $maxCount = 64)
+    /**
+     * Add a unique identifier to a file name
+     *
+     * @param      $strFileName    The file name, can be with or without path
+     * @param null $strPrefix      Add a prefix to the unique identifier, with an empty prefix, the returned string will be 13 characters long.
+     * @param bool $blnMoreEntropy If set to TRUE, will add additional entropy (using the combined linear congruential generator) at the end of the
+     *                             return value, which increases the likelihood that the result will be unique.
+     *
+     * @return string Filename with imestamp based unique identifier
+     */
+    public static function addUniqIdToFilename($strFileName, $strPrefix = null, $blnMoreEntropy = true)
     {
-        $strFileName = strtolower($strFileName);
+        $objFile = new \File($strFileName, true);
 
-        // umlauts
-        $strFileName = str_replace(array('ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'), array('ae', 'oe', 'ue', 'ae', 'Oe', 'Ue', 'ss'), $strFileName);
+        $strDirectory = ltrim(str_replace(TL_ROOT, '', $objFile->dirname), '/');
 
-        $strFileName = preg_replace("@[^a-z0-9_-]@", '-', $strFileName);
-        $strFileName = preg_replace("@-+@", '-', $strFileName);
-        $strFileName = ltrim($strFileName, '-');
-        $strFileName = rtrim($strFileName, '-');
+        return ($strDirectory ? $strDirectory . '/' : '') . $objFile->filename . uniqid($strPrefix, $blnMoreEntropy) . ($objFile->extension ? '.'
+                                                                                                                                              . $objFile->extension : '');
+    }
 
+    /**
+     * Sanitize filename, and remove
+     *
+     * @param string  $strFileName          The file name, can be with or without path
+     * @param int     $maxCount             Max filename length
+     * @param boolean $blnPreserveUppercase Set to true if you want to lower case the file name
+     *
+     * @return string The sanitized filename
+     */
+    public static function sanitizeFileName($strFileName, $maxCount = 0, $blnPreserveUppercase = false)
+    {
+        $objFile = new \File($strFileName, true);
 
+        $strName = $objFile->filename;
 
-        return substr($strFileName, 0, $maxCount - 1);
+        $strName = standardize($strName, $blnPreserveUppercase);
+
+        if ($maxCount > 0)
+        {
+            $strName = substr($strName, 0, $maxCount - 1);
+        }
+
+        $strDirectory = ltrim(str_replace(TL_ROOT, '', $objFile->dirname), '/');
+
+        return ($strDirectory ? $strDirectory . '/' : '') . $strName . ($objFile->extension ? ('.' . strtolower($objFile->extension)) : '');
     }
 
     public static function sendTextAsFileToBrowser($strContent, $strFileName)
@@ -211,13 +299,16 @@ class Files
             }
         }
 
-        if($varFolder instanceof \File)
+        if ($varFolder instanceof \File)
         {
             $varFolder = $varFolder->value;
         }
-        else if($varFolder instanceof \FilesModel)
+        else
         {
-            $varFolder = $varFolder->path;
+            if ($varFolder instanceof \FilesModel)
+            {
+                $varFolder = $varFolder->path;
+            }
         }
 
         if (\Validator::isUuid($varFolder))
