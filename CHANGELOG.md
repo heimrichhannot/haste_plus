@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.5.6] - 2016-12-05
+
+### Added
+- General::getModelInstances()
+- General::getTableArchives()
+
 ## [1.5.5] - 2016-12-02
 
 ### Changed

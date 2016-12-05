@@ -465,6 +465,13 @@ class General extends \Backend
         return $strItemClass ? $strItemClass::findByPk($intId) : null;
     }
 
+    public static function getModelInstances($strTable, array $arrOptions = array())
+    {
+        $strItemClass = \Model::getClassFromTable($strTable);
+
+        return $strItemClass ? $strItemClass::findAll($arrOptions) : null;
+    }
+
     /**
      * Convenience method for lower casing in a save callback
      *
@@ -603,5 +610,18 @@ class General extends \Backend
         {
             $arrDca['fields']['author']['options_callback'] = array('HeimrichHannot\Haste\Dca\User', 'getUsersAsOptions');
         }
+    }
+
+    public static function getTableArchives($strChildTable, array $arrOptions = array())
+    {
+        \Controller::loadDataContainer($strChildTable);
+        \System::loadLanguageFile($strChildTable);
+
+        if (!isset($GLOBALS['TL_DCA'][$strChildTable]['config']['ptable']))
+        {
+            throw new \Exception('No parent table found for ' . $strChildTable);
+        }
+
+        return static::getModelInstances($GLOBALS['TL_DCA'][$strChildTable]['config']['ptable'], $arrOptions);
     }
 }
