@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2016-12-06
+
+### Changed
+- fixed phpfastcache 5 composer dependency
+
 ## [1.6.0] - 2016-12-05
 
 ### Changed
