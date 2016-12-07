@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.2] - 2016-12-07
+
+### Changed
+- added skipFields to General::getFields()
+
 ## [1.6.1] - 2016-12-06
 
 ### Changed

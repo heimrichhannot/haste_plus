@@ -374,8 +374,14 @@ class General extends \Backend
         return $arrDCA;
     }
 
-    public static function getFields($strTable, $blnLocalized = true, $varInputType = null, $arrEvalFilters = array(), $blnSort = true)
-    {
+    public static function getFields(
+        $strTable,
+        $blnLocalized = true,
+        $varInputType = null,
+        $arrEvalFilters = array(),
+        $blnSort = true,
+        array $arrSkipFields = array('id', 'tstamp', 'dateAdded', 'pid')
+    ) {
         \Controller::loadDataContainer($strTable);
         \System::loadLanguageFile($strTable);
 
@@ -383,6 +389,12 @@ class General extends \Backend
 
         foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData)
         {
+            // skip special fields
+            if (in_array($strField, $arrSkipFields))
+            {
+                continue;
+            }
+
             // input type
             if ($varInputType
                 && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType)
