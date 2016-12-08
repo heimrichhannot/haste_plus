@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.4] - 2016-12-08
+
+### Added
+- added foreignKey-support for FormSubmission::prepareSpecialValueForPrint()
+
 ## [1.6.3] - 2016-12-08
 
 ### Changed
