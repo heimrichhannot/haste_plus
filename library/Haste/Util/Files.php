@@ -313,7 +313,8 @@ class Files
 
         if (\Validator::isUuid($varFolder))
         {
-            $varFolder = static::getFolderFromUuid($varFolder, $blnDoNotCreate);
+        	$objFolder = static::getFolderFromUuid($varFolder, $blnDoNotCreate);
+            $varFolder = $objFolder->value;
         }
 
         return $varFolder;

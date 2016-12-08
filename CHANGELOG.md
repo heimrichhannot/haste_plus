@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.3] - 2016-12-08
+
+### Changed
+- Files::getFolderFromDca uuid fix, now return correct folder path if varValue is uuid
+
 ## [1.6.2] - 2016-12-07
 
 ### Changed
