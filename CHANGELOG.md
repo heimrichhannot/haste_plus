@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.5] - 2016-12-08
+
+### Fixed
+- fixed static call error in StringUtil::str_replace_once()
+
 ## [1.6.4] - 2016-12-08
 
 ### Added

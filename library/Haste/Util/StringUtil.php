@@ -220,7 +220,7 @@ class StringUtil extends \Haste\Util\StringUtil
 		return $strCharList[rand(0, strlen($strCharList) - 1)];
 	}
 
-	private function str_replace_once($search, $replace, $text)
+	private static function str_replace_once($search, $replace, $text)
 	{
 		$pos = strpos($text, $search);
 		return $pos!==false ? substr_replace($text, $replace, $pos, strlen($search)) : $text;
