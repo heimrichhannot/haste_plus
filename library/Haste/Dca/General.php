@@ -470,6 +470,26 @@ class General extends \Backend
         }
     }
 
+    public static function getArchiveModalEditLink($strModule, $intId, $strTable, $strLabel = null)
+    {
+        if ($intId)
+        {
+            $strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
+
+            return sprintf(
+                ' <a href="contao/main.php?do=%s&amp;id=%s&amp;table=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
+                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                $strModule,
+                $intId,
+                $strTable,
+                \RequestToken::get(),
+                $strLabel,
+                $strLabel,
+                \Image::getHtml('alias.gif', $strLabel, 'style="vertical-align:top"')
+            );
+        }
+    }
+
     public static function getModelInstance($strTable, $intId)
     {
         $strItemClass = \Model::getClassFromTable($strTable);

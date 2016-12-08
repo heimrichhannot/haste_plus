@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.6] - 2016-12-08
+
+### Added
+- General::getArchiveModalEditLink()
+
 ## [1.6.5] - 2016-12-08
 
 ### Fixed
