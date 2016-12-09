@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.7] - 2016-12-09
+
+### Added
+- StringUtil::camelCaseToDashed()
+
 ## [1.6.6] - 2016-12-08
 
 ### Added
