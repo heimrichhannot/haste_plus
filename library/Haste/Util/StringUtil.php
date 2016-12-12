@@ -63,6 +63,11 @@ class StringUtil extends \Haste\Util\StringUtil
         return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $strValue));
     }
 
+    public static function camelCaseToUnderscore($strValue)
+    {
+        return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1_', $strValue));
+    }
+
     public static function preg_replace_last($strRegExp, $strSubject)
     {
         if (!$strRegExp)

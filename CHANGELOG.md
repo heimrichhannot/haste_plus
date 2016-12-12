@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.8] - 2016-12-12
+
+### Added
+- Widget class
+
+### Fixed
+- QueryHelper
+
 ## [1.6.7] - 2016-12-09
 
 ### Added
