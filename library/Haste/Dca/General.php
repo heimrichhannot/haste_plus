@@ -656,4 +656,12 @@ class General extends \Backend
 
         return static::getModelInstances($GLOBALS['TL_DCA'][$strChildTable]['config']['ptable'], $arrOptions);
     }
+
+    public static function getLocalizedFieldname($strField, $strTable)
+    {
+        \Controller::loadDataContainer($strTable);
+        \System::loadLanguageFile($strTable);
+
+        return $GLOBALS['TL_DCA'][$strTable]['fields'][$strField]['label'][0] ?: $strField;
+    }
 }
