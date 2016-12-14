@@ -23,10 +23,12 @@ class Model extends \Contao\Model
      */
     public static function setDefaultsFromDca(\Model $objModel)
     {
-        \Controller::loadDataContainer($objModel->table);
+        $strTable = $objModel->getTable();
+
+        \Controller::loadDataContainer($strTable);
 
         // Get all default values for the new entry
-        foreach ($GLOBALS['TL_DCA'][$objModel->table]['fields'] as $k => $v)
+        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $k => $v)
         {
             // Use array_key_exists here (see #5252)
             if (array_key_exists('default', $v))
@@ -34,7 +36,7 @@ class Model extends \Contao\Model
                 $objModel->{$k} = is_array($v['default']) ? serialize($v['default']) : $v['default'];
 
                 // Encrypt the default value (see #3740)
-                if ($GLOBALS['TL_DCA'][$objModel->table]['fields'][$k]['eval']['encrypt'])
+                if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
                 {
                     $objModel->{$k} = \Encryption::encrypt($objModel->{$k});
                 }
