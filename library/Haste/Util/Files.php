@@ -16,8 +16,8 @@ class Files
 {
 
     /**
-     * Get a unique filename within given target folder, remove uniqid() suffix from file (optional, add $strPrefix) and append file count by name to file if
-     * file with same name already exists in target folder
+     * Get a unique filename within given target folder, remove uniqid() suffix from file (optional, add $strPrefix) and append file count by name to
+     * file if file with same name already exists in target folder
      *
      * @param string $strTarget The target file path
      * @param string $strPrefix A uniqid prefix from the given target file, that was added to the file before and should be removed again
@@ -106,7 +106,8 @@ class Files
                         $arrFile['absUrl'] = str_replace('\\', '/', str_replace('//', '', $baseUrl . '/' . $strFile));
                     }
                     $arrFile['path']     = str_replace($arrFile['filename'], '', $arrFile['absUrl']);
-                    $arrFile['filesize'] = self::formatSizeUnits(filesize(str_replace('\\', '/', str_replace('//', '', $strDir . '/' . $strFile))), true);
+                    $arrFile['filesize'] =
+                        self::formatSizeUnits(filesize(str_replace('\\', '/', str_replace('//', '', $strDir . '/' . $strFile))), true);
 
                     $arrResult[] = $arrFile;
                 }
@@ -313,10 +314,26 @@ class Files
 
         if (\Validator::isUuid($varFolder))
         {
-        	$objFolder = static::getFolderFromUuid($varFolder, $blnDoNotCreate);
+            $objFolder = static::getFolderFromUuid($varFolder, $blnDoNotCreate);
             $varFolder = $objFolder->value;
         }
 
         return $varFolder;
+    }
+
+    public static function getFileLineCount($strFile)
+    {
+        $intCount = 0;
+        $objHandle = fopen(TL_ROOT . '/' . ltrim(str_replace(TL_ROOT, '', $strFile), '/'), 'r');
+
+        while (!feof($objHandle))
+        {
+            $line = fgets($objHandle);
+            $intCount++;
+        }
+
+        fclose($objHandle);
+
+        return $intCount;
     }
 }

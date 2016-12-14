@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.10] - 2016-12-14
+
+### Added
+- Files::getFileLineCount()
+
 ## [1.6.9] - 2016-12-12
 
 ### Added
