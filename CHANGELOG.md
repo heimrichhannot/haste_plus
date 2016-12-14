@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.11] - 2016-12-14
+
+### Added
+- Model::setDefaultsFromDca()
+
 ## [1.6.10] - 2016-12-14
 
 ### Added

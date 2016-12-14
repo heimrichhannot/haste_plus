@@ -14,69 +14,100 @@ namespace HeimrichHannot\Haste\Model;
 class Model extends \Contao\Model
 {
 
-	/**
-	 * Remove a model from a collection
-	 *
-	 * @param \Model                 $objModel
-	 * @param \Model\Collection|null $objCollection
-	 *
-	 * @return \Model\Collection|null
-	 */
-	public static function removeModelFromCollection(\Model $objModel, \Model\Collection $objCollection = null)
-	{
-		$arrRegistered = array();
+    /**
+     * Set the entity defaults from dca config (for new model entry)
+     *
+     * @param \Model $objModel
+     *
+     * @return \Model The modified model, containing the default values from all dca fields
+     */
+    public static function setDefaultsFromDca(\Model $objModel)
+    {
+        \Controller::loadDataContainer($objModel->table);
 
-		if ($objCollection !== null)
-		{
-			while ($objCollection->next())
-			{
-				if ($objCollection->getTable() !== $objModel->getTable)
-				{
-					return $objCollection;
-				}
+        // Get all default values for the new entry
+        foreach ($GLOBALS['TL_DCA'][$objModel->table]['fields'] as $k => $v)
+        {
+            // Use array_key_exists here (see #5252)
+            if (array_key_exists('default', $v))
+            {
+                $objModel->{$k} = is_array($v['default']) ? serialize($v['default']) : $v['default'];
 
-				$intId = $objCollection->{$objModel::getPk()};
+                // Encrypt the default value (see #3740)
+                if ($GLOBALS['TL_DCA'][$objModel->table]['fields'][$k]['eval']['encrypt'])
+                {
+                    $objModel->{$k} = \Encryption::encrypt($objModel->{$k});
+                }
+            }
+        }
 
-				if ($objModel->{$objModel::getPk()} == $intId)
-				{
-					continue;
-				}
+        return $objModel;
+    }
 
-				$arrRegistered[$intId] = $objCollection->current();
-			}
-		}
 
-		return static::createCollection(array_filter(array_values($arrRegistered)), $objModel->getTable());
-	}
+    /**
+     * Remove a model from a collection
+     *
+     * @param \Model                 $objModel
+     * @param \Model\Collection|null $objCollection
+     *
+     * @return \Model\Collection|null
+     */
+    public static function removeModelFromCollection(\Model $objModel, \Model\Collection $objCollection = null)
+    {
+        $arrRegistered = array();
 
-	/**
-	 * Add a model to a collection
-	 *
-	 * @param \Model                 $objModel
-	 * @param \Model\Collection|null $objCollection
-	 *
-	 * @return \Model\Collection|null
-	 */
-	public static function addModelToCollection(\Model $objModel, \Model\Collection $objCollection = null)
-	{
-		$arrRegistered = array();
+        if ($objCollection !== null)
+        {
+            while ($objCollection->next())
+            {
+                if ($objCollection->getTable() !== $objModel->getTable)
+                {
+                    return $objCollection;
+                }
 
-		if ($objCollection !== null)
-		{
-			while ($objCollection->next())
-			{
-				if ($objCollection->getTable() !== $objModel->getTable)
-				{
-					return $objCollection;
-				}
+                $intId = $objCollection->{$objModel::getPk()};
 
-				$intId                 = $objCollection->{$objModel::getPk()};
-				$arrRegistered[$intId] = $objCollection->current();
-			}
-		}
+                if ($objModel->{$objModel::getPk()} == $intId)
+                {
+                    continue;
+                }
 
-		$arrRegistered[$objModel->{$objModel::getPk()}] = $objModel;
+                $arrRegistered[$intId] = $objCollection->current();
+            }
+        }
 
-		return static::createCollection(array_filter(array_values($arrRegistered)), $objModel->getTable());
-	}
+        return static::createCollection(array_filter(array_values($arrRegistered)), $objModel->getTable());
+    }
+
+    /**
+     * Add a model to a collection
+     *
+     * @param \Model                 $objModel
+     * @param \Model\Collection|null $objCollection
+     *
+     * @return \Model\Collection|null
+     */
+    public static function addModelToCollection(\Model $objModel, \Model\Collection $objCollection = null)
+    {
+        $arrRegistered = array();
+
+        if ($objCollection !== null)
+        {
+            while ($objCollection->next())
+            {
+                if ($objCollection->getTable() !== $objModel->getTable)
+                {
+                    return $objCollection;
+                }
+
+                $intId                 = $objCollection->{$objModel::getPk()};
+                $arrRegistered[$intId] = $objCollection->current();
+            }
+        }
+
+        $arrRegistered[$objModel->{$objModel::getPk()}] = $objModel;
+
+        return static::createCollection(array_filter(array_values($arrRegistered)), $objModel->getTable());
+    }
 }
