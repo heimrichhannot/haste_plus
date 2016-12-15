@@ -218,7 +218,7 @@ class FormSubmission
         }
 
         // foreignKey
-        if (isset($arrData['foreignKey']))
+        if (isset($arrData['foreignKey']) && !is_array($varValue))
         {
             list($strForeignTable, $strForeignField) = explode('.', $arrData['foreignKey']);
 

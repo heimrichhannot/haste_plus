@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.13] - 2016-12-15
+
+### Changed
+- FormSubmission::prepareSpecialValueForPrint, check that varValue is no array
 
 ## [1.6.12] - 2016-12-15
 
