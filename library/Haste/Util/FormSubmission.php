@@ -43,10 +43,6 @@ class FormSubmission
         foreach (array_keys($arrRow) as $strName)
         {
             $varValue = $arrRow[$strName];
-            if (empty($varValue))
-            {
-                continue;
-            }
 
             $arrData = $arrDca['fields'][$strName];
 
@@ -105,6 +101,7 @@ class FormSubmission
 
     public static function prepareDataField($strName, $varValue, $arrData, $strTable, $objDc)
     {
+        $strSubmission = '';
         $strLabel = isset($arrData['label'][0]) ? $arrData['label'][0] : $strName;
 
         $strOutput = static::prepareSpecialValueForPrint($varValue, $arrData, $strTable ?: 'tl_submission', $objDc);
@@ -120,7 +117,10 @@ class FormSubmission
             $varValue = implode(', ', $varValue);
         }
 
-        $strSubmission = $strLabel . ": " . $strOutput . "\n";
+        if (!empty($varValue))
+        {
+            $strSubmission = $strLabel . ": " . $strOutput . "\n";
+        }
 
         return array('value' => $varValue, 'output' => $strOutput, 'submission' => $strSubmission);
     }

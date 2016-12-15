@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+
+## [1.6.12] - 2016-12-15
+
+### Changed
+- FormSubmission::prepareData will now add all fields (also empty) to $arrSubmissionData. Otherwise `##form_submission_*##` tokens that are not present within token array, will stay in notification center e-mails. If the field is empty, `##form_submission_*##` will be replaced with an empty string, field label wont be added.
+
 ## [1.6.11] - 2016-12-14
 
 ### Added
