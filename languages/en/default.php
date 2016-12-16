@@ -80,6 +80,12 @@ $GLOBALS['TL_LANG']['MSC']['operators']['in'] = 'in';
 $GLOBALS['TL_LANG']['MSC']['operators']['notin'] = 'not in';
 
 /**
+ * Errors
+ */
+$GLOBALS['TL_LANG']['ERR']['posFloat']['commaFound'] = 'Invalid character found: comma. Please use a dot instead.';
+$GLOBALS['TL_LANG']['ERR']['posFloat']['noFloat'] = 'Please enter a positive floating point number (with dot instead of comma).';
+
+/**
  * Misc
  */
 $GLOBALS['TL_LANG']['MSC']['yes'] = 'Yes';

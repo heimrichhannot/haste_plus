@@ -95,6 +95,12 @@ $GLOBALS['TL_LANG']['MSC']['connectives'] = array(
 );
 
 /**
+ * Errors
+ */
+$GLOBALS['TL_LANG']['ERR']['posFloat']['commaFound'] = 'Ungültiges Zeichen gefunden: Komma. Bitte verwenden Sie stattdessen einen Punkt als Trennzeichen.';
+$GLOBALS['TL_LANG']['ERR']['posFloat']['noFloat']    = 'Bitte geben Sie eine positive Gleitkommazahl (mit Punkt statt Komma) ein.';
+
+/**
  * Misc
  */
 $GLOBALS['TL_LANG']['MSC']['yes'] = 'Ja';

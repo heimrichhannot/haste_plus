@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.14] - 2016-12-16
+
+### Added
+- Added new eval rgxp `posfloat`
+
 ## [1.6.13] - 2016-12-15
 
 ### Changed
