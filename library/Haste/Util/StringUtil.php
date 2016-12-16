@@ -35,7 +35,7 @@ class StringUtil extends \Haste\Util\StringUtil
             return $strEmail;
         }
 
-        return $strEmail . ' <' . $strName . '>';
+        return $strName . ' <' . $strEmail . '>';
     }
 
     /**
