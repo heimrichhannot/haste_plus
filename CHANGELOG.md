@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.15] - 2016-12-16
+
+### Added
+- Stringutil::generateEmailWithName()
+
 ## [1.6.14] - 2016-12-16
 
 ### Added

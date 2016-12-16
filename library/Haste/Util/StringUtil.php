@@ -21,6 +21,23 @@ class StringUtil extends \Haste\Util\StringUtil
     const NUMBERS                      = '0123456789';
     const NUMBERS_NONAMBIGUOUS         = '23456789';
 
+	/**
+     * Create string like `John Smith <john.smith@example.org>` from email an name
+     * @param        $strEmail A valid email
+     * @param string $strName A sender name
+     *
+     * @return string `John Smith <john.smith@example.org>.` or the email if no name was given. Use htmlentities() for frontend presentation!
+     */
+    public static function generateEmailWithName($strEmail, $strName = '')
+    {
+        if (!$strName)
+        {
+            return $strEmail;
+        }
+
+        return $strEmail . ' <' . $strName . '>';
+    }
+
     /**
      * Strip tags from text and truncate if needed
      *
