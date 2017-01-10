@@ -12,6 +12,8 @@
 namespace HeimrichHannot\Haste\Util;
 
 
+use Html2Text\Html2Text;
+
 class StringUtil extends \Haste\Util\StringUtil
 {
     const CAPITAL_LETTERS              = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -21,10 +23,28 @@ class StringUtil extends \Haste\Util\StringUtil
     const NUMBERS                      = '0123456789';
     const NUMBERS_NONAMBIGUOUS         = '23456789';
 
-	/**
+
+    /**
+     * Convert html 2 text with Html2Text\Html2Text
+     * @param       $strHtml The html
+     * @param array $arrOptions Html2Text\Html2Text options
+     *
+     * @return mixed The converted text, ready for mail delivery for example
+     */
+    public static function html2Text($strHtml, $arrOptions = array())
+    {
+        $strHtml      = str_replace("\n", "", $strHtml); // remove white spaces from html
+        $strHtml      = str_replace("</p>", "<br /></p>", $strHtml); // Html2Text will replace paragraph by only one break
+        $objConverter = new Html2Text($strHtml, $arrOptions);
+
+        return $objConverter->getText();
+    }
+
+    /**
      * Create string like `John Smith <john.smith@example.org>` from email an name
+     *
      * @param        $strEmail A valid email
-     * @param string $strName A sender name
+     * @param string $strName  A sender name
      *
      * @return string `John Smith <john.smith@example.org>.` or the email if no name was given. Use htmlentities() for frontend presentation!
      */

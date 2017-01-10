@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.16] - 2017-01-10
+
+###Added
+- StringUtil::html2Text()
+
+### Added
+- Stringutil::generateEmailWithName()
+
 ## [1.6.15] - 2016-12-16
 
 ### Added

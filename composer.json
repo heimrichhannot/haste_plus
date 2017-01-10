@@ -1,43 +1,49 @@
 {
-    "name": "heimrichhannot/contao-haste_plus",
-    "description":"An extension for the contao haste module.",
-    "keywords":["contao", "form", "module", "developer"],
-    "type": "contao-module",
-    "homepage":"https://github.com/heimrichhannot/contao-haste_plus",
-    "license":"LGPL-3.0+",
-    "authors":[
-        {
-            "name":"Heimrich & Hannot",
-            "email":"digitales@heimrich-hannot.de",
-            "homepage":"http://www.heimrich-hannot.de",
-            "role":"Developer"
-        }
-    ],
-    "support":{
-        "issues":"https://github.com/heimrichhannot/contao-haste_plus/issues"
-    },
-    "require": {
-        "contao/core": ">=3.2,<4-dev",
-        "codefog/contao-haste": ">=4.10,<5-dev",
-        "tijsverkoyen/css-to-inline-styles": "~1.5",
-        "phpFastCache/phpFastCache":"^5.0",
-		"roderik/pwgen-php": ">=0.1.5"
-    },
-    "suggest": {
-        "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*"
-    },
-    "autoload": {
-        "psr-0": {
-            "HeimrichHannot\\Haste\\": [
-                "library/"
-            ]
-        }
-    },
-    "extra": {
-        "contao": {
-            "sources": {
-                "": "system/modules/haste_plus"
-            }
-        }
+  "name": "heimrichhannot/contao-haste_plus",
+  "description": "An extension for the contao haste module.",
+  "keywords": [
+    "contao",
+    "form",
+    "module",
+    "developer"
+  ],
+  "type": "contao-module",
+  "homepage": "https://github.com/heimrichhannot/contao-haste_plus",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "Heimrich & Hannot",
+      "email": "digitales@heimrich-hannot.de",
+      "homepage": "http://www.heimrich-hannot.de",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/heimrichhannot/contao-haste_plus/issues"
+  },
+  "require": {
+    "contao/core": ">=3.2,<4-dev",
+    "codefog/contao-haste": ">=4.10,<5-dev",
+    "tijsverkoyen/css-to-inline-styles": "~1.5",
+    "phpFastCache/phpFastCache": "^5.0",
+    "roderik/pwgen-php": ">=0.1.5",
+    "html2text/html2text": "~4.0"
+  },
+  "suggest": {
+    "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "HeimrichHannot\\Haste\\": [
+        "library/"
+      ]
+    }
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "": "system/modules/haste_plus"
+      }
+    }
+  }
 }
