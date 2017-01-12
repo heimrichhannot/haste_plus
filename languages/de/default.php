@@ -20,6 +20,18 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROP
 
 
 /**
+ * Salutations
+ */
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationFemale'] = 'Sehr geehrte Frau';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationMale'] = 'Sehr geehrter Herr';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'] = 'Sehr geehrte Damen und Herren';
+
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] = 'Hallo';
+
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderMale'] = 'Herr';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFemale'] = 'Frau';
+
+/**
  * Date/time
  */
 $GLOBALS['TL_LANG']['MSC']['datediff']['just_now']    = 'Gerade eben';

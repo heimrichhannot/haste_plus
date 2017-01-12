@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.17] - 2017-01-12
+
+###Added
+- Salutations
+
 ## [1.6.16] - 2017-01-10
 
 ###Added

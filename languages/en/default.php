@@ -12,6 +12,17 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROP
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID] = array('Session-ID', 'This field contains the session ID of the allowed editor.');
 
 /**
+ * Salutations
+ */
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] = 'Dear';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationMale'] = 'Dear Mr.';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationFemale'] = 'Dear Mrs.';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'] = 'Dear Sir or Madam';
+
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderMale'] = 'Mr.';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFemale'] = 'Mrs.';
+
+/**
  * Date/time
  */
 $GLOBALS['TL_LANG']['MSC']['datediff']['just_now'] = 'Just now';
