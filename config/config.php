@@ -52,8 +52,8 @@ if (TL_MODE == 'FE')
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders');
-$GLOBALS['TL_HOOKS']['addCustomRegexp'][]  = array('\\HeimrichHannot\\Haste\\Util\\Numbers', 'positiveFloatRegExpHook');
+$GLOBALS['TL_HOOKS']['modifyFrontendPage'][] = array('\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders');
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][]    = array('\\HeimrichHannot\\Haste\\Util\\Numbers', 'positiveFloatRegExpHook');
 
 
 /**
