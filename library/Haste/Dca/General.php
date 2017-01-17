@@ -26,6 +26,85 @@ class General extends \Backend
     const AUTHOR_TYPE_MEMBER = 'member';
     const AUTHOR_TYPE_USER   = 'user';
 
+    public static function addOverridableFields($arrFields, $strSourceTable, $strDestinationTable)
+    {
+        \Controller::loadDataContainer($strSourceTable);
+        \System::loadLanguageFile($strSourceTable);
+        $arrSourceDca = $GLOBALS['TL_DCA'][$strSourceTable];
+
+        \Controller::loadDataContainer($strDestinationTable);
+        \System::loadLanguageFile($strDestinationTable);
+        $arrDestinationDca = &$GLOBALS['TL_DCA'][$strDestinationTable];
+
+        foreach ($arrFields as $strField)
+        {
+            // add override boolean field
+            $strOverrideFieldName = 'override' . ucfirst($strField);
+
+            $arrDestinationDca['fields'][$strOverrideFieldName] = [
+                'label'     => &$GLOBALS['TL_LANG'][$strDestinationTable][$strOverrideFieldName],
+                'exclude'   => true,
+                'inputType' => 'checkbox',
+                'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
+                'sql'       => "char(1) NOT NULL default ''",
+            ];
+
+            $arrDestinationDca['palettes']['__selector__'][] = $strOverrideFieldName;
+
+            // copy field
+            $arrDestinationDca['fields'][$strField] = $arrSourceDca['fields'][$strField];
+
+            // subpalette
+            $arrDestinationDca['subpalettes'][$strOverrideFieldName] = $strField;
+        }
+    }
+
+    /**
+     * Retrieves a property of given contao model instances by *ascending* priority, i.e. the last instance of $arrInstances
+     * will have the highest priority.
+     *
+     * CAUTION: This function assumes that you have used addOverridableFields() in this class!! That means, that a value in a
+     * model instance is only used if it's either the first instance in $arrInstances or "overrideFieldname" is set to true
+     * in the instance.
+     *
+     * @param string $strProperty  The property name to retrieve
+     * @param array  $arrInstances An array of instances in ascending priority. Instances can be passed in the following form:
+     *                             ['tl_some_table', $intInstanceId] or $objInstance
+     *
+     * @return mixed
+     */
+    public static function getOverridableProperty($strProperty, array $arrInstances)
+    {
+        $varResult = null;
+        $arrPreparedInstances = [];
+
+        // prepare instances
+        foreach ($arrInstances as $varInstance)
+        {
+            if (is_array($varInstance))
+            {
+                if (($objInstance = static::getModelInstance($varInstance[0], $varInstance[1])) !== null)
+                {
+                    $arrPreparedInstances[] = $objInstance;
+                }
+            }
+            elseif ($varInstance instanceof \Model)
+            {
+                $arrPreparedInstances[] = $varInstance;
+            }
+        }
+
+        foreach ($arrPreparedInstances as $i => $objInstance)
+        {
+            if ($i == 0 || $objInstance->{'override' . ucfirst($strProperty)})
+            {
+                $varResult = $objInstance->{$strProperty};
+            }
+        }
+
+        return $varResult;
+    }
+
     /**
      * Adds a date added field to the dca and sets the appropriate callback
      *
@@ -206,9 +285,9 @@ class General extends \Backend
         }
 
         // Add the button
-        $arrButtons['alias'] =
-            '<input type="submit" name="alias" id="alias" class="tl_submit" accesskey="a" value="' . specialchars($GLOBALS['TL_LANG']['MSC']['aliasSelected'])
-            . '"> ';
+        $arrButtons['alias'] = '<input type="submit" name="alias" id="alias" class="tl_submit" accesskey="a" value="' . specialchars(
+                $GLOBALS['TL_LANG']['MSC']['aliasSelected']
+            ) . '"> ';
 
         return $arrButtons;
     }
@@ -397,7 +476,8 @@ class General extends \Backend
 
             // input type
             if ($varInputType
-                && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType)
+                && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType)
+                    : $arrData['inputType'] != $varInputType)
             )
             {
                 continue;
@@ -458,7 +538,8 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s'
+                . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 ($strTable ? '&amp;table=' . $strTable : ''),
@@ -478,7 +559,8 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;id=%s&amp;table=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s'
+                . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 $strTable,
@@ -533,7 +615,8 @@ class General extends \Backend
         \Controller::loadDataContainer($strTable);
 
         // callback
-        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] = array('HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate');
+        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] =
+            array('HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate');
 
         // field
         $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = array(
