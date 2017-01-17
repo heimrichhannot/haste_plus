@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.19] - 2017-01-17
+
+### Added
+- General::addOverridableFields() and General::getOverridableProperty()
+
 ## [1.6.18] - 2017-01-17
 
 ### Changed
@@ -8,12 +13,12 @@ All notable changes to this project will be documented in this file.
 
 ## [1.6.17] - 2017-01-12
 
-###Added
+### Added
 - Salutations
 
 ## [1.6.16] - 2017-01-10
 
-###Added
+### Added
 - StringUtil::html2Text()
 
 ### Added
