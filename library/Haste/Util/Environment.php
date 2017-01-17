@@ -19,7 +19,7 @@ class Environment
 	 */
 	public static function getAvailableOrigins()
 	{
-		$arrOrigins = array();
+		$arrOrigins = [];
 
 		if(!\Config::get('bypassCache'))
 		{

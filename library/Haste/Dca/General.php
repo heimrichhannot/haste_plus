@@ -116,7 +116,7 @@ class General extends \Backend
 
         $arrDca = &$GLOBALS['TL_DCA'][$strDca];
 
-        $arrDca['config']['onload_callback']['setDateAdded'] = array('HeimrichHannot\Haste\Dca\General', 'setDateAdded', true);
+        $arrDca['config']['onload_callback']['setDateAdded'] = ['HeimrichHannot\Haste\Dca\General', 'setDateAdded', true];
 
         $arrDca['fields']['dateAdded'] = static::getDateAddedField();
     }
@@ -154,12 +154,12 @@ class General extends \Backend
      */
     public static function getDateAddedField()
     {
-        return array(
+        return [
             'label'   => &$GLOBALS['TL_LANG']['MSC']['dateAdded'],
             'sorting' => true,
-            'eval'    => array('rgxp' => 'datim', 'doNotCopy' => true),
+            'eval'    => ['rgxp' => 'datim', 'doNotCopy' => true],
             'sql'     => "int(10) unsigned NOT NULL default '0'",
-        );
+        ];
     }
 
     /**
@@ -170,7 +170,7 @@ class General extends \Backend
      * @param       $strPaletteField          String The field after which to insert the alias field in the palettes
      * @param array $arrPalettes              The palettes in which to insert the field
      */
-    public static function addAliasToDca($strDca, array $arrGenerateAliasCallback, $strPaletteField, $arrPalettes = array('default'))
+    public static function addAliasToDca($strDca, array $arrGenerateAliasCallback, $strPaletteField, $arrPalettes = ['default'])
     {
         \Controller::loadDataContainer($strDca);
 
@@ -193,15 +193,15 @@ class General extends \Backend
      */
     public static function getAliasField(array $arrGenerateAliasCallback)
     {
-        return array(
+        return [
             'label'         => &$GLOBALS['TL_LANG']['MSC']['alias'],
             'exclude'       => true,
             'search'        => true,
             'inputType'     => 'text',
-            'eval'          => array('rgxp' => 'alias', 'unique' => true, 'maxlength' => 128, 'tl_class' => 'w50'),
-            'save_callback' => array($arrGenerateAliasCallback),
+            'eval'          => ['rgxp' => 'alias', 'unique' => true, 'maxlength' => 128, 'tl_class' => 'w50'],
+            'save_callback' => [$arrGenerateAliasCallback],
             'sql'           => "varchar(128) COLLATE utf8_bin NOT NULL default ''",
-        );
+        ];
     }
 
     /**
@@ -213,9 +213,9 @@ class General extends \Backend
     {
         \Controller::loadDataContainer($strTable);
 
-        $GLOBALS['TL_DCA'][$strTable]['select']['buttons_callback'] = array(
-            array('HeimrichHannot\Haste\Dca\General', 'doAddAliasButton'),
-        );
+        $GLOBALS['TL_DCA'][$strTable]['select']['buttons_callback'] = [
+            ['HeimrichHannot\Haste\Dca\General', 'doAddAliasButton'],
+        ];
     }
 
     /**
@@ -422,7 +422,7 @@ class General extends \Backend
 
     public static function getDataContainers()
     {
-        $arrDCA = array();
+        $arrDCA = [];
 
         $arrModules = \ModuleLoader::getActive();
 
@@ -457,14 +457,14 @@ class General extends \Backend
         $strTable,
         $blnLocalized = true,
         $varInputType = null,
-        $arrEvalFilters = array(),
+        $arrEvalFilters = [],
         $blnSort = true,
-        array $arrSkipFields = array('id', 'tstamp', 'dateAdded', 'pid')
+        array $arrSkipFields = ['id', 'tstamp', 'dateAdded', 'pid']
     ) {
         \Controller::loadDataContainer($strTable);
         \System::loadLanguageFile($strTable);
 
-        $arrOptions = array();
+        $arrOptions = [];
 
         foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData)
         {
@@ -579,7 +579,7 @@ class General extends \Backend
         return $strItemClass ? $strItemClass::findByPk($intId) : null;
     }
 
-    public static function getModelInstances($strTable, array $arrOptions = array())
+    public static function getModelInstances($strTable, array $arrOptions = [])
     {
         $strItemClass = \Model::getClassFromTable($strTable);
 
@@ -616,13 +616,13 @@ class General extends \Backend
 
         // callback
         $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] =
-            array('HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate');
+            ['HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate'];
 
         // field
-        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = array(
+        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = [
             'label' => &$GLOBALS['TL_LANG']['MSC']['haste_plus'][static::PROPERTY_SESSION_ID],
             'sql'   => "varchar(128) NOT NULL default ''",
-        );
+        ];
     }
 
     public static function addAuthorFieldAndCallback($strTable)
@@ -631,43 +631,43 @@ class General extends \Backend
 
         // callbacks
         $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setAuthorIDOnCreate']     =
-            array('HeimrichHannot\Haste\Dca\General', 'setAuthorIDOnCreate');
+            ['HeimrichHannot\Haste\Dca\General', 'setAuthorIDOnCreate'];
         $GLOBALS['TL_DCA'][$strTable]['config']['onload_callback']['modifyAuthorPaletteOnLoad'] =
-            array('HeimrichHannot\Haste\Dca\General', 'modifyAuthorPaletteOnLoad', true);
+            ['HeimrichHannot\Haste\Dca\General', 'modifyAuthorPaletteOnLoad', true];
 
 
         // fields
-        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR_TYPE] = array(
+        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR_TYPE] = [
             'label'     => &$GLOBALS['TL_LANG']['MSC']['haste_plus']['authorType'],
             'exclude'   => true,
             'filter'    => true,
             'default'   => static::AUTHOR_TYPE_NONE,
             'inputType' => 'select',
-            'options'   => array(
+            'options'   => [
                 static::AUTHOR_TYPE_NONE,
                 static::AUTHOR_TYPE_MEMBER,
                 static::AUTHOR_TYPE_USER,
-            ),
+            ],
             'reference' => $GLOBALS['TL_LANG']['MSC']['haste_plus']['authorType'],
-            'eval'      => array('doNotCopy' => true, 'submitOnChange' => true, 'mandatory' => true, 'tl_class' => 'w50 clr'),
+            'eval'      => ['doNotCopy' => true, 'submitOnChange' => true, 'mandatory' => true, 'tl_class' => 'w50 clr'],
             'sql'       => "varchar(255) NOT NULL default 'none'",
-        );
+        ];
 
-        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR] = array(
+        $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_AUTHOR] = [
             'label'            => &$GLOBALS['TL_LANG']['MSC']['haste_plus']['author'],
             'exclude'          => true,
             'search'           => true,
             'filter'           => true,
             'inputType'        => 'select',
-            'options_callback' => array('HeimrichHannot\Haste\Dca\General', 'getMembersAsOptions'),
-            'eval'             => array(
+            'options_callback' => ['HeimrichHannot\Haste\Dca\General', 'getMembersAsOptions'],
+            'eval'             => [
                 'doNotCopy'          => true,
                 'chosen'             => true,
                 'includeBlankOption' => true,
                 'tl_class'           => 'w50',
-            ),
+            ],
             'sql'              => "int(10) unsigned NOT NULL default '0'",
-        );
+        ];
     }
 
     public static function setAuthorIDOnCreate($strTable, $intId, $arrRow, \DataContainer $dc)
@@ -723,11 +723,11 @@ class General extends \Backend
 
         if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_USER)
         {
-            $arrDca['fields']['author']['options_callback'] = array('HeimrichHannot\Haste\Dca\User', 'getUsersAsOptions');
+            $arrDca['fields']['author']['options_callback'] = ['HeimrichHannot\Haste\Dca\User', 'getUsersAsOptions'];
         }
     }
 
-    public static function getTableArchives($strChildTable, array $arrOptions = array())
+    public static function getTableArchives($strChildTable, array $arrOptions = [])
     {
         \Controller::loadDataContainer($strChildTable);
         \System::loadLanguageFile($strChildTable);

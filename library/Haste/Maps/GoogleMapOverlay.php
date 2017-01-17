@@ -13,7 +13,7 @@ namespace HeimrichHannot\Haste\Map;
 
 class GoogleMapOverlay
 {
-	protected $arrOptions = array();
+	protected $arrOptions = [];
 
 	const TYPE_MARKER = 'MARKER';
 	const TYPE_INFOWINDOW = 'INFOWINDOW';
@@ -43,7 +43,7 @@ class GoogleMapOverlay
 		$this->prepare();
 	}
 
-	public function generate(array $arrOptions = array())
+	public function generate(array $arrOptions = [])
 	{
 		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
@@ -58,7 +58,7 @@ class GoogleMapOverlay
 		return $objTemplate->parse();
 	}
 
-	public function generateStatic(array $arrOptions = array())
+	public function generateStatic(array $arrOptions = [])
 	{
 		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
@@ -70,7 +70,7 @@ class GoogleMapOverlay
 			case 'MARKER':
 				if($arrData['markerType'] == 'ICON') {
 					$arrData['iconSRC'] = \FilesModel::findByUuid($arrData['iconSRC'])->path;
-					return array('icon:'.rawurlencode(\Environment::get('base').$arrData['iconSRC']).'|shadow:false|' => $arrData['singleCoords']);
+					return ['icon:' . rawurlencode(\Environment::get('base') . $arrData['iconSRC']) . '|shadow:false|' => $arrData['singleCoords']];
 				}
 				else
 				{
@@ -105,7 +105,7 @@ class GoogleMapOverlay
 
 		$arrData['multiCoords'] = deserialize($arrData['multiCoords']);
 		if(is_array($arrData['multiCoords'])) {
-			$tmp1 = array();
+			$tmp1 = [];
 			foreach($arrData['multiCoords'] as $coords) {
 				$tmp2 = explode(',',$coords);
 				$tmp1[0][] = $tmp2[0];
@@ -189,56 +189,54 @@ class GoogleMapOverlay
 		return in_array('dlh_googlemaps', \ModuleLoader::getActive());
 	}
 
-	protected function prepare(array $arrOptions = array())
+	protected function prepare(array $arrOptions = [])
 	{
-		$arrDefaults = array
-		(
-			'map'                    => '', // the id of the GoogleMap
-			'infoWindowUnique'       => false,
-			'id'                     => rand(10000, 99999),
-			'customTpl'              => '',
-			'type'                   => 'MARKER',
-			'typesAvailable'         => array('MARKER', 'INFOWINDOW', 'POLYLINE', 'POLYGON', 'GROUND_OVERLAY', 'RECTANGLE', 'CIRCLE', 'KML'),
-			'singleCoords'           => '',
-			'markerType'             => 'SIMPLE',
-			'markerTypesAvailable'   => array('SIMPLE', 'ICON'),
-			'markerAction'           => 'NONE',
-			'markerActionsAvailable' => array('NONE', 'LINK', 'INFO'),
-			'multiCoords'			 => NULL,
-			'markerShowTitle'		 => true,
-			'overlaySRC'			 => NULL,
-			'iconSRC'		 		 => NULL,
-			'iconSize'               => array(16, 16, 'px'),
-			'iconAnchor'             => array(0, 0, 'px'),
-			'hasShadow'              => '',
-			'shadowSize'             => array(32, 32, 'px'),
-			'strokeColor'            => '000000',
-			'strokeOpacity'          => 100,
-			'strokeWeight'           => 1,
-			'fillColor'              => '',
-			'fillOpacity'            => 100,
-			'radius'                 => 1000,
-			'bounds'                 => '',
-			'zIndex'                 => 1,
-			'popupInfoWindow'        => false,
-			'useRouting'             => false,
-			'routingAddress'         => '',
-			'infoWindow'             => '',
-			'infoWindowSize'         => array(320, 160, 'px'),
-			'infoWindowAnchor'       => array(0, 0, 'px'),
-			'infoWindowMaxWidth'     => '',
-			'url'                    => '',
-			'target'                 => '',
-			'linkTitle'              => '',
-			'parameter'              => '',
-			'kmlUrl'                 => '',
-			'kmlClickable'           => true,
-			'kmlPreserveViewport'    => false,
-			'kmlScreenOverlays'      => true,
-			'kmlSuppressInfowindows' => false,
-			'inverted'               => false,
-			'published'              => true
-		);
+		$arrDefaults = [
+            'map'                    => '', // the id of the GoogleMap
+            'infoWindowUnique'       => false,
+            'id'                     => rand(10000, 99999),
+            'customTpl'              => '',
+            'type'                   => 'MARKER',
+            'typesAvailable'         => ['MARKER', 'INFOWINDOW', 'POLYLINE', 'POLYGON', 'GROUND_OVERLAY', 'RECTANGLE', 'CIRCLE', 'KML'],
+            'singleCoords'           => '',
+            'markerType'             => 'SIMPLE',
+            'markerTypesAvailable'   => ['SIMPLE', 'ICON'],
+            'markerAction'           => 'NONE',
+            'markerActionsAvailable' => ['NONE', 'LINK', 'INFO'],
+            'multiCoords'			 => NULL,
+            'markerShowTitle'		 => true,
+            'overlaySRC'			 => NULL,
+            'iconSRC'		 		 => NULL,
+            'iconSize'               => [16, 16, 'px'],
+            'iconAnchor'             => [0, 0, 'px'],
+            'hasShadow'              => '',
+            'shadowSize'             => [32, 32, 'px'],
+            'strokeColor'            => '000000',
+            'strokeOpacity'          => 100,
+            'strokeWeight'           => 1,
+            'fillColor'              => '',
+            'fillOpacity'            => 100,
+            'radius'                 => 1000,
+            'bounds'                 => '',
+            'zIndex'                 => 1,
+            'popupInfoWindow'        => false,
+            'useRouting'             => false,
+            'routingAddress'         => '',
+            'infoWindow'             => '',
+            'infoWindowSize'         => [320, 160, 'px'],
+            'infoWindowAnchor'       => [0, 0, 'px'],
+            'infoWindowMaxWidth'     => '',
+            'url'                    => '',
+            'target'                 => '',
+            'linkTitle'              => '',
+            'parameter'              => '',
+            'kmlUrl'                 => '',
+            'kmlClickable'           => true,
+            'kmlPreserveViewport'    => false,
+            'kmlScreenOverlays'      => true,
+            'kmlSuppressInfowindows' => false,
+            'inverted'               => false,
+            'published'              => true];
 
 		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
 	}

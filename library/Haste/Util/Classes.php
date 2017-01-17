@@ -16,7 +16,7 @@ use Contao\ClassLoader;
 
 class Classes
 {
-    public static function getParentClasses($strClass, $arrParents = array())
+    public static function getParentClasses($strClass, $arrParents = [])
     {
         $strParent = get_parent_class($strClass);
         if ($strParent)
@@ -38,9 +38,9 @@ class Classes
      *
      * @return array The extracted constants as array.
      */
-    public static function getConstantsByPrefixes($strClass, array $arrPrefixes = array(), $blnReturnValueAsKey = true)
+    public static function getConstantsByPrefixes($strClass, array $arrPrefixes = [], $blnReturnValueAsKey = true)
     {
-        $arrExtract = array();
+        $arrExtract = [];
 
         if (!class_exists($strClass))
         {
@@ -68,7 +68,7 @@ class Classes
      */
     public static function getClassesInNamespace($strNamespace)
     {
-        $arrOptions = array();
+        $arrOptions = [];
 
         foreach (array_keys(ClassLoader::getClasses()) as $strName)
         {
@@ -91,7 +91,7 @@ class Classes
      */
     public static function getChildClasses($strQualifiedClassName)
     {
-        $arrOptions = array();
+        $arrOptions = [];
 
         foreach (array_keys(ClassLoader::getClasses()) as $strName)
         {

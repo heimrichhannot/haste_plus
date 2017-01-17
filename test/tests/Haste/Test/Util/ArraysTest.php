@@ -39,80 +39,74 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
 
 	public function getListPositonCssClassProvider()
 	{
-		$arrList = array
-		(
+		$arrList = [
 			0   => 'foo',
 			'a' => 'bar',
 			'b' => 'fu',
-			1   => 'ba',
-		);
+			1   => 'ba',];
 
-		return array(
-			array(
+		return [
+            [
 				0,
 				$arrList,
 				false,
 				'first odd'
-			),
-			array(
+            ],
+            [
 				'a',
 				$arrList,
 				false,
 				'even'
-			),
-			array(
+            ],
+            [
 				'b',
 				$arrList,
 				false,
 				'odd'
-			),
-			array(
+            ],
+            [
 				1,
 				$arrList,
 				false,
 				'even last'
-			),
-			array(
-				1,
-				$arrList,
-				true,
-				array('even', 'last')
-			),
-		);
+            ],
+            [
+                1,
+                $arrList,
+                true,
+                ['even', 'last']
+            ],
+        ];
 	}
 
 
 	public function filterByPrefixesProvider()
 	{
-		$arrData = array
-		(
+		$arrData = [
 			'id'                     => 1,
 			'youtube_template'       => 'youtube_default',
 			'youtubePrivacy'         => true,
 			'youtubePrivacyTemplate' => 'youtubeprivacy_default',
 			'youTube'                => 'Fu',
-			''                       => 'Bar',
-		);
+			''                       => 'Bar',];
 
-		return array(
-			array(
-				$arrData,
-				array('youtube'),
-				array
-				(
+		return [
+            [
+                $arrData,
+                ['youtube'],
+                [
 					'youtube_template'       => 'youtube_default',
 					'youtubePrivacy'         => true,
 					'youtubePrivacyTemplate' => 'youtubeprivacy_default',
-				),
-			),
-			array(
-				$arrData,
-				array('youTube'),
-				array
-				(
+                ],
+            ],
+            [
+                $arrData,
+                ['youTube'],
+                [
 					'youTube' => 'Fu',
-				),
-			),
-		);
+                ],
+            ],
+        ];
 	}
 }

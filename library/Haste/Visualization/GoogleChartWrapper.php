@@ -13,14 +13,14 @@ namespace HeimrichHannot\Haste\Visualization;
 
 class GoogleChartWrapper
 {
-	protected $arrOptions = array();
+	protected $arrOptions = [];
 
 	public function __construct()
 	{
 		$this->prepare();
 	}
 
-	public function generate(array $arrOptions = array())
+	public function generate(array $arrOptions = [])
 	{
 		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
@@ -44,16 +44,15 @@ class GoogleChartWrapper
 		return $arrData;
 	}
 
-	protected function prepare(array $arrOptions = array())
+	protected function prepare(array $arrOptions = [])
 	{
-		$arrDefaults = array
-		(
-			'map' => '',
-			'chartColumns'          => array(),
-			'chartRows'             => array(),
-			'chartSize'             => array(400, 300, 'px'),
-			'chartType'             => 'LineChart',
-			'chartTypeAvailable'    => array(
+		$arrDefaults = [
+            'map' => '',
+            'chartColumns'          => [],
+            'chartRows'             => [],
+            'chartSize'             => [400, 300, 'px'],
+            'chartType'             => 'LineChart',
+            'chartTypeAvailable'    => [
 				'AnnotationChart',
 				'AreaChart',
 				'BarChart',
@@ -69,12 +68,11 @@ class GoogleChartWrapper
 				'Timeline',
 				'TreeMap',
 				'WordTree',
-			),
-			'dataSourceUrl'         => '',
-			'google_chart_template' => 'google_chart',
-			'options'               => array(),
-			'query'                 => '',
-		);
+            ],
+            'dataSourceUrl'         => '',
+            'google_chart_template' => 'google_chart',
+            'options'               => [],
+            'query'                 => '',];
 
 		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
 

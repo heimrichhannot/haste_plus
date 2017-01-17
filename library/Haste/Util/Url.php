@@ -58,7 +58,7 @@ class Url extends \Haste\Util\Url
 	public static function getUriParameters($uri)
 	{
 		$arrParsed = parse_url($uri);
-		$arrParsedExploded = array();
+		$arrParsedExploded = [];
 		if (isset($arrParsed['query']))
 		{
 			foreach (explode('&', $arrParsed['query']) as $currentParameter)
@@ -156,7 +156,7 @@ class Url extends \Haste\Util\Url
 	 * @param mixed - remove one or more certain parameters
 	 */
 	public static function getConcatenatedGetString($remove) {
-		$result = array();
+		$result = [];
 		foreach ($_GET as $k => $v) {
 			if ((is_array($remove) && !in_array($k, $remove)) || (!is_array($remove) && $k != $remove))
 				$result[] = $k . '=' . $v;
@@ -166,7 +166,7 @@ class Url extends \Haste\Util\Url
 
 	public static function getParametersFromUri($strUri)
 	{
-		$arrResult = array();
+		$arrResult = [];
 		parse_str(parse_url($strUri, PHP_URL_QUERY), $arrResult);
 
 		return $arrResult;

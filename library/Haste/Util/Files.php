@@ -84,7 +84,7 @@ class Files
      */
     public static function getFileList($strDir, $baseUrl, $protectedBaseUrl = null)
     {
-        $arrResult = array();
+        $arrResult = [];
         if (is_dir($strDir))
         {
             if ($handler = opendir($strDir))
@@ -95,7 +95,7 @@ class Files
                     {
                         continue;
                     }
-                    $arrFile             = array();
+                    $arrFile             = [];
                     $arrFile['filename'] = htmlentities($strFile);
                     if ($protectedBaseUrl)
                     {

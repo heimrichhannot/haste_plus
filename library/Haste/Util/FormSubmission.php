@@ -20,10 +20,10 @@ class FormSubmission
     public static function prepareData(
         \Model $objModel,
         $strTable,
-        array $arrDca = array(),
+        array $arrDca = [],
         $objDc = null,
-        $arrFields = array(),
-        array $arrSkipFields = array()
+        $arrFields = [],
+        array $arrSkipFields = []
     ) {
         if ($objDc === null)
         {
@@ -36,9 +36,9 @@ class FormSubmission
             $arrDca = $GLOBALS['TL_DCA'][$objModel->getTable()];
         }
 
-        $arrSubmissionData = array();
+        $arrSubmissionData = [];
         $arrRow            = $objModel->row();
-        $arrSubmission     = array();
+        $arrSubmission     = [];
 
         foreach (array_keys($arrRow) as $strName)
         {
@@ -122,12 +122,12 @@ class FormSubmission
             $strSubmission = $strLabel . ": " . $strOutput . "\n";
         }
 
-        return array('value' => $varValue, 'output' => $strOutput, 'submission' => $strSubmission);
+        return ['value' => $varValue, 'output' => $strOutput, 'submission' => $strSubmission];
     }
 
-    public static function tokenizeData(array $arrSubmissionData = array(), $strPrefix = 'form')
+    public static function tokenizeData(array $arrSubmissionData = [], $strPrefix = 'form')
     {
-        $arrTokens = array();
+        $arrTokens = [];
 
         foreach ($arrSubmissionData as $strName => $arrData)
         {
@@ -209,7 +209,7 @@ class FormSubmission
                 $arrOptionsCallback = @$arrData['options_callback']($objDc);
             }
 
-            $arrOptions = !is_array($varValue) ? array($varValue) : $varValue;
+            $arrOptions = !is_array($varValue) ? [$varValue] : $varValue;
 
             if ($varValue !== null && is_array($arrOptionsCallback))
             {
@@ -344,10 +344,10 @@ class FormSubmission
         $strTable = null,
         $intId = 0,
         $varDefault = null,
-        &$arrWidgetErrors = array()
+        &$arrWidgetErrors = []
     ) {
         // Convert date formats into timestamps
-        if ($varValue != '' && in_array($arrData['eval']['rgxp'], array('date', 'time', 'datim')))
+        if ($varValue != '' && in_array($arrData['eval']['rgxp'], ['date', 'time', 'datim']))
         {
             try
             {

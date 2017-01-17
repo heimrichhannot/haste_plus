@@ -153,7 +153,7 @@ class PdfTemplate extends \Controller
 
         if (!is_array($this->objPdf->fontdata[$strFontName]))
         {
-            $this->objPdf->fontdata[$strFontName] = array();
+            $this->objPdf->fontdata[$strFontName] = [];
         }
 
         // add to fontdata array

@@ -74,110 +74,110 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 
 	public function getNumericDateIntervalProvider()
 	{
-		return array(
-			array(
+		return [
+            [
 				strtotime('28.01.2016 15:09:51'),
 				null,
 				' &ndash; ',
 				'28.01.2016'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('29.01.2016 17:09:51'),
 				' &ndash; ',
 				'28.01.2016 &ndash; 29.01.2016'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
 				' &ndash; ',
 				'28.01.2016'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('27.01.2016 17:09:51'),
 				' &ndash; ',
 				'28.01.2016'
-			)
-		);
+            ]
+        ];
 	}
 
 	public function getNumericTimeIntervalProvider()
 	{
-		return array(
-			array(
+		return [
+            [
 				strtotime('28.01.2016 15:09:51'),
 				null,
 				' &ndash; ',
 				'15:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('29.01.2016 17:09:51'),
 				' &ndash; ',
 				'15:09 &ndash; 17:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 17:09:51'),
 				' &ndash; ',
 				'15:09 &ndash; 17:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
 				' &ndash; ',
 				'15:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('27.01.2016 17:09:51'),
 				' &ndash; ',
 				'15:09'
-			)
-		);
+            ]
+        ];
 	}
 
 	public function getNumericDateTimeIntervalProvider()
 	{
-		return array(
-			array(
+		return [
+            [
 				strtotime('28.01.2016 15:09:51'),
 				null,
 				' &ndash; ',
 				'28.01.2016 15:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('29.01.2016 17:09:51'),
 				' &ndash; ',
 				'28.01.2016 15:09 &ndash; 29.01.2016 17:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
 				' &ndash; ',
 				'28.01.2016 15:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('27.01.2016 17:09:51'),
 				' &ndash; ',
 				'28.01.2016 15:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 17:09:51'),
 				' &ndash; ',
 				'28.01.2016 15:09 &ndash; 28.01.2016 17:09'
-			)
-		);
+            ]
+        ];
 	}
 
 	public function getSeparatedNumericDateTimeIntervalProvider()
 	{
-		return array(
-			array(
+		return [
+            [
 				strtotime('28.01.2016 15:09:51'),
 				null,
 				null,
@@ -185,8 +185,8 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				' &ndash; ',
 				', ',
 				'28.01.2016'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('29.01.2016 17:09:51'),
 				strtotime('28.01.2016 15:09:51'),
@@ -194,8 +194,8 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				' &ndash; ',
 				', ',
 				'28.01.2016 &ndash; 29.01.2016, 15:09 &ndash; 17:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 17:09:51'),
 				strtotime('28.01.2016 15:09:51'),
@@ -203,8 +203,8 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				' &ndash; ',
 				', ',
 				'28.01.2016, 15:09 &ndash; 17:09'
-			),
-			array(
+            ],
+            [
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
@@ -212,8 +212,8 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				' &ndash; ',
 				', ',
 				'28.01.2016, 15:09'
-			)
-		);
+            ]
+        ];
 	}
 
 }

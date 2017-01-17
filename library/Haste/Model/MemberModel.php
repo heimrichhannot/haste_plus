@@ -16,12 +16,12 @@ class MemberModel extends \MemberModel
 	 *
 	 * @return \MemberModel|\MemberModel[]|\Model\Collection|null
 	 */
-	public static function findActiveById($intId, array $arrOptions = array())
+	public static function findActiveById($intId, array $arrOptions = [])
 	{
 		$t    = static::$strTable;
 		$time = \Date::floorToMinute();
 
-		$arrColumns = array("$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+		$arrColumns = ["$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''"];
 
 		$arrColumns[] = "$t.id = ?";
 
@@ -36,12 +36,12 @@ class MemberModel extends \MemberModel
 	 *
 	 * @return \MemberModel|\MemberModel[]|\Model\Collection|null
 	 */
-	public static function findAllActiveByIds(array $arrIds, array $arrOptions = array())
+	public static function findAllActiveByIds(array $arrIds, array $arrOptions = [])
 	{
 		$t    = static::$strTable;
 		$time = \Date::floorToMinute();
 
-		$arrColumns = array("$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+		$arrColumns = ["$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''"];
 
 		$arrColumns[] = \Database::getInstance()->findInSet('id', $arrIds);
 
@@ -56,7 +56,7 @@ class MemberModel extends \MemberModel
 	 *
 	 * @return \MemberModel|\MemberModel[]|\Model\Collection|null
 	 */
-	public static function findActiveByGroups(array $arrGroups, array $arrOptions = array())
+	public static function findActiveByGroups(array $arrGroups, array $arrOptions = [])
 	{
 		if(empty($arrGroups))
 		{
@@ -66,7 +66,7 @@ class MemberModel extends \MemberModel
 		$t    = static::$strTable;
 		$time = \Date::floorToMinute();
 
-		$arrColumns = array("$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+		$arrColumns = ["$t.login='1' AND ($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''"];
 
 		if (!empty(array_filter($arrGroups)))
 		{
@@ -84,14 +84,14 @@ class MemberModel extends \MemberModel
 	 *
 	 * @return \Model|null The model or null if there is no member
 	 */
-	public static function findByEmail($strEmail, array $arrOptions = array())
+	public static function findByEmail($strEmail, array $arrOptions = [])
 	{
 		$time = time();
 		$t    = static::$strTable;
 
-		$arrColumns = array("LOWER($t.email)=? AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time)");
+		$arrColumns = ["LOWER($t.email)=? AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time)"];
 
-		return static::findOneBy($arrColumns, array($strEmail), $arrOptions);
+		return static::findOneBy($arrColumns, [$strEmail], $arrOptions);
 	}
 
 	/**

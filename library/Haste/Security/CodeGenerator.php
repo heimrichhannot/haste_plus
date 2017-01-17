@@ -22,17 +22,17 @@ class CodeGenerator extends \Controller
 
 	protected static $blnPreventAmbiguous = true;
 
-	protected static $arrAlphabets = array(
+	protected static $arrAlphabets = [
 		CodeGenerator::CAPITAL_LETTERS,
 		CodeGenerator::SMALL_LETTERS,
 		CodeGenerator::NUMBERS
-	);
+    ];
 
-	protected static $arrRules = array(
+	protected static $arrRules = [
 		CodeGenerator::CAPITAL_LETTERS,
 		CodeGenerator::SMALL_LETTERS,
 		CodeGenerator::NUMBERS
-	);
+    ];
 
 	protected static $strAllowedSpecialChars = '[=<>()#/]';
 
@@ -57,7 +57,7 @@ class CodeGenerator extends \Controller
 		// replace remaining ambiguous characters
 		if ($blnPreventAmbiguous)
 		{
-			$arrCharReplacements = array('y', 'Y', 'z', 'Z', 'o', 'O', 'i', 'I', 'l');
+			$arrCharReplacements = ['y', 'Y', 'z', 'Z', 'o', 'O', 'i', 'I', 'l'];
 
 			foreach ($arrCharReplacements as $strChar)
 			{

@@ -40,54 +40,54 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
     public function startsWithProvider()
     {
         // current request -> query to add -> expected result
-        return array(
-            array(
+        return [
+            [
                 'youtube_template',
                 'youtube',
                 true
-            ),
-            array(
+            ],
+            [
                 'youtube_template',
                 'youTube',
                 false
-            ),
-            array(
+            ],
+            [
                 '3tubeplayer',
                 '3tube',
                 true
-            ),
-            array(
+            ],
+            [
                 '3tubeplayer',
                 '3',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     public function endsWithProvider()
     {
         // current request -> query to add -> expected result
-        return array(
-            array(
+        return [
+            [
                 'youtube_template',
                 'template',
                 true
-            ),
-            array(
+            ],
+            [
                 'youtube_template',
                 'Template',
                 false
-            ),
-            array(
+            ],
+            [
                 '3tubeplayer',
                 'player',
                 true
-            ),
-            array(
+            ],
+            [
                 '3tubeplayer',
                 'r',
                 true
-            ),
-        );
+            ],
+        ];
     }
 }

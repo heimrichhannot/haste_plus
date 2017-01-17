@@ -15,7 +15,8 @@ namespace HeimrichHannot\Haste;
 class DateUtil {
 
 	protected static function getDateTimeInterval($strFormat, $intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ',
-			$arrStartReplacements = array(), $arrEndReplacements = array())
+			$arrStartReplacements = [], $arrEndReplacements = []
+    )
 	{
 		$strStart = str_replace(array_keys($arrStartReplacements), array_values($arrStartReplacements),
 				\Contao\Date::parse($strFormat, $intStart));

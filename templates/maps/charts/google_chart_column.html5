@@ -15,7 +15,7 @@
 		function drawChart()
 		{
 			<?php
-				$arrLabels = array();
+				$arrLabels = [];
 				foreach ($this->chart['chartColumns'] as $column)
 				{
 					$arrLabels[] = $column['label'];

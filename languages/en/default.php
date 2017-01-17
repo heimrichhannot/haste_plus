@@ -3,13 +3,13 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['MSC']['alias'] = array('Alias', 'The alias is a unique reference that can be used instead of the numeric id.');
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE] = array('Author type', 'Choose the type of author here.');
+$GLOBALS['TL_LANG']['MSC']['alias'] = ['Alias', 'The alias is a unique reference that can be used instead of the numeric id.'];
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE] = ['Author type', 'Choose the type of author here.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_NONE] = 'No author';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] = 'Member (Frontend)';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER] = 'User (Backend)';
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR] = array('Author', 'This field contains the author of the record.');
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID] = array('Session-ID', 'This field contains the session ID of the allowed editor.');
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR] = ['Author', 'This field contains the author of the record.'];
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID] = ['Session-ID', 'This field contains the session ID of the allowed editor.'];
 
 /**
  * Salutations

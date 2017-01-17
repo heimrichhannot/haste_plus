@@ -16,8 +16,8 @@ use HeimrichHannot\Haste\Util\Arrays;
 
 class User extends \Backend
 {
-	protected static $arrUserOptionsCache = array();
-	protected static $arrUserOptionsIdsCache = array();
+	protected static $arrUserOptionsCache = [];
+	protected static $arrUserOptionsIdsCache = [];
 
 	public static function getUsersAsOptions(\DataContainer $objDc = null, $blnIncludeId = false)
 	{
@@ -29,7 +29,7 @@ class User extends \Backend
 
 		$objDatabase = \Database::getInstance();
 		$objMembers = $objDatabase->execute('SELECT id, name FROM tl_user');
-		$arrOptions = array();
+		$arrOptions = [];
 
 		if ($objMembers->numRows > 0)
 		{

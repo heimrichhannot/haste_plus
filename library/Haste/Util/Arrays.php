@@ -25,7 +25,7 @@ class Arrays
 	 */
 	public static function getListPositonCssClass($key, array $arrList, $blnReturnAsArray=false)
 	{
-		$arrClasses = array();
+		$arrClasses = [];
 
 		$idx = array_search($key, array_keys($arrList), true);
 
@@ -57,9 +57,9 @@ class Arrays
 	 *
 	 * @return array the filtered array or $arrData if $strPrefix is empty
 	 */
-	public static function filterByPrefixes(array $arrData = array(), $arrPrefixes = array())
+	public static function filterByPrefixes(array $arrData = [], $arrPrefixes = [])
 	{
-		$arrExtract = array();
+		$arrExtract = [];
 
 		if(!is_array($arrPrefixes) || empty($arrPrefixes))
 		{
@@ -89,9 +89,9 @@ class Arrays
 	 *
 	 * @return array the filtered array or $arrData if $strPrefix is empty
 	 */
-	public static function filterOutByPrefixes(array $arrData = array(), $arrPrefixes = array())
+	public static function filterOutByPrefixes(array $arrData = [], $arrPrefixes = [])
 	{
-		$arrExtract = array();
+		$arrExtract = [];
 
 		if(!is_array($arrPrefixes) || empty($arrPrefixes))
 		{
@@ -126,12 +126,12 @@ class Arrays
 		if (!is_array($array) || empty($array)) {
 			return false;
 		}
-		$tmp = array();
+		$tmp = [];
 		foreach ($array as $key => $value) {
-			$tmp[] = array('k' => $key, 'v' => $value);
+			$tmp[] = ['k' => $key, 'v' => $value];
 		}
 		shuffle($tmp);
-		$array = array();
+		$array = [];
 		foreach ($tmp as $entry) {
 			$array[$entry['k']] = $entry['v'];
 		}
@@ -145,7 +145,7 @@ class Arrays
 		$data = array_shift($args);
 		foreach ($args as $n => $field) {
 			if (is_string($field)) {
-				$tmp = array();
+				$tmp = [];
 				foreach ($data as $key => $row)
 					$tmp[$key] = $row[$field];
 				$args[$n] = $tmp;
@@ -166,8 +166,8 @@ class Arrays
 	 */
 	public static function aasort(&$array, $key)
 	{
-		$sorter = array();
-		$ret    = array();
+		$sorter = [];
+		$ret    = [];
 		reset($array);
 		foreach ($array as $ii => $va) {
 			$sorter[$ii] = $va[$key];
@@ -181,7 +181,7 @@ class Arrays
 
 	public static function objectToArray($objObject)
 	{
-		$arrResult = array();
+		$arrResult = [];
 		foreach ($objObject as $key => $value) {
 			$arrResult[$key] = $value;
 		}
@@ -218,7 +218,7 @@ class Arrays
 	 */
 	public static function array_unique_keys($array)
 	{
-		$arrResult = array();
+		$arrResult = [];
 
 		foreach (array_unique(array_keys($array)) as $varKey)
 		{
@@ -238,7 +238,7 @@ class Arrays
 	public static function concatArrays($strDelimiter) {
 		$arrArrays = func_get_args();
 		array_shift($arrArrays);
-		$arrResult = array();
+		$arrResult = [];
 
 		foreach ($arrArrays as $arrArray)
 		{
@@ -285,7 +285,7 @@ class Arrays
 
 	public static function flattenArray(array $array)
 	{
-		$return = array();
+		$return = [];
 		array_walk_recursive(
 			$array,
 			function ($a) use (&$return) {

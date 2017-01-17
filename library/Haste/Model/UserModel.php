@@ -23,7 +23,7 @@ class UserModel extends \Contao\UserModel
      *
      * @return \UserModel|\UserModel[]|\Model\Collection|null
      */
-    public static function findActiveByGroups(array $arrGroups, array $arrOptions = array())
+    public static function findActiveByGroups(array $arrGroups, array $arrOptions = [])
     {
         if (empty($arrGroups))
         {
@@ -33,7 +33,7 @@ class UserModel extends \Contao\UserModel
         $t    = static::$strTable;
         $time = \Date::floorToMinute();
 
-        $arrColumns = array("($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+        $arrColumns = ["($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''"];
 
         if (!empty(array_filter($arrGroups)))
         {
@@ -51,12 +51,12 @@ class UserModel extends \Contao\UserModel
      *
      * @return \UserModel|\UserModel[]|\Model\Collection|null
      */
-    public static function findActiveById($intId, array $arrOptions = array())
+    public static function findActiveById($intId, array $arrOptions = [])
     {
         $t    = static::$strTable;
         $time = \Date::floorToMinute();
 
-        $arrColumns = array("($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''");
+        $arrColumns = ["($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.disable=''"];
 
         $arrColumns[] = "$t.id = ?";
 

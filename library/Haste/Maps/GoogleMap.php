@@ -21,9 +21,9 @@ class GoogleMap
 	 *
 	 * @var object
 	 */
-	protected $arrOptions = array();
+	protected $arrOptions = [];
 
-	protected $arrOverlays = array();
+	protected $arrOverlays = [];
 
 	public function __construct()
 	{
@@ -107,7 +107,7 @@ class GoogleMap
 		return $this->arrOptions['id'];
 	}
 
-	public function generate(array $arrOptions = array())
+	public function generate(array $arrOptions = [])
 	{
 		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
@@ -142,7 +142,7 @@ class GoogleMap
 		return $objTemplate->parse();
 	}
 
-	public function generateStatic(array $arrOptions = array())
+	public function generateStatic(array $arrOptions = [])
 	{
 		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
@@ -159,7 +159,7 @@ class GoogleMap
 			$strMap .= '800x600';
 		}
 
-		$arrIcons = array();
+		$arrIcons = [];
 
 		if (!empty($arrData['elements'])) {
 			foreach ($arrData['elements'] as $arrElement) {
@@ -193,45 +193,42 @@ class GoogleMap
 		$arrData['id'] = $arrData['id'] ?: substr(md5(implode('', $arrData) . rand(0, 10000)), 0, 8);
 
 		// empty markers before
-		$arrData['elements'] = array();
+		$arrData['elements'] = [];
 
 		foreach ($this->arrOverlays as $objOverlay) {
-			$arrData['elements'][] = array
-			(
-				'data'          => $objOverlay->getOptions(),
-				'parsed'        => $objOverlay->generate(array('map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique'])),
-				'staticMapPart' => $objOverlay->generateStatic(array('map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique'])),
-			);
+			$arrData['elements'][] = [
+                'data'          => $objOverlay->getOptions(),
+                'parsed'        => $objOverlay->generate(['map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique']]),
+                'staticMapPart' => $objOverlay->generateStatic(['map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique']]),];
 		}
 		
 		return $arrData;
 	}
 
-	protected function prepare(array $arrOptions = array())
+	protected function prepare(array $arrOptions = [])
 	{
 		global $objPage;
 
-		$arrDefaults = array
-		(
-			'center'                        => '51.163375,10.447683',
-			'tagEnding'                     => ($objPage->outputFormat == 'xhtml') ? ' />' : '>',
-			'elements'                      => array(),
-			'dlh_googlemap_nocss'           => false,
-			'dlh_googlemap_template'        => 'dlh_googlemaps_haste',
-			'dlh_googlemap_tabs'            => false,
-			'mapSize'                       => array(600, 400, 'px'),
-			'responsiveSizes'               => array(),
-			'zoom'                          => 10,
-			'language'                      => $GLOBALS['TL_LANGUAGE'],
-			'mapTypeId'                     => 'ROADMAP',
-			'mapTypesAvailable'             => array('HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN'),
-			'staticMapNoScript'             => 1,
-			'infoWindowUnique'              => false,
-			'useMapTypeControl'             => 1,
-			'mapTypeControlStyle'           => 'DEFAULT',
-			'mapTypeControlStyleAvailable'  => array('DEFAULT', 'DROPDOWN_MENU', 'HORIZONTAL_BAR'),
-			'mapTypeControlPos'             => 'TOP_RIGHT',
-			'mapTypeControlPosAvailable'    => array(
+		$arrDefaults = [
+            'center'                        => '51.163375,10.447683',
+            'tagEnding'                     => ($objPage->outputFormat == 'xhtml') ? ' />' : '>',
+            'elements'                      => [],
+            'dlh_googlemap_nocss'           => false,
+            'dlh_googlemap_template'        => 'dlh_googlemaps_haste',
+            'dlh_googlemap_tabs'            => false,
+            'mapSize'                       => [600, 400, 'px'],
+            'responsiveSizes'               => [],
+            'zoom'                          => 10,
+            'language'                      => $GLOBALS['TL_LANGUAGE'],
+            'mapTypeId'                     => 'ROADMAP',
+            'mapTypesAvailable'             => ['HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN'],
+            'staticMapNoScript'             => 1,
+            'infoWindowUnique'              => false,
+            'useMapTypeControl'             => 1,
+            'mapTypeControlStyle'           => 'DEFAULT',
+            'mapTypeControlStyleAvailable'  => ['DEFAULT', 'DROPDOWN_MENU', 'HORIZONTAL_BAR'],
+            'mapTypeControlPos'             => 'TOP_RIGHT',
+            'mapTypeControlPosAvailable'    => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -247,12 +244,12 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'useZoomControl'                => 1,
-			'zoomControlStyle'              => 'SMALL',
-			'zoomControlStyleAvailable'     => array('ANDROID', 'DEFAULT', 'SMALL', 'ZOOM_PAN'),
-			'zoomControlPos'                => 'TOP_RIGHT',
-			'zoomControlPosAvailable'       => array(
+            ],
+            'useZoomControl'                => 1,
+            'zoomControlStyle'              => 'SMALL',
+            'zoomControlStyleAvailable'     => ['ANDROID', 'DEFAULT', 'SMALL', 'ZOOM_PAN'],
+            'zoomControlPos'                => 'TOP_RIGHT',
+            'zoomControlPosAvailable'       => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -268,10 +265,10 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'useRotateControl'              => 1,
-			'rotateControlPos'              => 'TOP_LEFT',
-			'rotateControlPosAvailable'     => array(
+            ],
+            'useRotateControl'              => 1,
+            'rotateControlPos'              => 'TOP_LEFT',
+            'rotateControlPosAvailable'     => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -287,10 +284,10 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'usePanControl'                 => 0,
-			'panControlPos'                 => 'BOTTOM_LEFT',
-			'panControlPosAvailable'        => array(
+            ],
+            'usePanControl'                 => 0,
+            'panControlPos'                 => 'BOTTOM_LEFT',
+            'panControlPosAvailable'        => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -306,10 +303,10 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'useStreetViewControl'          => 0,
-			'streetViewControlPos'          => 'TOP_LEFT',
-			'streetViewControlPosAvailable' => array(
+            ],
+            'useStreetViewControl'          => 0,
+            'streetViewControlPos'          => 'TOP_LEFT',
+            'streetViewControlPosAvailable' => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -325,15 +322,15 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'useOverviewMapControl'         => 1,
-			'overviewMapControlOpened'      => 1,
-			'disableDoubleClickZoom'        => 1,
-			'scrollwheel'                   => 0,
-			'draggable'                     => 1,
-			'useScaleControl'               => 1,
-			'scaleControlPos'               => 'TOP_LEFT',
-			'scaleControlPosAvailable'      => array(
+            ],
+            'useOverviewMapControl'         => 1,
+            'overviewMapControlOpened'      => 1,
+            'disableDoubleClickZoom'        => 1,
+            'scrollwheel'                   => 0,
+            'draggable'                     => 1,
+            'useScaleControl'               => 1,
+            'scaleControlPos'               => 'TOP_LEFT',
+            'scaleControlPosAvailable'      => [
 				'TOP_LEFT',
 				'TOP_CENTER',
 				'TOP_RIGHT',
@@ -349,10 +346,9 @@ class GoogleMap
 				'BOTTOM_LEFT',
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
-			),
-			'parameter'                     => '',
-			'moreParamter'                  => '',
-		);
+            ],
+            'parameter'                     => '',
+            'moreParamter'                  => '',];
 
 		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
 

@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.20] - 2017-01-17
+
+### Fixed
+- Replaced array() by []
+
 ## [1.6.19] - 2017-01-17
 
 ### Added

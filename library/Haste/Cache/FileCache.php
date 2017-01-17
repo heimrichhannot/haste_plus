@@ -16,7 +16,7 @@ class FileCache extends Cache
 
 	protected static $driver = 'files';
 
-	protected function extendOptions(array $arrOptions = array())
+	protected function extendOptions(array $arrOptions = [])
 	{
 		if (!is_dir(TL_ROOT . '/' . ltrim(self::$cacheDir, '/')))
 		{

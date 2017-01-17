@@ -12,17 +12,17 @@
 /**
  * Register the namespaces
  */
-ClassLoader::addNamespaces(array
-(
-	'HeimrichHannot',
-));
+ClassLoader::addNamespaces(
+    [
+	'HeimrichHannot',]
+);
 
 
 /**
  * Register the classes
  */
-ClassLoader::addClasses(array
-(
+ClassLoader::addClasses(
+    [
 	// Library
 	'HeimrichHannot\Haste\Security\CodeGenerator'           => 'system/modules/haste_plus/library/Haste/Security/CodeGenerator.php',
 	'HeimrichHannot\Haste\Security\HttpResponse'            => 'system/modules/haste_plus/library/Haste/Security/HttpResponse.php',
@@ -67,15 +67,15 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\HastePlus\Strings'                      => 'system/modules/haste_plus/classes/Strings.php',
 	'HeimrichHannot\HastePlus\Environment'                  => 'system/modules/haste_plus/classes/Environment.php',
 	'HeimrichHannot\HastePlus\Classes'                      => 'system/modules/haste_plus/classes/Classes.php',
-	'HeimrichHannot\HastePlus\Files'                        => 'system/modules/haste_plus/classes/Files.php',
-));
+	'HeimrichHannot\HastePlus\Files'                        => 'system/modules/haste_plus/classes/Files.php',]
+);
 
 
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(array
-(
+TemplateLoader::addFiles(
+    [
 	'dlh_infowindow'       => 'system/modules/haste_plus/templates/maps/frontend',
 	'dlh_googlemaps_haste' => 'system/modules/haste_plus/templates/maps/frontend',
 	'dlh_polygon'          => 'system/modules/haste_plus/templates/maps/elements',
@@ -83,5 +83,5 @@ TemplateLoader::addFiles(array
 	'dlh_kml_geoxml'       => 'system/modules/haste_plus/templates/maps/elements',
 	'dlh_kml'              => 'system/modules/haste_plus/templates/maps/elements',
 	'google_chart'         => 'system/modules/haste_plus/templates/maps/charts',
-	'google_chart_column'  => 'system/modules/haste_plus/templates/maps/charts',
-));
+	'google_chart_column'  => 'system/modules/haste_plus/templates/maps/charts',]
+);

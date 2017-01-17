@@ -31,47 +31,47 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     public function addSchemeProvider()
     {
         // current request -> query to add -> expected result
-        return array(
-            array(
+        return [
+            [
                 'domain.com',
                 'http://',
                 'http://domain.com'
-            ),
-            array(
+            ],
+            [
                 'http://domain.com',
                 'http://',
                 'http://domain.com'
-            ),
-            array(
+            ],
+            [
                 'domain.com',
                 'https://',
                 'https://domain.com'
-            ),
-            array(
+            ],
+            [
                 'https://domain.com',
                 'http://',
                 'https://domain.com'
-            ),
-            array(
+            ],
+            [
                 'http://domain.com',
                 'https://',
                 'http://domain.com'
-            ),
-            array(
+            ],
+            [
                 'domain.com',
                 'ftp://',
                 'ftp://domain.com'
-            ),
-            array(
+            ],
+            [
                 'test@test.de',
                 'mailto:',
                 'mailto:test@test.de'
-            ),
-            array(
+            ],
+            [
                 'mailto:test@test.de',
                 'mailto:',
                 'mailto:test@test.de'
-            ),
-        );
+            ],
+        ];
     }
 }

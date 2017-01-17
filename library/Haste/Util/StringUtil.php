@@ -31,7 +31,7 @@ class StringUtil extends \Haste\Util\StringUtil
      *
      * @return mixed The converted text, ready for mail delivery for example
      */
-    public static function html2Text($strHtml, $arrOptions = array())
+    public static function html2Text($strHtml, $arrOptions = [])
     {
         $strHtml      = str_replace("\n", "", $strHtml); // remove white spaces from html
         $strHtml      = str_replace("</p>", "<br /></p>", $strHtml); // Html2Text will replace paragraph by only one break
@@ -76,7 +76,7 @@ class StringUtil extends \Haste\Util\StringUtil
             $strText = static::truncateHtml($strText, $intLength);
         }
 
-        $strText = str_replace(array('[-]', '&shy;', '[nbsp]', '&nbsp;'), array('', '', ' ', ' '), $strText);
+        $strText = str_replace(['[-]', '&shy;', '[nbsp]', '&nbsp;'], ['', '', ' ', ' '], $strText);
 
         return $strText;
     }
@@ -158,7 +158,7 @@ class StringUtil extends \Haste\Util\StringUtil
             // splits all html-tags to scanable lines
             preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
             $total_length = strlen($ending);
-            $open_tags    = array();
+            $open_tags    = [];
             $truncate     = '';
             foreach ($lines as $line_matchings)
             {
@@ -351,7 +351,7 @@ class StringUtil extends \Haste\Util\StringUtil
             );
         }
 
-        return array('content' => $strHtml, 'scripts' => $arrScripts);
+        return ['content' => $strHtml, 'scripts' => $arrScripts];
     }
 
     /**

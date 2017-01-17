@@ -9,7 +9,7 @@ class Notification extends \Backend
 {
 	public static function getNotificationMessagesAsOptions($objDc=null, $strType = null)
 	{
-		$arrOptions = array();
+		$arrOptions = [];
 
 		if (!$strType)
 		{
@@ -44,28 +44,29 @@ class Notification extends \Backend
 
 	public static function getNewNotificationTypeArray($blnIncludeNotificationCenterPlusTokens = false)
 	{
-		$arrType = array(
-			'recipients'           => array('admin_email'),
-			'email_subject'        => array('admin_email'),
-			'email_text'           => array('admin_email'),
-			'email_html'           => array('admin_email'),
-			'file_name'            => array('admin_email'),
-			'file_content'         => array('admin_email'),
-			'email_sender_name'    => array('admin_email'),
-			'email_sender_address' => array('admin_email'),
-			'email_recipient_cc'   => array('admin_email'),
-			'email_recipient_bcc'  => array('admin_email'),
-			'email_replyTo'        => array('admin_email'),
-			'attachment_tokens'    => array(),
-		);
+		$arrType = [
+            'recipients'           => ['admin_email'],
+            'email_subject'        => ['admin_email'],
+            'email_text'           => ['admin_email'],
+            'email_html'           => ['admin_email'],
+            'file_name'            => ['admin_email'],
+            'file_content'         => ['admin_email'],
+            'email_sender_name'    => ['admin_email'],
+            'email_sender_address' => ['admin_email'],
+            'email_recipient_cc'   => ['admin_email'],
+            'email_recipient_bcc'  => ['admin_email'],
+            'email_replyTo'        => ['admin_email'],
+            'attachment_tokens'    => [],
+        ];
 
 		if ($blnIncludeNotificationCenterPlusTokens)
 		{
 			foreach ($arrType as $strField => $arrTokens)
 			{
-				$arrType[$strField] = array_unique(array_merge(array(
+				$arrType[$strField] = array_unique(array_merge(
+                                                       [
 					'env_*', 'page_*', 'user_*', 'date', 'last_update'
-				), $arrTokens));
+                                                       ], $arrTokens));
 			}
 		}
 
@@ -77,20 +78,22 @@ class Notification extends \Backend
 		// add ?_value_* and ?_plain_* to all fields
 		foreach ($arrNotificationTypeArray as $strField => $arrTokens)
 		{
-			$arrNotificationTypeArray[$strField] = array_unique(array_merge(array(
+			$arrNotificationTypeArray[$strField] = array_unique(array_merge(
+                                                                    [
 				$strPrefix . '_value_*',
 				$strPrefix . '_plain_*'
-			), $arrTokens));
+                                                                    ], $arrTokens));
 		}
 
 		// add ?submission, ?submission_all and ?_submission_* to only some of the fields
-		foreach (array('email_text', 'email_html') as $strField)
+		foreach (['email_text', 'email_html'] as $strField)
 		{
-			$arrNotificationTypeArray[$strField] = array_unique(array_merge(array(
+			$arrNotificationTypeArray[$strField] = array_unique(array_merge(
+                                                                    [
 				$strPrefix . 'submission',
 				$strPrefix . 'submission_all',
 				$strPrefix . '_submission_*',
-			), $arrNotificationTypeArray[$strField]));
+                                                                    ], $arrNotificationTypeArray[$strField]));
 		}
 
 		return $arrNotificationTypeArray;
@@ -99,12 +102,12 @@ class Notification extends \Backend
 	public static function activateType($strGroup, $strType, $arrType)
 	{
 		$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'] = array_merge_recursive(
-			(array) $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'],
-			array(
-				$strGroup => array(
+            (array) $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'],
+            [
+				$strGroup => [
 					$strType => $arrType
-				)
-			)
+                ]
+            ]
 		);
 	}
 }

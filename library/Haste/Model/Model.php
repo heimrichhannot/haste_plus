@@ -57,7 +57,7 @@ class Model extends \Contao\Model
      */
     public static function removeModelFromCollection(\Model $objModel, \Model\Collection $objCollection = null)
     {
-        $arrRegistered = array();
+        $arrRegistered = [];
 
         if ($objCollection !== null)
         {
@@ -92,7 +92,7 @@ class Model extends \Contao\Model
      */
     public static function addModelToCollection(\Model $objModel, \Model\Collection $objCollection = null)
     {
-        $arrRegistered = array();
+        $arrRegistered = [];
 
         if ($objCollection !== null)
         {

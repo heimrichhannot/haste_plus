@@ -4,9 +4,9 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['MSC']['alias']                                                                                                                      =
-    array('Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.');
+    ['Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE]                                                        =
-    array('Autorentyp', 'Wählen Sie hier den Typ des Autoren aus.');
+    ['Autorentyp', 'Wählen Sie hier den Typ des Autoren aus.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_NONE]   =
     'Kein Autor';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] =
@@ -14,9 +14,9 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROP
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER]   =
     'Benutzer (Backend)';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR]                                                             =
-    array('Autor', 'Dieses Feld beinhaltet den Autoren des Datensatzes.');
+    ['Autor', 'Dieses Feld beinhaltet den Autoren des Datensatzes.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID]                                                         =
-    array('Session-ID', 'Dieses Feld beinhaltet die Session-ID des berechtigten Bearbeiters.');
+    ['Session-ID', 'Dieses Feld beinhaltet die Session-ID des berechtigten Bearbeiters.'];
 
 
 /**
@@ -88,7 +88,7 @@ $GLOBALS['TL_LANG']['COUNTIES']['de']['th'] = 'Thüringen';
 /**
  * Operators
  */
-$GLOBALS['TL_LANG']['MSC']['operators'] = array(
+$GLOBALS['TL_LANG']['MSC']['operators'] = [
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_LIKE          => 'enthält',
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_UNLIKE        => 'enthält nicht',
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_EQUAL         => '=',
@@ -99,12 +99,12 @@ $GLOBALS['TL_LANG']['MSC']['operators'] = array(
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_GREATER_EQUAL => '&gt;=',
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_IN            => 'in',
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_NOT_IN        => 'nicht in',
-);
+];
 
-$GLOBALS['TL_LANG']['MSC']['connectives'] = array(
+$GLOBALS['TL_LANG']['MSC']['connectives'] = [
     \HeimrichHannot\Haste\Database\QueryHelper::SQL_CONDITION_AND => 'und',
     \HeimrichHannot\Haste\Database\QueryHelper::SQL_CONDITION_OR  => 'oder',
-);
+];
 
 /**
  * Errors

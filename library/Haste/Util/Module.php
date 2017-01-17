@@ -38,7 +38,7 @@ class Module
 
 	public static function getModules($strType, $blnIncludeSubModules = true, $blnBackendModule = false)
 	{
-		$arrOptions = array();
+		$arrOptions = [];
 
 		if (!$blnIncludeSubModules)
 		{

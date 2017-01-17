@@ -26,7 +26,7 @@ class QueryHelper
     const OPERATOR_IN            = 'in';
     const OPERATOR_NOT_IN        = 'notin';
 
-    const OPERATORS = array(
+    const OPERATORS = [
         self::OPERATOR_LIKE,
         self::OPERATOR_UNLIKE,
         self::OPERATOR_EQUAL,
@@ -37,7 +37,7 @@ class QueryHelper
         self::OPERATOR_GREATER_EQUAL,
         self::OPERATOR_IN,
         self::OPERATOR_NOT_IN,
-    );
+    ];
 
     /**
      * Create a where condition for fields that contain serialized
@@ -53,7 +53,7 @@ class QueryHelper
     {
         $where = null;
 
-        if (!in_array($strCondition, array(self::SQL_CONDITION_OR, self::SQL_CONDITION_AND)))
+        if (!in_array($strCondition, [self::SQL_CONDITION_OR, self::SQL_CONDITION_AND]))
         {
             return '';
         }
@@ -139,7 +139,7 @@ class QueryHelper
     public static function computeCondition($strField, $strOperator, $varValue)
     {
         $strOperator = trim(strtolower($strOperator));
-        $arrValues   = array();
+        $arrValues   = [];
         $strPattern  = '?';
 
         switch ($strOperator)
@@ -201,7 +201,7 @@ class QueryHelper
 
         $strOperator = $GLOBALS['TL_LANG']['MSC']['operators'][$strOperator];
 
-        return array("$strField $strOperator $strPattern", $arrValues);
+        return ["$strField $strOperator $strPattern", $arrValues];
     }
 
 }
