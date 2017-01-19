@@ -12,17 +12,17 @@
 /**
  * Register the namespaces
  */
-ClassLoader::addNamespaces(
-    [
-	'HeimrichHannot',]
-);
+ClassLoader::addNamespaces(array
+(
+	'HeimrichHannot',
+));
 
 
 /**
  * Register the classes
  */
-ClassLoader::addClasses(
-    [
+ClassLoader::addClasses(array
+(
 	// Library
 	'HeimrichHannot\Haste\Security\CodeGenerator'           => 'system/modules/haste_plus/library/Haste/Security/CodeGenerator.php',
 	'HeimrichHannot\Haste\Security\HttpResponse'            => 'system/modules/haste_plus/library/Haste/Security/HttpResponse.php',
@@ -36,6 +36,7 @@ ClassLoader::addClasses(
 	'HeimrichHannot\Haste\Cache\FileCache'                  => 'system/modules/haste_plus/library/Haste/Cache/FileCache.php',
 	'HeimrichHannot\Haste\Dca\General'                      => 'system/modules/haste_plus/library/Haste/Dca/General.php',
 	'HeimrichHannot\Haste\Dca\User'                         => 'system/modules/haste_plus/library/Haste/Dca/User.php',
+	'HeimrichHannot\Haste\Dca\DC_HastePlus'                 => 'system/modules/haste_plus/library/Haste/Dca/DC_HastePlus.php',
 	'HeimrichHannot\Haste\Dca\Event'                        => 'system/modules/haste_plus/library/Haste/Dca/Event.php',
 	'HeimrichHannot\Haste\Dca\Member'                       => 'system/modules/haste_plus/library/Haste/Dca/Member.php',
 	'HeimrichHannot\Haste\Dca\Notification'                 => 'system/modules/haste_plus/library/Haste/Dca/Notification.php',
@@ -67,15 +68,15 @@ ClassLoader::addClasses(
 	'HeimrichHannot\HastePlus\Strings'                      => 'system/modules/haste_plus/classes/Strings.php',
 	'HeimrichHannot\HastePlus\Environment'                  => 'system/modules/haste_plus/classes/Environment.php',
 	'HeimrichHannot\HastePlus\Classes'                      => 'system/modules/haste_plus/classes/Classes.php',
-	'HeimrichHannot\HastePlus\Files'                        => 'system/modules/haste_plus/classes/Files.php',]
-);
+	'HeimrichHannot\HastePlus\Files'                        => 'system/modules/haste_plus/classes/Files.php',
+));
 
 
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(
-    [
+TemplateLoader::addFiles(array
+(
 	'dlh_infowindow'       => 'system/modules/haste_plus/templates/maps/frontend',
 	'dlh_googlemaps_haste' => 'system/modules/haste_plus/templates/maps/frontend',
 	'dlh_polygon'          => 'system/modules/haste_plus/templates/maps/elements',
@@ -83,5 +84,5 @@ TemplateLoader::addFiles(
 	'dlh_kml_geoxml'       => 'system/modules/haste_plus/templates/maps/elements',
 	'dlh_kml'              => 'system/modules/haste_plus/templates/maps/elements',
 	'google_chart'         => 'system/modules/haste_plus/templates/maps/charts',
-	'google_chart_column'  => 'system/modules/haste_plus/templates/maps/charts',]
-);
+	'google_chart_column'  => 'system/modules/haste_plus/templates/maps/charts',
+));

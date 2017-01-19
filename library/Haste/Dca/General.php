@@ -128,24 +128,12 @@ class General extends \Backend
      */
     public static function setDateAdded(\DataContainer $objDc)
     {
-        if ($objDc === null || !$objDc->id)
+        if ($objDc === null || !$objDc->id || $objDc->activeRecord->dateAdded > 0)
         {
             return false;
         }
 
-        if (($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null)
-        {
-            return false;
-        }
-
-        // Return if there is no active record (override all)
-        if ($objModel->dateAdded > 0)
-        {
-            return false;
-        }
-
-        $objModel->dateAdded = time();
-        $objModel->save();
+        \Database::getInstance()->prepare("UPDATE $objDc->table SET dateAdded=? WHERE id=? AND dateAdded = 0")->execute(time(), $objDc->id);
     }
 
 

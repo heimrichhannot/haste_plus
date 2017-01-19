@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [1.6.21] - 2017-01-18
 
+### Fixed
+- performance tweaks
+- added DC_HastePlus
+
+## [1.6.21] - 2017-01-18
+
 ### Added
 - multiColumnEditor support
 
