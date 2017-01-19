@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.21] - 2017-01-18
+
+### Added
+- multiColumnEditor support
+
 ## [1.6.20] - 2017-01-17
 
 ### Fixed

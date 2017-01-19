@@ -102,7 +102,7 @@ class FormSubmission
     public static function prepareDataField($strName, $varValue, $arrData, $strTable, $objDc)
     {
         $strSubmission = '';
-        $strLabel = isset($arrData['label'][0]) ? $arrData['label'][0] : $strName;
+        $strLabel      = isset($arrData['label'][0]) ? $arrData['label'][0] : $strName;
 
         $strOutput = static::prepareSpecialValueForPrint($varValue, $arrData, $strTable ?: 'tl_submission', $objDc);
 
@@ -188,13 +188,15 @@ class FormSubmission
     public static function prepareSpecialValueForPrint($varValue, $arrData, $strTable, $objDc, $objItem = null)
     {
         $varValue     = deserialize($varValue);
-        $arrOpts      = $arrData['options'];
+        $arrOptions   = $arrData['options'];
         $arrReference = $arrData['reference'];
         $strRegExp    = $arrData['eval']['rgxp'];
 
         // get options
         if ((is_array($arrData['options_callback']) || is_callable($arrData['options_callback'])) && !$arrData['reference'])
         {
+            $arrOptionsCallback = null;
+
             if (is_array($arrData['options_callback']))
             {
                 $strClass  = $arrData['options_callback'][0];
@@ -244,6 +246,35 @@ class FormSubmission
         {
             $varValue = \Date::parse(\Config::get('datimFormat'), $varValue);
         }
+        elseif ($arrData['inputType'] == 'multiColumnEditor' && in_array('multi_column_editor', \ModuleLoader::getActive()))
+        {
+            if (is_array($varValue))
+            {
+                $arrRows = [];
+
+                foreach ($varValue as $arrRow)
+                {
+                    $arrFields = [];
+
+                    foreach ($arrRow as $strField => $varFieldValue)
+                    {
+                        $arrDca = $arrData['eval']['multiColumnEditor']['fields'][$strField];
+
+                        $arrFields[] = ($arrDca['label'][0] ?: $strField) . ': ' . static::prepareSpecialValueForPrint(
+                                $varFieldValue,
+                                $arrDca,
+                                $strTable,
+                                $objDc,
+                                $objItem
+                            );
+                    }
+
+                    $arrRows[] = '[' . implode(', ', $arrFields) . ']';
+                }
+
+                $varValue = implode(', ', $arrRows);
+            }
+        }
         elseif ($arrData['inputType'] == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
         {
             if (($arrTags = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $objItem->id)) !== null)
@@ -285,9 +316,9 @@ class FormSubmission
             if (!$arrReference)
             {
                 $varValue = array_map(
-                    function ($varValue) use ($arrOpts)
+                    function ($varValue) use ($arrOptions)
                     {
-                        return isset($arrOpts[$varValue]) ? $arrOpts[$varValue] : $varValue;
+                        return isset($arrOptions[$varValue]) ? $arrOptions[$varValue] : $varValue;
                     },
                     $varValue
                 );
@@ -317,9 +348,9 @@ class FormSubmission
             {
                 $varValue = ($varValue != '') ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no'];
             }
-            elseif (is_array($arrOpts) && array_is_assoc($arrOpts))
+            elseif (is_array($arrOptions) && array_is_assoc($arrOptions))
             {
-                $varValue = isset($arrOpts[$varValue]) ? $arrOpts[$varValue] : $varValue;
+                $varValue = isset($arrOptions[$varValue]) ? $arrOptions[$varValue] : $varValue;
             }
             elseif (is_array($arrReference))
             {
