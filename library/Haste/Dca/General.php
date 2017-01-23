@@ -53,6 +53,7 @@ class General extends \Backend
 
             // copy field
             $arrDestinationDca['fields'][$strField] = $arrSourceDca['fields'][$strField];
+            $arrDestinationDca['fields'][$strField]['eval']['mandatory'] = true;
 
             // subpalette
             $arrDestinationDca['subpalettes'][$strOverrideFieldName] = $strField;

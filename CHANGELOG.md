@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.22] - 2017-01-23
+
+### Fixed
+- made all overridden fields mandatory -> else user won't check "overrideFieldName"
+
 ## [1.6.21] - 2017-01-18
 
 ### Fixed
