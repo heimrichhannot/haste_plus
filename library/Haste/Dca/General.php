@@ -11,10 +11,9 @@
 
 namespace HeimrichHannot\Haste\Dca;
 
-
+use Contao\Model;
+use Contao\Model\Collection;
 use Haste\Geodesy\Datum\WGS84;
-use HeimrichHannot\Haste\Util\Arrays;
-use HeimrichHannot\Haste\Util\Files;
 
 class General extends \Backend
 {
@@ -52,7 +51,7 @@ class General extends \Backend
             $arrDestinationDca['palettes']['__selector__'][] = $strOverrideFieldName;
 
             // copy field
-            $arrDestinationDca['fields'][$strField] = $arrSourceDca['fields'][$strField];
+            $arrDestinationDca['fields'][$strField]                      = $arrSourceDca['fields'][$strField];
             $arrDestinationDca['fields'][$strField]['eval']['mandatory'] = true;
 
             // subpalette
@@ -76,7 +75,7 @@ class General extends \Backend
      */
     public static function getOverridableProperty($strProperty, array $arrInstances)
     {
-        $varResult = null;
+        $varResult            = null;
         $arrPreparedInstances = [];
 
         // prepare instances
@@ -568,6 +567,21 @@ class General extends \Backend
         return $strItemClass ? $strItemClass::findByPk($intId) : null;
     }
 
+    public static function getModelInstanceIfId($varInstance, $strTable)
+    {
+        if ($varInstance instanceof Model)
+        {
+            return $varInstance;
+        }
+
+        if ($varInstance instanceof Collection)
+        {
+            return $varInstance->current();
+        }
+
+        return static::getModelInstance($strTable, $varInstance);
+    }
+
     public static function getModelInstances($strTable, array $arrOptions = [])
     {
         $strItemClass = \Model::getClassFromTable($strTable);
@@ -604,8 +618,7 @@ class General extends \Backend
         \Controller::loadDataContainer($strTable);
 
         // callback
-        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] =
-            ['HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate'];
+        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setSessionID'] = ['HeimrichHannot\Haste\Dca\General', 'setSessionIDOnCreate'];
 
         // field
         $GLOBALS['TL_DCA'][$strTable]['fields'][static::PROPERTY_SESSION_ID] = [
