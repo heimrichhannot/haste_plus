@@ -447,7 +447,7 @@ class General extends \Backend
         $varInputType = null,
         $arrEvalFilters = [],
         $blnSort = true,
-        array $arrSkipFields = ['id', 'tstamp', 'dateAdded', 'pid']
+        array $arrSkipFields = []
     ) {
         \Controller::loadDataContainer($strTable);
         \System::loadLanguageFile($strTable);

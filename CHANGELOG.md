@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.24] - 2017-02-10
+
+### Changed
+- removed preset skipFields in getFields()
+
 ## [1.6.23] - 2017-02-02
 
 ### Added
