@@ -14,6 +14,7 @@ namespace HeimrichHannot\Haste\Dca;
 use Contao\Model;
 use Contao\Model\Collection;
 use Haste\Geodesy\Datum\WGS84;
+use HeimrichHannot\Haste\Util\Curl;
 
 class General extends \Backend
 {
@@ -364,17 +365,7 @@ class General extends \Backend
         $strAddress = sprintf('%s, %s %s %s', $strStreet, $strPostal, $strCity, $strCountry);
         $strAddress = urlencode($strAddress);
 
-        $objCurl = curl_init();
-        curl_setopt($objCurl, CURLOPT_URL, 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $strAddress . '&sensor=false');
-        curl_setopt($objCurl, CURLOPT_RETURNTRANSFER, 1);
-
-        if (\Config::get('hpProxy'))
-        {
-            curl_setopt($objCurl, CURLOPT_PROXY, \Config::get('hpProxy'));
-        }
-
-        $strResult = curl_exec($objCurl);
-        curl_close($objCurl);
+        $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . $strAddress . '&sensor=false');
 
         // Request failed
         if (!$strResult)

@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.25] - 2017-02-15
+
+### Added
+- added Curl class
+
 ## [1.6.24] - 2017-02-10
 
 ### Changed

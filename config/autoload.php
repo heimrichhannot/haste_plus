@@ -44,6 +44,7 @@ ClassLoader::addClasses(array
 	'HeimrichHannot\Haste\Util\Module'                      => 'system/modules/haste_plus/library/Haste/Util/Module.php',
 	'HeimrichHannot\Haste\Util\Url'                         => 'system/modules/haste_plus/library/Haste/Util/Url.php',
 	'HeimrichHannot\Haste\Util\Widget'                      => 'system/modules/haste_plus/library/Haste/Util/Widget.php',
+	'HeimrichHannot\Haste\Util\Curl'                        => 'system/modules/haste_plus/library/Haste/Util/Curl.php',
 	'HeimrichHannot\Haste\Util\Numbers'                     => 'system/modules/haste_plus/library/Haste/Util/Numbers.php',
 	'HeimrichHannot\Haste\Util\Arrays'                      => 'system/modules/haste_plus/library/Haste/Util/Arrays.php',
 	'HeimrichHannot\Haste\Util\StringUtil'                  => 'system/modules/haste_plus/library/Haste/Util/StringUtil.php',
