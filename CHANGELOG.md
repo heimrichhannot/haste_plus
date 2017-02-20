@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.26] - 2017-02-20
+
+### Fixed
+- HeimrichHannot\Haste\Dca\General::setAuthorIDOnCreate does no check if PROPERTY_AUTHOR and PROPERTY_AUTHOR_TYPE instead of PROPERTY_SESSION_ID (typo)
+
 ## [1.6.25] - 2017-02-15
 
 ### Added

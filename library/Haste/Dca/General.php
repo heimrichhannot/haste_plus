@@ -667,7 +667,10 @@ class General extends \Backend
     {
         $objModel = static::getModelInstance($strTable, $intId);
 
-        if ($objModel === null || !\Database::getInstance()->fieldExists(static::PROPERTY_SESSION_ID, $strTable))
+        if ($objModel === null
+            || !\Database::getInstance()->fieldExists(static::PROPERTY_AUTHOR_TYPE, $strTable)
+            || !\Database::getInstance()->fieldExists(static::PROPERTY_AUTHOR, $strTable)
+        )
         {
             return false;
         }
