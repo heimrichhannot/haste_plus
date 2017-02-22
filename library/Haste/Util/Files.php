@@ -195,6 +195,11 @@ class Files
     {
         if ($strPath = static::getPathFromUuid($varUuid))
         {
+	        if(is_dir(TL_ROOT . DIRECTORY_SEPARATOR . $strPath))
+            {
+                return null;
+            }
+        
             return new \File($strPath, $blnDoNotCreate);
         }
     }

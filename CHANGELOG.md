@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.30] - 2017-02-22
+
+### Added
+- check within Files::getFileFromUuid against dir
+
+
 ## [1.6.29] - 2017-02-22
 
 ### Added
