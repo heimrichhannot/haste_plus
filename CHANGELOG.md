@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.28] - 2017-02-22
+
+### Added
+- JS-Helper: HASTE_PLUS.parseQueryString()
+
 ## [1.6.27] - 2017-02-21
 
 ### Added
