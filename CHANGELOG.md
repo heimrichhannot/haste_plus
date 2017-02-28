@@ -1,11 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.31] - 2017-02-28
+
+### Fixed
+- FormSubmission::tokenizeData(), set ##form_value_[fieldname]## to ##form_plain_[fieldname]## for binary values or values that call json_encode to fail
+
 ## [1.6.30] - 2017-02-22
 
 ### Added
 - check within Files::getFileFromUuid against dir
-
 
 ## [1.6.29] - 2017-02-22
 

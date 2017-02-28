@@ -155,9 +155,13 @@ class FormSubmission
                         break;
                     case 'value':
                         // check for values causing notification center's json_encode call to fail (unprintable characters like binary!)
-                        if (ctype_print($varValue))
+                        if (ctype_print($varValue) || $varValue == '')
                         {
                             $arrTokens[$strPrefix . '_value_' . $strName] = $varValue;
+                        }
+                        else
+                        {
+                            $arrTokens[$strPrefix . '_value_' . $strName] = $arrData['output'];
                         }
                         break;
                     case 'submission':
