@@ -22,6 +22,9 @@ class DOMUtil
 	 */
 	public static function convertToInlineCss($strText, $strCssText)
 	{
+	    // prevent inlining inside conditional comments, see https://github.com/tijsverkoyen/CssToInlineStyles/issues/133
+        $strCssText = preg_replace('/<!--(.*?)-->/Uis', '', $strCssText);
+
 		// apply the css inliner
 		$objCssInliner = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles($strText, $strCssText);
 

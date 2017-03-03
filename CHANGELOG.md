@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.32] - 2017-03-03
+
+### Fixed
+
+- HeimrichHannot\Haste\Util\DOMUtil::convertToInlineCss, prevent inlining inside conditional comments
+
 ## [1.6.31] - 2017-02-28
 
 ### Fixed
