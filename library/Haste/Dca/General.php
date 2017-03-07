@@ -26,6 +26,39 @@ class General extends \Backend
     const AUTHOR_TYPE_MEMBER = 'member';
     const AUTHOR_TYPE_USER   = 'user';
 
+    /**
+     * Retrieves an array from a dca config (in most cases eval) in the following priorities:
+     *
+     * 1. The value associated to $arrArray[$strProperty]
+     * 2. The value retrieved by $arrArray[$strProperty . '_callback'] which is a callback array like ['Class', 'method']
+     * 3. The value retrieved by $arrArray[$strProperty . '_callback'] which is a function closure array like ['Class', 'method']
+     *
+     * @param array $arrArray
+     * @param       $strProperty
+     * @param array $arrArgs
+     *
+     * @return mixed|null The value retrieved in the way mentioned above or null
+     */
+    public static function getConfigByArrayOrCallbackOrFunction(array $arrArray, $strProperty, array $arrArgs = [])
+    {
+        if (isset($arrArray[$strProperty]))
+        {
+            return $arrArray[$strProperty];
+        }
+
+        if (is_array($arrArray[$strProperty . '_callback']))
+        {
+            $arrCallback     = $arrArray[$strProperty . '_callback'];
+            return call_user_func_array($arrCallback[0] . '::' . $arrCallback[1], $arrArgs);
+        }
+        elseif (is_callable($arrArray[$strProperty . '_callback']))
+        {
+            return call_user_func_array($arrArray[$strProperty . '_callback'], $arrArgs);
+        }
+
+        return null;
+    }
+
     public static function addOverridableFields($arrFields, $strSourceTable, $strDestinationTable)
     {
         \Controller::loadDataContainer($strSourceTable);

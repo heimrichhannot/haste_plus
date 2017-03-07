@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.33] - 2017-03-07
+
+### Added
+
+- General::getConfigByArrayOrCallbackOrFunction()
+
 ## [1.6.32] - 2017-03-03
 
 ### Fixed
