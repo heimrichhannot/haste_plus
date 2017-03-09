@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.34] - 2017-03-09
+
+### Added
+
+- General::setDefaultsFromDca() added
+
 ## [1.6.33] - 2017-03-07
 
 ### Added

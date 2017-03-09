@@ -27,6 +27,63 @@ class General extends \Backend
     const AUTHOR_TYPE_USER   = 'user';
 
     /**
+     * Set initial $varData from dca
+     *
+     * @param string $strTable Dca table name
+     * @param mixed  $varData  Object or array
+     *
+     * @return mixed Object or array with the default values
+     */
+    public static function setDefaultsFromDca($strTable, $varData = null)
+    {
+        \Controller::loadDataContainer($strTable);
+
+        if (empty($GLOBALS['TL_DCA'][$strTable]))
+        {
+            return $varData;
+        }
+
+        // Get all default values for the new entry
+        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $k => $v)
+        {
+            // Use array_key_exists here (see #5252)
+            if (array_key_exists('default', $v))
+            {
+                if (is_object($varData))
+                {
+                    $varData->{$k} = is_array($v['default']) ? serialize($v['default']) : $v['default'];
+
+                    // Encrypt the default value (see #3740)
+                    if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
+                    {
+                        $varData->{$k} = \Encryption::encrypt($varData->{$k});
+                    }
+                }
+                else
+                {
+                    if($varData === null)
+                    {
+                        $varData = [];
+                    }
+
+                    if (is_array($varData))
+                    {
+                        $varData[$k] = is_array($v['default']) ? serialize($v['default']) : $v['default'];
+
+                        // Encrypt the default value (see #3740)
+                        if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
+                        {
+                            $varData[$k] = \Encryption::encrypt($varData[$k]);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $varData;
+    }
+
+    /**
      * Retrieves an array from a dca config (in most cases eval) in the following priorities:
      *
      * 1. The value associated to $arrArray[$strProperty]
@@ -48,7 +105,8 @@ class General extends \Backend
 
         if (is_array($arrArray[$strProperty . '_callback']))
         {
-            $arrCallback     = $arrArray[$strProperty . '_callback'];
+            $arrCallback = $arrArray[$strProperty . '_callback'];
+
             return call_user_func_array($arrCallback[0] . '::' . $arrCallback[1], $arrArgs);
         }
         elseif (is_callable($arrArray[$strProperty . '_callback']))
@@ -488,8 +546,7 @@ class General extends \Backend
 
             // input type
             if ($varInputType
-                && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType)
-                    : $arrData['inputType'] != $varInputType)
+                && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType)
             )
             {
                 continue;
@@ -550,8 +607,7 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s'
-                . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 ($strTable ? '&amp;table=' . $strTable : ''),
@@ -571,8 +627,7 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;id=%s&amp;table=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s'
-                . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 $strTable,
@@ -656,8 +711,7 @@ class General extends \Backend
         \Controller::loadDataContainer($strTable);
 
         // callbacks
-        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setAuthorIDOnCreate']     =
-            ['HeimrichHannot\Haste\Dca\General', 'setAuthorIDOnCreate'];
+        $GLOBALS['TL_DCA'][$strTable]['config']['oncreate_callback']['setAuthorIDOnCreate']     = ['HeimrichHannot\Haste\Dca\General', 'setAuthorIDOnCreate'];
         $GLOBALS['TL_DCA'][$strTable]['config']['onload_callback']['modifyAuthorPaletteOnLoad'] =
             ['HeimrichHannot\Haste\Dca\General', 'modifyAuthorPaletteOnLoad', true];
 

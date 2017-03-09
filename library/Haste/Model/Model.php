@@ -11,6 +11,8 @@
 namespace HeimrichHannot\Haste\Model;
 
 
+use HeimrichHannot\Haste\Dca\General;
+
 class Model extends \Contao\Model
 {
 
@@ -23,27 +25,7 @@ class Model extends \Contao\Model
      */
     public static function setDefaultsFromDca(\Model $objModel)
     {
-        $strTable = $objModel->getTable();
-
-        \Controller::loadDataContainer($strTable);
-
-        // Get all default values for the new entry
-        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $k => $v)
-        {
-            // Use array_key_exists here (see #5252)
-            if (array_key_exists('default', $v))
-            {
-                $objModel->{$k} = is_array($v['default']) ? serialize($v['default']) : $v['default'];
-
-                // Encrypt the default value (see #3740)
-                if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
-                {
-                    $objModel->{$k} = \Encryption::encrypt($objModel->{$k});
-                }
-            }
-        }
-
-        return $objModel;
+        return General::setDefaultsFromDca($objModel->getTable(), $objModel);
     }
 
 
