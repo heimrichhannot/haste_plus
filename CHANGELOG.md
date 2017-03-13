@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.35] - 2017-03-13
+
+### Added
+
+- QueryHelper::processInPieces(), process big result data from queries in pieces (working with bulksize to free memory again)
+- QueryHelper::doBulkInsert(), insert multiple entities wisely (working with bulksize to free memory again)
+
 ## [1.6.34] - 2017-03-09
 
 ### Added
