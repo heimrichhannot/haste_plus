@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.36] - 2017-03-13
+
+### Added
+
+- QueryHelper::doBulkInsert(), add missing white space for `UPDATE ON DUPLICATE KEY` part
+
 ## [1.6.35] - 2017-03-13
 
 ### Added

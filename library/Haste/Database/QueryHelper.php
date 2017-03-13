@@ -150,7 +150,7 @@ class QueryHelper
 
         if ($onDuplicateKey == self::ON_DUPLICATE_KEY_UPDATE)
         {
-            $strDuplicateQuery = 'ON DUPLICATE KEY UPDATE ' . implode(
+            $strDuplicateQuery = ' ON DUPLICATE KEY UPDATE ' . implode(
                     ',',
                     array_map(
                         function ($val)
