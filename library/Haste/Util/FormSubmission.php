@@ -381,6 +381,11 @@ class FormSubmission
         $varDefault = null,
         &$arrWidgetErrors = []
     ) {
+	if ($arrData['eval']['skipPrepareForSave'])
+        {
+            return $varValue;
+        }
+
         // Convert date formats into timestamps
         if ($varValue != '' && in_array($arrData['eval']['rgxp'], ['date', 'time', 'datim']))
         {

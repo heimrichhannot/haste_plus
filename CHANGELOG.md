@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.37] - 2017-03-15
+
+### Added
+
+- FormSubmission::prepareSpecialValueForSave() checks for eval option `skipPrepareForSave` to skip preparation
+
 ## [1.6.36] - 2017-03-13
 
 ### Added
