@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.38] - 2017-03-17
+
+### Fixed
+
+- FormSubmission::prepareSpecialValueForPrint() for non-associative option arrays
+
 ## [1.6.37] - 2017-03-15
 
 ### Added

@@ -217,7 +217,7 @@ class FormSubmission
 
             $arrOptions = !is_array($varValue) ? [$varValue] : $varValue;
 
-            if ($varValue !== null && is_array($arrOptionsCallback))
+            if ($varValue !== null && is_array($arrOptionsCallback) && array_is_assoc($arrOptionsCallback))
             {
                 $varValue = array_intersect_key($arrOptionsCallback, array_flip($arrOptions));
             }
