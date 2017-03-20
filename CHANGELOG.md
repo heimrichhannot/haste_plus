@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.39] - 2017-03-20
+
+### Fixed
+
+- enhanced Curl::request()
+
 ## [1.6.38] - 2017-03-17
 
 ### Fixed
