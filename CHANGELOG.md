@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.42] - 2017-03-21
+
+### Fixed
+
+- QueryHelper::createWhereForSerializedBlob()
+
 ## [1.6.41] - 2017-03-21
 
 ### Fixed

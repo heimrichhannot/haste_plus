@@ -309,7 +309,7 @@ class QueryHelper
 
             if ($blnFallback)
             {
-                $where .= " OR $strField=$val"; // backwards compatibility (if field was no array before)
+                $where .= " OR $strField='$val'"; // backwards compatibility (if field was no array before)
             }
 
             $where .= $strCondition == self::SQL_CONDITION_AND ? ")" : "";
