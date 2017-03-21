@@ -32,7 +32,7 @@ array_insert(
         'haste_plus_files'       => '/system/modules/haste_plus/assets/js/files.min.js|static',
         'haste_plus_arrays'      => '/system/modules/haste_plus/assets/js/arrays.min.js|static',
         'haste_plus_dom'         => '/system/modules/haste_plus/assets/js/dom.min.js|static',
-        'haste_plus_util'         => '/system/modules/haste_plus/assets/js/util.min.js|static'
+        'haste_plus_util'        => '/system/modules/haste_plus/assets/js/util.min.js|static',
     ]
 );
 
@@ -53,8 +53,8 @@ if (TL_MODE == 'FE')
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['modifyFrontendPage'][] = ['\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders'];
-$GLOBALS['TL_HOOKS']['addCustomRegexp'][]    = ['\\HeimrichHannot\\Haste\\Util\\Numbers', 'positiveFloatRegExpHook'];
+$GLOBALS['TL_HOOKS']['modifyFrontendPage'][]          = ['\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders'];
+$GLOBALS['TL_HOOKS']['addCustomRegexp']['haste_plus'] = ['HeimrichHannot\Haste\Util\Widget', 'addCustomRegexp'];
 
 
 /**

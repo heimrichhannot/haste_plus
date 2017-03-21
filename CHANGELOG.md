@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.40] - 2017-03-21
+
+### Added
+
+- Added price, customDate widget rgxp within `HeimrichHannot\Haste\Util\Widget::addCustomRegexp()`
+
+### Changed
+
+- Moved posfloat rgxp from `HeimrichHannot\Haste\Util\Numbers::positiveFloatRegExpHook()` to `HeimrichHannot\Haste\Util\Widget::addCustomRegexp()`
+
 ## [1.6.39] - 2017-03-20
 
 ### Fixed

@@ -14,23 +14,4 @@ namespace HeimrichHannot\Haste\Util;
 
 class Numbers
 {
-    public function positiveFloatRegExpHook($strRegexp, $varValue, \Widget $objWidget)
-    {
-        if ($strRegexp == 'posfloat')
-        {
-            if (strpos($varValue, ',') != false)
-            {
-                $objWidget->addError($GLOBALS['TL_LANG']['ERR']['posFloat']['commaFound']);
-            }
-
-            if (!preg_match('/^\d+(?:\.\d+)?$/', $varValue))
-            {
-                $objWidget->addError($GLOBALS['TL_LANG']['ERR']['posFloat']['noFloat']);
-            }
-
-            return true;
-        }
-
-        return false;
-    }
 }

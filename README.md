@@ -49,7 +49,15 @@ Add security headers to http request (configurable in tl_settings)
 - IFRAME Clickjacking Protection: X-Frame-Options: SAMEORIGIN
 - Allow Origins Check: Access-Control-Allow-Origins & Access-Control-Allow-Headers
 
+### Input/Widget rgxp
 
+The following regular expression can be used to validate widget input.
+
+Name | Example |  Description
+---- | ---- | ---- 
+customDate | customDate::d.m | Validate custom date format against input. 
+price | price | Validate price input.
+posfloat | posfloat | Validate float numbers in input.
 
 ### Utils
 
