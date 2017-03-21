@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.41] - 2017-03-21
+
+### Fixed
+
+- enhanced Curl
+
 ## [1.6.40] - 2017-03-21
 
 ### Added
