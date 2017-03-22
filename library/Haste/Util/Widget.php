@@ -45,9 +45,9 @@ class Widget
                 return true;
                 break;
             case 'price':
-                if (Validator::isPrice($varValue))
+                if (!Validator::isPrice($varValue))
                 {
-                    $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['digit'], $objWidget->label));
+                    $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['price'], $objWidget->label));
                 }
 
                 return true;

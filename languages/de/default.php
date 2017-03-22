@@ -110,7 +110,7 @@ $GLOBALS['TL_LANG']['ERR']['posFloat']['commaFound'] = 'Ungültiges Zeichen gefu
 $GLOBALS['TL_LANG']['ERR']['posFloat']['noFloat']    = 'Bitte geben Sie eine positive Gleitkommazahl (mit Punkt statt Komma) ein.';
 $GLOBALS['TL_LANG']['ERR']['iban']                   = 'Bitte geben Sie eine gültige IBAN ein.';
 $GLOBALS['TL_LANG']['ERR']['bic']                    = 'Bitte geben Sie eine gültige BIC ein.';
-
+$GLOBALS['TL_LANG']['ERR']['price']                  = 'Bitte geben Sie einen gültigen Preis ein.';
 /**
  * Misc
  */

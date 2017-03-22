@@ -22,7 +22,7 @@ class Validator extends \Validator
      */
     public static function isPrice($varValue)
     {
-        return preg_match('/^[\d \.-]*$/', $varValue);
+        return preg_match('/\b\d{1,3}(?:,?\d{3})*(?:\.\d{2})?\b/', $varValue);
     }
 
     /**

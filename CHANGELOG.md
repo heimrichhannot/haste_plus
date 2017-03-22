@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.46] - 2017-03-22
+
+### Fixed
+- `price` rgxp and `HeimrichHannot\Haste\Util\Validator::isPrice` validation fixed
+
 ## [1.6.45] - 2017-03-22
 
 ### Added
