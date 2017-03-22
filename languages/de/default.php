@@ -7,12 +7,9 @@ $GLOBALS['TL_LANG']['MSC']['alias']                                             
     ['Alias', 'Der Alias ist eine eindeutige Referenz, die anstelle der numerischen ID aufgerufen werden kann.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE]                                                        =
     ['Autorentyp', 'Wählen Sie hier den Typ des Autoren aus.'];
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_NONE]   =
-    'Kein Autor';
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] =
-    'Mitglied (Frontend)';
-$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER]   =
-    'Benutzer (Backend)';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_NONE]   = 'Kein Autor';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_MEMBER] = 'Mitglied (Frontend)';
+$GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR_TYPE][\HeimrichHannot\Haste\Dca\General::AUTHOR_TYPE_USER]   = 'Benutzer (Backend)';
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_AUTHOR]                                                             =
     ['Autor', 'Dieses Feld beinhaltet den Autoren des Datensatzes.'];
 $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROPERTY_SESSION_ID]                                                         =
@@ -22,13 +19,13 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus'][\HeimrichHannot\Haste\Dca\General::PROP
 /**
  * Salutations
  */
-$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationFemale'] = 'Sehr geehrte Frau';
-$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationMale'] = 'Sehr geehrter Herr';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationFemale']  = 'Sehr geehrte Frau';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationMale']    = 'Sehr geehrter Herr';
 $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'] = 'Sehr geehrte Damen und Herren';
 
 $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] = 'Hallo';
 
-$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderMale'] = 'Herr';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderMale']   = 'Herr';
 $GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFemale'] = 'Frau';
 
 /**
@@ -111,6 +108,8 @@ $GLOBALS['TL_LANG']['MSC']['connectives'] = [
  */
 $GLOBALS['TL_LANG']['ERR']['posFloat']['commaFound'] = 'Ungültiges Zeichen gefunden: Komma. Bitte verwenden Sie stattdessen einen Punkt als Trennzeichen.';
 $GLOBALS['TL_LANG']['ERR']['posFloat']['noFloat']    = 'Bitte geben Sie eine positive Gleitkommazahl (mit Punkt statt Komma) ein.';
+$GLOBALS['TL_LANG']['ERR']['iban']                   = 'Bitte geben Sie eine gültige IBAN ein.';
+$GLOBALS['TL_LANG']['ERR']['bic']                    = 'Bitte geben Sie eine gültige BIC ein.';
 
 /**
  * Misc

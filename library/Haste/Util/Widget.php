@@ -28,8 +28,24 @@ class Widget
 
         switch ($arrFlags[0])
         {
+            case 'bic':
+                if (!Validator::isBic($varValue))
+                {
+                    $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['bic'], $objWidget->label));
+                }
+
+                return true;
+                break;
+            case 'iban':
+                if (!Validator::isIban($varValue))
+                {
+                    $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['iban'], $objWidget->label));
+                }
+
+                return true;
+                break;
             case 'price':
-                if (!preg_match('/^[\d \.-]*$/', $varValue))
+                if (Validator::isPrice($varValue))
                 {
                     $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['digit'], $objWidget->label));
                 }
