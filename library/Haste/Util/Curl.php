@@ -28,6 +28,11 @@ class Curl
             static::setHeaders($objCurl, $arrRequestHeaders);
         }
 
+        if ($blnReturnResponseHeaders)
+        {
+            curl_setopt($objCurl, CURLOPT_HEADER, true);
+        }
+
         $strResponse   = curl_exec($objCurl);
         $intStatusCode = curl_getinfo($objCurl, CURLINFO_HTTP_CODE);
         curl_close($objCurl);
@@ -49,6 +54,11 @@ class Curl
         if (\Config::get('hpProxy'))
         {
             curl_setopt($objCurl, CURLOPT_PROXY, \Config::get('hpProxy'));
+        }
+
+        if ($blnReturnResponseHeaders)
+        {
+            curl_setopt($objCurl, CURLOPT_HEADER, true);
         }
 
         if (!empty($arrRequestHeaders))
@@ -80,7 +90,6 @@ class Curl
     {
         $objCurl = curl_init($strUrl);
 
-        curl_setopt($objCurl, CURLOPT_HEADER, true);
         curl_setopt($objCurl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($objCurl, CURLOPT_TIMEOUT, 10);
 

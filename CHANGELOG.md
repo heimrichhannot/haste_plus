@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.43] - 2017-03-22
+
+### Fixed
+
+- curl header issue
+
 ## [1.6.42] - 2017-03-21
 
 ### Fixed
