@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.44] - 2017-03-22
+
+### Added
+
+- RemoteImageCache
+
 ## [1.6.43] - 2017-03-22
 
 ### Fixed
