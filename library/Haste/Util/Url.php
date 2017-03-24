@@ -13,257 +13,299 @@ namespace HeimrichHannot\Haste\Util;
 
 class Url extends \Haste\Util\Url
 {
-	/**
-	 * Check an url for existing scheme and add if it is missing
-	 * @param        $strUrl The url
-	 * @param string $strScheme Name of the scheme
-	 *
-	 * @return string The url with scheme
-	 */
-	public static function addScheme($strUrl, $strScheme = 'http://')
-	{
-		return parse_url($strUrl, PHP_URL_SCHEME) === null ? $strScheme . $strUrl : $strUrl;
-	}
+    /**
+     * Check an url for existing scheme and add if it is missing
+     *
+     * @param        $strUrl    The url
+     * @param string $strScheme Name of the scheme
+     *
+     * @return string The url with scheme
+     */
+    public static function addScheme($strUrl, $strScheme = 'http://')
+    {
+        return parse_url($strUrl, PHP_URL_SCHEME) === null ? $strScheme . $strUrl : $strUrl;
+    }
 
-	public static function getCurrentUrlWithoutParameters()
-	{
-		return \Environment::get('url') . parse_url(\Environment::get('uri'), PHP_URL_PATH);
-	}
+    public static function getCurrentUrlWithoutParameters()
+    {
+        return \Environment::get('url') . parse_url(\Environment::get('uri'), PHP_URL_PATH);
+    }
 
-	public static function getCurrentUrl($blnIncludeRequestUri = true, $blnIncludeParameters = true)
-	{
-		$strUrl = \Environment::get('url') . ($blnIncludeRequestUri ? \Environment::get('requestUri') : '');
+    public static function getCurrentUrl($blnIncludeRequestUri = true, $blnIncludeParameters = true)
+    {
+        $strUrl = \Environment::get('url') . ($blnIncludeRequestUri ? \Environment::get('requestUri') : '');
 
-		if (!$blnIncludeParameters)
-			$strUrl = static::removeAllParametersFromUri($strUrl);
+        if (!$blnIncludeParameters)
+        {
+            $strUrl = static::removeAllParametersFromUri($strUrl);
+        }
 
-		return $strUrl;
-	}
+        return $strUrl;
+    }
 
-	public static function getUrl($includeRequestUri = true, $includeFragments = true, $includeParameters = true)
-	{
-		$strUrl = \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(\Environment::get('url')) : '');
+    public static function getUrl($includeRequestUri = true, $includeFragments = true, $includeParameters = true)
+    {
+        $strUrl =
+            \Environment::get('url') . ($includeRequestUri ? \Environment::get('requestUri') : '') . ($includeFragments ? static::getUriFragments(
+                \Environment::get('url')
+            ) : '');
 
-		if (!$includeParameters)
-			$strUrl = static::removeAllParametersFromUri($strUrl);
+        if (!$includeParameters)
+        {
+            $strUrl = static::removeAllParametersFromUri($strUrl);
+        }
 
-		return $strUrl;
-	}
+        return $strUrl;
+    }
 
-	public static function getUrlBasename($includeExtension = false, $includeParameters = false) {
-		$arrPathInfo = pathinfo($includeParameters ? \Environment::get('requestUri') : static::removeAllParametersFromUri(\Environment::get('requestUri')));
-		return $includeExtension ? $arrPathInfo['basename'] : $arrPathInfo['filename'];
-	}
+    public static function getUrlBasename($includeExtension = false, $includeParameters = false)
+    {
+        $arrPathInfo =
+            pathinfo($includeParameters ? \Environment::get('requestUri') : static::removeAllParametersFromUri(\Environment::get('requestUri')));
 
-	public static function getUriParameters($uri)
-	{
-		$arrParsed = parse_url($uri);
-		$arrParsedExploded = [];
-		if (isset($arrParsed['query']))
-		{
-			foreach (explode('&', $arrParsed['query']) as $currentParameter)
-			{
-				$arrCurrentParameterExploded = explode('=', $currentParameter);
-				$arrParsedExploded[$arrCurrentParameterExploded[0]] = $arrCurrentParameterExploded[1];
-			}
-		}
+        return $includeExtension ? $arrPathInfo['basename'] : $arrPathInfo['filename'];
+    }
 
-		return $arrParsedExploded;
-	}
+    public static function getUriParameters($uri)
+    {
+        $arrParsed         = parse_url($uri);
+        $arrParsedExploded = [];
+        if (isset($arrParsed['query']))
+        {
+            foreach (explode('&', $arrParsed['query']) as $currentParameter)
+            {
+                $arrCurrentParameterExploded                        = explode('=', $currentParameter);
+                $arrParsedExploded[$arrCurrentParameterExploded[0]] = $arrCurrentParameterExploded[1];
+            }
+        }
 
-	public static function getUriWithoutParameters($uri)
-	{
-		$arrParsed = parse_url($uri);
-		return rtrim(\Environment::get('url'), '/') . '/' . ltrim($arrParsed['path'], '/');
-	}
+        return $arrParsedExploded;
+    }
 
-	public static function getUriFragments($uri)
-	{
-		$arrParsed = parse_url($uri);
-		return $arrParsed['fragment'];
-	}
+    public static function getUriWithoutParameters($uri)
+    {
+        $arrParsed = parse_url($uri);
 
-	public static function removeParameterFromUri($uri, $key)
-	{
-		$arrParameters = static::getUriParameters($uri);
-		unset($arrParameters[$key]);
-		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
-	}
+        return rtrim(\Environment::get('url'), '/') . '/' . ltrim($arrParsed['path'], '/');
+    }
 
-	public static function removeParametersFromUri($uri, $arrKeys)
-	{
-		$arrParameters = static::getUriParameters($uri);
-		foreach ($arrKeys as $strKey)
-		{
-			unset($arrParameters[$strKey]);
-		}
-		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
-	}
+    public static function getUriFragments($uri)
+    {
+        $arrParsed = parse_url($uri);
 
-	public static function removeAllParametersFromUri($uri)
-	{
-		$arrParameters = static::getUriParameters($uri);
-		foreach ($arrParameters as $strKey => $strValue)
-		{
-			unset($arrParameters[$strKey]);
-		}
-		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
-	}
+        return $arrParsed['fragment'];
+    }
 
-	public static function removeAllParametersFromUriBut($uri, $arrKeys)
-	{
-		$arrParameters = static::getUriParameters($uri);
-		foreach ($arrParameters as $strKey => $strValue)
-		{
-			if (!in_array($strKey, $arrKeys))
-				unset($arrParameters[$strKey]);
-		}
-		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
-	}
+    public static function removeParameterFromUri($uri, $key)
+    {
+        $arrParameters = static::getUriParameters($uri);
+        unset($arrParameters[$key]);
 
-	public static function addParameterToUri($uri, $key, $value)
-	{
-		$arrParameters = static::getUriParameters($uri);
-		$arrParameters[$key] = $value;
-		return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '') . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
-	}
+        return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '')
+               . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+    }
 
-	public static function addParametersToUri($uri, array $arrParameters)
-	{
-		$strResult = $uri;
-		foreach ($arrParameters as $strKey => $strValue)
-		{
-			$strResult = static::addParameterToUri($strResult, $strKey, $strValue);
-		}
-		return $strResult;
-	}
+    public static function removeParametersFromUri($uri, $arrKeys)
+    {
+        $arrParameters = static::getUriParameters($uri);
+        foreach ($arrKeys as $strKey)
+        {
+            unset($arrParameters[$strKey]);
+        }
 
-	public static function replaceParameterInUri($uri, $key, $value)
-	{
-		return static::addParameterToUri(static::removeParameterFromUri($uri, $key), $key, $value);
-	}
+        return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '')
+               . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+    }
 
-	public static function getTld()
-	{
-		$arrParsed = parse_url(\Environment::get('base'));
-		$arrHostExploded = explode('.', $arrParsed['host']);
-		return $arrHostExploded[count($arrHostExploded) - 1];
-	}
+    public static function removeAllParametersFromUri($uri)
+    {
+        $arrParameters = static::getUriParameters($uri);
+        foreach ($arrParameters as $strKey => $strValue)
+        {
+            unset($arrParameters[$strKey]);
+        }
 
-	/**
-	 * Helper function for creating a &/=-concatenated string out of the $_GET superglobal.
-	 * ATTENTION: doesn't contain the leading "?".
-	 * @param mixed - remove one or more certain parameters
-	 */
-	public static function getConcatenatedGetString($remove) {
-		$result = [];
-		foreach ($_GET as $k => $v) {
-			if ((is_array($remove) && !in_array($k, $remove)) || (!is_array($remove) && $k != $remove))
-				$result[] = $k . '=' . $v;
-		}
-		return implode('&', $result);
-	}
+        return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '')
+               . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+    }
 
-	public static function getParametersFromUri($strUri)
-	{
-		$arrResult = [];
-		parse_str(parse_url($strUri, PHP_URL_QUERY), $arrResult);
+    public static function removeAllParametersFromUriBut($uri, $arrKeys)
+    {
+        $arrParameters = static::getUriParameters($uri);
+        foreach ($arrParameters as $strKey => $strValue)
+        {
+            if (!in_array($strKey, $arrKeys))
+            {
+                unset($arrParameters[$strKey]);
+            }
+        }
 
-		return $arrResult;
-	}
+        return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '')
+               . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+    }
 
-	public static function generateFrontendUrl($intPage)
-	{
-		if (($objPageJumpTo = \PageModel::findByPk($intPage)) !== null)
-		{
-			return \Controller::generateFrontendUrl($objPageJumpTo->row());
-		}
+    public static function addParameterToUri($uri, $key, $value)
+    {
+        $arrParameters       = static::getUriParameters($uri);
+        $arrParameters[$key] = $value;
 
-		return false;
-	}
+        return static::getUriWithoutParameters($uri) . (!empty($arrParameters) ? '?' . http_build_query($arrParameters) : '')
+               . (static::getUriFragments($uri) ? '#' . static::getUriFragments($uri) : '');
+    }
 
-	public static function generateAbsoluteUrl($intPage)
-	{
-		$strDomain = static::getRootDomain($intPage);
-		$strRequest = static::generateFrontendUrl($intPage);
+    public static function addParametersToUri($uri, array $arrParameters)
+    {
+        $strResult = $uri;
+        foreach ($arrParameters as $strKey => $strValue)
+        {
+            $strResult = static::addParameterToUri($strResult, $strKey, $strValue);
+        }
 
-		if ($strDomain !== false && $strRequest !== false)
-			return $strDomain . '/' . $strRequest;
-		else
-			return false;
-	}
+        return $strResult;
+    }
 
-	public static function getRootDomain($intPage)
-	{
-		if (($objTarget = \PageModel::findByPk($intPage)) !== null)
-		{
-			if ($objTarget->type == 'root')
-			{
-				return static::doGetRootDomain($objTarget);
-			}
-			else
-			{
-				foreach (\PageModel::findParentsById($objTarget->id) as $objParent)
-				{
-					if ($objParent->type == 'root')
-					{
-						return static::doGetRootDomain($objParent);
-					}
-				}
-			}
-		}
+    public static function replaceParameterInUri($uri, $key, $value)
+    {
+        return static::addParameterToUri(static::removeParameterFromUri($uri, $key), $key, $value);
+    }
 
-		return false;
-	}
+    public static function getTld()
+    {
+        $arrParsed       = parse_url(\Environment::get('base'));
+        $arrHostExploded = explode('.', $arrParsed['host']);
 
-	private static function doGetRootDomain($objPage)
-	{
-		return ($objPage->useSSL ? 'https://' : 'http://') . $objPage->dns;
-	}
+        return $arrHostExploded[count($arrHostExploded) - 1];
+    }
 
-	public static function getJumpToPageObject($intJumpTo)
-	{
-		global $objPage;
+    /**
+     * Helper function for creating a &/=-concatenated string out of the $_GET superglobal.
+     * ATTENTION: doesn't contain the leading "?".
+     *
+     * @param mixed - remove one or more certain parameters
+     */
+    public static function getConcatenatedGetString($remove)
+    {
+        $result = [];
+        foreach ($_GET as $k => $v)
+        {
+            if ((is_array($remove) && !in_array($k, $remove)) || (!is_array($remove) && $k != $remove))
+            {
+                $result[] = $k . '=' . $v;
+            }
+        }
 
-		if ($intJumpTo && $intJumpTo != $objPage->id &&
-			($objTargetPage = \PageModel::findByPk($intJumpTo)) !== null)
-		{
-			return $objTargetPage;
-		}
+        return implode('&', $result);
+    }
 
-		return $objPage;
-	}
+    public static function getParametersFromUri($strUri)
+    {
+        $arrResult = [];
+        parse_str(parse_url($strUri, PHP_URL_QUERY), $arrResult);
 
-	public static function getJumpToPageUrl($intJumpTo, $blnAbsolute = false)
-	{
-		$strUrl = \Controller::generateFrontendUrl(static::getJumpToPageObject($intJumpTo)->row());
+        return $arrResult;
+    }
 
-		if ($blnAbsolute)
-		{
-			$strHost = \Environment::get('url');
+    public static function generateFrontendUrl($intPage)
+    {
+        if (($objPageJumpTo = \PageModel::findByPk($intPage)) !== null)
+        {
+            return \Controller::generateFrontendUrl($objPageJumpTo->row());
+        }
 
-			if (strpos($strUrl, $strHost) === false)
-			{
-				$strUrl = $strHost . '/' . $strUrl;
-			}
-		}
+        return false;
+    }
 
-		return $strUrl;
-	}
+    public static function generateAbsoluteUrl($intPage)
+    {
+        $strDomain  = static::getRootDomain($intPage);
+        $strRequest = static::generateFrontendUrl($intPage);
 
-	/**
-	 * Adds the auto_item to a page's url
-	 * @param        $objPage
-	 * @param        $objEvent
-	 * @param string $strAutoItemType
-	 *
-	 * @return string
-	 */
-	public static function addAutoItemToPageUrl($objPage, $objItem, $strAutoItemType = 'items')
-	{
-		$strAutoItem = ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ? '/' : '/' . $strAutoItemType . '/') .
-			((!\Config::get('disableAlias') && $objItem->alias != '') ? $objItem->alias : $objItem->id);
+        if ($strDomain !== false && $strRequest !== false)
+        {
+            return $strDomain . '/' . $strRequest;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-		return \Controller::generateFrontendUrl($objPage->row(), $strAutoItem);
-	}
+    public static function getRootDomain($intPage)
+    {
+        if (($objTarget = \PageModel::findByPk($intPage)) !== null)
+        {
+            if ($objTarget->type == 'root')
+            {
+                return static::doGetRootDomain($objTarget);
+            }
+            else
+            {
+                if (($objParents = \PageModel::findParentsById($objTarget->id)) !== null)
+                {
+                    while ($objParents->next())
+                    {
+                        if ($objParents->type == 'root')
+                        {
+                            return static::doGetRootDomain($objParents);
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static function doGetRootDomain($objPage)
+    {
+        return ($objPage->useSSL ? 'https://' : 'http://') . $objPage->dns;
+    }
+
+    public static function getJumpToPageObject($intJumpTo)
+    {
+        global $objPage;
+
+        if ($intJumpTo && $intJumpTo != $objPage->id && ($objTargetPage = \PageModel::findByPk($intJumpTo)) !== null)
+        {
+            return $objTargetPage;
+        }
+
+        return $objPage;
+    }
+
+    public static function getJumpToPageUrl($intJumpTo, $blnAbsolute = false)
+    {
+        $strUrl = \Controller::generateFrontendUrl(static::getJumpToPageObject($intJumpTo)->row());
+
+        if ($blnAbsolute)
+        {
+            $strHost = \Environment::get('url');
+
+            if (strpos($strUrl, $strHost) === false)
+            {
+                $strUrl = $strHost . '/' . $strUrl;
+            }
+        }
+
+        return $strUrl;
+    }
+
+    /**
+     * Adds the auto_item to a page's url
+     *
+     * @param        $objPage
+     * @param        $objEvent
+     * @param string $strAutoItemType
+     *
+     * @return string
+     */
+    public static function addAutoItemToPageUrl($objPage, $objItem, $strAutoItemType = 'items')
+    {
+        $strAutoItem =
+            ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ? '/' : '/' . $strAutoItemType . '/') . ((!\Config::get('disableAlias')
+                                                                                                                      && $objItem->alias
+                                                                                                                         != '') ? $objItem->alias : $objItem->id);
+
+        return \Controller::generateFrontendUrl($objPage->row(), $strAutoItem);
+    }
 }

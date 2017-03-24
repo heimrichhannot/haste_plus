@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.47] - 2017-03-24
+
+### Fixed
+- Url::generateAbsoluteUrl() -> now correct handling of collections
+
 ## [1.6.46] - 2017-03-22
 
 ### Fixed
