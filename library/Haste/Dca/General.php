@@ -314,10 +314,15 @@ class General extends \Backend
             $objSessionData = \Session::getInstance()->getData();
             $arrIds         = $objSessionData['CURRENT']['IDS'];
 
+            $strItemClass = \Model::getClassFromTable($dc->table);
+
+            if(!class_exists($strItemClass))
+            {
+                return $arrButtons;
+            }
+
             foreach ($arrIds as $intId)
             {
-                $strItemClass = \Model::getClassFromTable($dc->table);
-
                 $objItem = $strItemClass::findByPk($intId);
 
                 if ($objItem === null)
@@ -643,7 +648,7 @@ class General extends \Backend
     {
         $strItemClass = \Model::getClassFromTable($strTable);
 
-        return $strItemClass ? $strItemClass::findByPk($intId) : null;
+        return class_exists($strItemClass) ? $strItemClass::findByPk($intId) : null;
     }
 
     public static function getModelInstanceIfId($varInstance, $strTable)
@@ -665,7 +670,7 @@ class General extends \Backend
     {
         $strItemClass = \Model::getClassFromTable($strTable);
 
-        return $strItemClass ? $strItemClass::findAll($arrOptions) : null;
+        return class_exists($strItemClass) ? $strItemClass::findAll($arrOptions) : null;
     }
 
     /**

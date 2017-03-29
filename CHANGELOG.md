@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.48] - 2017-03-29
+
+### Fixed
+- Check within `HeimrichHannot\Haste\Dca\General` methods that model class exists
+
+
 ## [1.6.47] - 2017-03-24
 
 ### Fixed
