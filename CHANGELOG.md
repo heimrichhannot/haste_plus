@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.49] - 2017-04-05
+
+### Added
+- geo.js
+- util.js -> call()
+- General::findFuzzyAddressOnGoogleMaps()
+
 ## [1.6.48] - 2017-03-29
 
 ### Fixed

@@ -476,6 +476,23 @@ class General extends \Backend
         return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
     }
 
+    public static function findFuzzyAddressOnGoogleMaps($strAddress)
+    {
+        $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($strAddress) . '&sensor=false');
+
+        // Request failed
+        if (!$strResult)
+        {
+            \System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
+
+            return null;
+        }
+
+        $objResponse = json_decode($strResult);
+
+        return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
+    }
+
     public static function setCoordinatesForDc($varValue, $objDc)
     {
         $objCoordinates = static::findAddressOnGoogleMaps(
