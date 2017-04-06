@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.50] - 2017-04-05
+
+### Fixed
+- return value fixed for `\HeimrichHannot\Haste\Cache\Cache::getInstance()`
+
 ## [1.6.49] - 2017-04-05
 
 ### Added

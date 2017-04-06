@@ -31,10 +31,10 @@ abstract class Cache extends phpFastCacheAbstractProxy
         $this->instance = parent::__construct($driver, self::getOptions());
     }
 
-    /**
+   /**
      * Return the object instance (Singleton)
      *
-     * @return \Session The object instance
+     * @return \HeimrichHannot\Haste\Cache\Cache The object instance
      */
     public static function getInstance()
     {
