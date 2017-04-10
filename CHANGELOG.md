@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.51] - 2017-04-10
+
+### Changed
+
+- tl_settings.headerXFrameSkipPages can now hold multiple pages
+
 ## [1.6.50] - 2017-04-05
 
 ### Fixed

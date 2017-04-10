@@ -19,22 +19,26 @@ $strPalette = '{haste_legend},headerAddXFrame,headerXFrameSkipPages,headerAllowO
 $dc['palettes']['default'] = str_replace('defaultChmod;', 'defaultChmod;' . $strPalette, $dc['palettes']['default']);
 
 $arrFields = [
-    'headerAddXFrame' => [
-		'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['headerAddXFrame'],
-		'inputType'               => 'checkbox',
-		'eval'                    => ['tl_class' =>'w50']],
+    'headerAddXFrame'       => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_settings']['headerAddXFrame'],
+        'inputType' => 'checkbox',
+        'eval'      => ['tl_class' => 'w50'],
+    ],
     'headerXFrameSkipPages' => [
-        'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['headerXFrameSkipPages'],
-        'inputType'               => 'pageTree',
-        'eval'                    => ['tl_class' =>'clr']],
-    'headerAllowOrigins' => [
-		'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['headerAllowOrigins'],
-		'inputType'               => 'checkbox',
-		'eval'                    => ['tl_class' =>'w50']],
-    'hpProxy' => [
-		'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['hpProxy'],
-		'inputType'               => 'text',
-		'eval'                    => ['tl_class' =>'w50']
-    ]];
+        'label'     => &$GLOBALS['TL_LANG']['tl_settings']['headerXFrameSkipPages'],
+        'inputType' => 'pageTree',
+        'eval'      => ['tl_class' => 'clr', 'fieldType' => 'checkbox', 'multiple' => true],
+    ],
+    'headerAllowOrigins'    => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_settings']['headerAllowOrigins'],
+        'inputType' => 'checkbox',
+        'eval'      => ['tl_class' => 'w50'],
+    ],
+    'hpProxy'               => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_settings']['hpProxy'],
+        'inputType' => 'text',
+        'eval'      => ['tl_class' => 'w50'],
+    ],
+];
 
 $dc['fields'] = array_merge($dc['fields'], $arrFields);
