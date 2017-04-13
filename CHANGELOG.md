@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.52] - 2017-04-13
+
+### Added
+- added rgxp `maxlength::[length]` to validate html input values
+
 ## [1.6.51] - 2017-04-10
 
 ### Changed

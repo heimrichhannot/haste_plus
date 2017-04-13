@@ -58,6 +58,7 @@ Name | Example |  Description
 customDate | customDate::d.m | Validate custom date format against input. 
 price | price | Validate price input.
 posfloat | posfloat | Validate float numbers in input.
+maxlength | maxlength::120 | Validate the user input without html elements against the input given length.
 
 ### Utils
 

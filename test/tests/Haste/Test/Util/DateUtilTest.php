@@ -157,7 +157,7 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 15:09:51'),
 				' &ndash; ',
-				'28.01.2016 15:09'
+				'28.01.2016, 15:09'
             ],
             [
 				strtotime('28.01.2016 15:09:51'),
@@ -169,7 +169,7 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 				strtotime('28.01.2016 15:09:51'),
 				strtotime('28.01.2016 17:09:51'),
 				' &ndash; ',
-				'28.01.2016 15:09 &ndash; 28.01.2016 17:09'
+				'28.01.2016, 15:09 &ndash; 17:09'
             ]
         ];
 	}

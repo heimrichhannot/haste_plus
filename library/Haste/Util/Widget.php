@@ -90,6 +90,26 @@ class Widget
 
                 return true;
                 break;
+            case 'maxlength':
+
+                if (empty($arrFlags[1]))
+                {
+                    return true;
+                }
+
+                $strString = preg_replace('/[\t\n\r]+/', ' ', $varValue);
+                $strString = strip_tags($strString);
+                $strString = \StringUtil::restoreBasicEntities($strString);
+                $strString = \StringUtil::decodeEntities($strString);
+                $strString = trim($strString);
+
+                if (utf8_strlen($strString) > $arrFlags[1])
+                {
+                    $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['maxlength'], $objWidget->label, $arrFlags[1]));
+                }
+
+                return true;
+                break;
         }
 
         return false;
