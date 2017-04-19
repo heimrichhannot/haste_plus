@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.53] - 2017-04-19
+
+### Fixed
+- update google visualization api loader code and remove jsapi as it generates `Parser-blocking` message within https-secure websites
+
 ## [1.6.52] - 2017-04-13
 
 ### Added
