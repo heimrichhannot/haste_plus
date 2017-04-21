@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.6.54] - 2017-04-21
+
+### Added
+- English locales
+
 ## [1.6.53] - 2017-04-19
 
 ### Fixed

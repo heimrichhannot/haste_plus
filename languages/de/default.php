@@ -83,7 +83,7 @@ $GLOBALS['TL_LANG']['COUNTIES']['de']['sh'] = 'Schleswig-Holstein';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['th'] = 'Thüringen';
 
 /**
- * Operators
+ * Logic
  */
 $GLOBALS['TL_LANG']['MSC']['operators'] = [
     \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_LIKE          => 'enthält',

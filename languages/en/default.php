@@ -77,18 +77,25 @@ $GLOBALS['TL_LANG']['COUNTIES']['de']['sh'] = 'Schleswig-Holstein';
 $GLOBALS['TL_LANG']['COUNTIES']['de']['th'] = 'Thuringia';
 
 /**
- * Operators
+ * Logic
  */
-$GLOBALS['TL_LANG']['MSC']['operators']['like'] = 'like';
-$GLOBALS['TL_LANG']['MSC']['operators']['unlike'] = 'not like';
-$GLOBALS['TL_LANG']['MSC']['operators']['equal'] = '=';
-$GLOBALS['TL_LANG']['MSC']['operators']['unequal'] = '!=';
-$GLOBALS['TL_LANG']['MSC']['operators']['lower'] = '<';
-$GLOBALS['TL_LANG']['MSC']['operators']['greater'] = '>';
-$GLOBALS['TL_LANG']['MSC']['operators']['lowerequal'] = '<=';
-$GLOBALS['TL_LANG']['MSC']['operators']['greaterequal'] = '>=';
-$GLOBALS['TL_LANG']['MSC']['operators']['in'] = 'in';
-$GLOBALS['TL_LANG']['MSC']['operators']['notin'] = 'not in';
+$GLOBALS['TL_LANG']['MSC']['operators'] = [
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_LIKE          => 'contains',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_UNLIKE        => 'doesn\'t contain',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_EQUAL         => '=',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_UNEQUAL       => '!=',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_LOWER         => '&lt;',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_GREATER       => '&gt;',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_LOWER_EQUAL   => '&lt;=',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_GREATER_EQUAL => '&gt;=',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_IN            => 'in',
+    \HeimrichHannot\Haste\Database\QueryHelper::OPERATOR_NOT_IN        => 'not in',
+];
+
+$GLOBALS['TL_LANG']['MSC']['connectives'] = [
+    \HeimrichHannot\Haste\Database\QueryHelper::SQL_CONDITION_AND => 'and',
+    \HeimrichHannot\Haste\Database\QueryHelper::SQL_CONDITION_OR  => 'or',
+];
 
 /**
  * Errors
