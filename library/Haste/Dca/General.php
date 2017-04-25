@@ -852,4 +852,47 @@ class General extends \Backend
 
         return $GLOBALS['TL_DCA'][$strTable]['fields'][$strField]['label'][0] ?: $strField;
     }
+
+    public static function getOptionsFromDca($strTable, $strField, $blnLocalizeOptions = true, \DataContainer $objDc = null)
+    {
+        \Controller::loadDataContainer($strTable);
+
+        $arrOptions = [];
+        $arrFieldDca = $GLOBALS['TL_DCA'][$strTable]['fields'][$strField];
+
+        if ((is_array($arrFieldDca['options_callback']) || is_callable($arrFieldDca['options_callback'])) && !$arrFieldDca['reference'])
+        {
+            if (is_array($arrFieldDca['options_callback']))
+            {
+                $strClass  = $arrFieldDca['options_callback'][0];
+                $strMethod = $arrFieldDca['options_callback'][1];
+
+                $arrOptions = @$strClass->$strMethod($objDc);
+            }
+            elseif (is_callable($arrFieldDca['options_callback']))
+            {
+                $arrOptions = @$arrFieldDca['options_callback']($objDc);
+            }
+        }
+
+        if (is_array($arrFieldDca['options']))
+        {
+            $arrOptions = $arrFieldDca['options'];
+        }
+
+        if (!$blnLocalizeOptions)
+        {
+            return $arrOptions;
+        }
+        else if (!empty($arrOptions) && is_array($arrFieldDca['reference']))
+        {
+            $arrReference = $arrFieldDca['reference'];
+
+            return array_combine($arrOptions, array_map(function($varValue) use ($arrReference) {
+                return $arrReference[$varValue];
+            }, $arrOptions));
+        }
+
+        return $arrOptions;
+    }
 }

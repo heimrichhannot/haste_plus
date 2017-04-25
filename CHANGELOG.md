@@ -1,5 +1,10 @@
-# Change Log
+# Changelog
 All notable changes to this project will be documented in this file.
+
+## [1.6.55] - 2017-04-21
+
+### Added
+- General::getOptionsFromDca
 
 ## [1.6.54] - 2017-04-21
 
