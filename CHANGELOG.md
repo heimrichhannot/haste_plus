@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.6.55] - 2017-04-21
+## [1.6.56] - 2017-04-26
+
+### Fixed
+- getCurrentLocation bug
+
+## [1.6.55] - 2017-04-25
 
 ### Added
 - General::getOptionsFromDca

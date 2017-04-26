@@ -5,7 +5,7 @@
         getCurrentLocation: function(success, error)
         {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function() {
+                navigator.geolocation.getCurrentPosition(function(position) {
                     HASTE_PLUS.call(success, position.coords.latitude, position.coords.longitude);
                 });
             }
