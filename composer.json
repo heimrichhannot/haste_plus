@@ -32,7 +32,8 @@
     "globalcitizen/php-iban": "~2.0"
   },
   "suggest": {
-    "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*"
+    "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*",
+    "miljar/php-exif": "Required for working with EXIF meta-data in version 0.6.3"
   },
   "autoload": {
     "psr-0": {

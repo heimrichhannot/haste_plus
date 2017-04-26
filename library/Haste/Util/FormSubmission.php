@@ -381,7 +381,7 @@ class FormSubmission
         $varDefault = null,
         &$arrWidgetErrors = []
     ) {
-	if ($arrData['eval']['skipPrepareForSave'])
+        if ($arrData['eval']['skipPrepareForSave'])
         {
             return $varValue;
         }
