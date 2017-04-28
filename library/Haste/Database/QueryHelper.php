@@ -383,7 +383,7 @@ class QueryHelper
         switch ($strOperator)
         {
             case static::OPERATOR_UNLIKE:
-                $arrValues[] = '%' . $varValue . '%';
+                $arrValues[] = '%' . (is_string($varValue) ? '"' . $varValue . '"' : $varValue). '%';
                 break;
             case static::OPERATOR_EQUAL:
                 $arrValues[] = $varValue;
@@ -433,11 +433,11 @@ class QueryHelper
                     ) . ')';
                 break;
             default:
-                $arrValues[] = '%' . $varValue . '%';
+                $arrValues[] = '%' . (is_string($varValue) ? '"' . $varValue . '"' : $varValue). '%';
                 break;
         }
 
-        $strOperator = $GLOBALS['TL_LANG']['MSC']['operators'][$strOperator];
+        $strOperator = static::transformVerboseOperator($strOperator);
 
         return ["$strField $strOperator $strPattern", $arrValues];
     }

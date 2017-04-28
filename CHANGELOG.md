@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.58] - 2017-04-28
+
+### Fixed
+- QueryHelper computeCondition() (broken operators & check for string in case of "like")
+
 ## [1.6.57] - 2017-04-26
 
 ### Added
