@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.59] - 2017-05-05
+
+### Added
+- Curl::prepareHeaderArrayForPrint
+- DateUtil::checkFormat()
+
 ## [1.6.58] - 2017-04-28
 
 ### Fixed

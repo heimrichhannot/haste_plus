@@ -14,6 +14,22 @@ namespace HeimrichHannot\Haste\Util;
 
 class Curl
 {
+    public static function recursivelyGetRequest($intMaxRecursionCount, $funcTerminationCondition, $strUrl, array $arrRequestHeaders = [], $blnReturnResponseHeaders = false)
+    {
+        $i = 0;
+        $blnTerminate = false;
+        $varResult = null;
+
+        while ($i++ < $intMaxRecursionCount && !$blnTerminate)
+        {
+            $varResult = static::request($strUrl, $arrRequestHeaders, $blnReturnResponseHeaders);
+
+            $blnTerminate = $funcTerminationCondition($varResult, $strUrl, $arrRequestHeaders, $blnReturnResponseHeaders, $intMaxRecursionCount);
+        }
+
+        return $varResult;
+    }
+
     public static function request($strUrl, array $arrRequestHeaders = [], $blnReturnResponseHeaders = false)
     {
         $objCurl = static::createCurlObject($strUrl);
@@ -45,6 +61,22 @@ class Curl
         {
             return $strResponse;
         }
+    }
+
+    public static function recursivelyPostRequest($intMaxRecursionCount, $funcTerminationCondition, $strUrl, array $arrRequestHeaders = [], array $arrPost = [], $blnReturnResponseHeaders = false)
+    {
+        $i = 0;
+        $blnTerminate = false;
+        $varResult = null;
+
+        while ($i++ < $intMaxRecursionCount && !$blnTerminate)
+        {
+            $varResult = static::postRequest($strUrl, $arrRequestHeaders, $arrPost, $blnReturnResponseHeaders);
+
+            $blnTerminate = $funcTerminationCondition($varResult, $strUrl, $arrRequestHeaders, $arrPost, $blnReturnResponseHeaders, $intMaxRecursionCount);
+        }
+
+        return $varResult;
     }
 
     public static function postRequest($strUrl, array $arrRequestHeaders = [], array $arrPost = [], $blnReturnResponseHeaders = false)
@@ -130,5 +162,27 @@ class Curl
         }
 
         return [$arrHeaders, trim($strBody)];
+    }
+
+    /**
+     * Creates a linebreak separated list of the headers in $arrHeaders -> see request() and postRequest()
+     * @param array $arrHeaders
+     */
+    public static function prepareHeaderArrayForPrint(array $arrHeaders)
+    {
+        $strResult = '';
+        $i = 0;
+
+        foreach ($arrHeaders as $strKey => $strValue)
+        {
+            $strResult .= "$strKey: $strValue";
+
+            if ($i++ != count($arrHeaders) - 1)
+            {
+                $strResult .= PHP_EOL;
+            }
+        }
+
+        return $strResult;
     }
 }
