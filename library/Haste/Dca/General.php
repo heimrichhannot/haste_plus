@@ -867,7 +867,7 @@ class General extends \Backend
                 $strClass  = $arrFieldDca['options_callback'][0];
                 $strMethod = $arrFieldDca['options_callback'][1];
 
-                $arrOptions = @$strClass->$strMethod($objDc);
+                $arrOptions = @$strClass->{$strMethod}($objDc);
             }
             elseif (is_callable($arrFieldDca['options_callback']))
             {

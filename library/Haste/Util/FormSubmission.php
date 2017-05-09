@@ -208,7 +208,7 @@ class FormSubmission
 
                 $objInstance = \Controller::importStatic($strClass);
 
-                $arrOptionsCallback = @$objInstance->$strMethod($objDc);
+                $arrOptionsCallback = @$objInstance->{$strMethod}($objDc);
             }
             elseif (is_callable($arrData['options_callback']))
             {

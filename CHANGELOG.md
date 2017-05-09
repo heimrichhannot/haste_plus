@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.60] - 2017-05-09
+
+### Added
+- php 7 support
+
 ## [1.6.59] - 2017-05-05
 
 ### Added

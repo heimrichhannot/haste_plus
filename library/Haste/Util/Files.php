@@ -290,7 +290,7 @@ class Files
         if (is_array($varFolder) && $dc !== null)
         {
             $arrCallback = $varFolder;
-            $varFolder   = \System::importStatic($arrCallback[0])->$arrCallback[1]($dc);
+            $varFolder   = \System::importStatic($arrCallback[0])->{$arrCallback[1]}($dc);
         }
         elseif (is_callable($varFolder) && $dc !== null)
         {

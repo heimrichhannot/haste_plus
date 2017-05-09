@@ -216,7 +216,7 @@ class PdfTemplate extends \Controller
 
     public function __get($strName)
     {
-        return $this->$strName;
+        return $this->{$strName};
     }
 
 
