@@ -13,185 +13,220 @@ namespace HeimrichHannot\Haste\Map;
 
 class GoogleMapOverlay
 {
-	protected $arrOptions = [];
+    protected $arrOptions = [];
 
-	const TYPE_MARKER = 'MARKER';
-	const TYPE_INFOWINDOW = 'INFOWINDOW';
-	const TYPE_POLYLINE = 'POLYLINE';
-	const TYPE_POLYGON = 'POLYGON';
-	const TYPE_GROUND_OVERLAY = 'GROUND_OVERLAY';
-	const TYPE_RECTANGLE = 'RECTANGLE';
-	const TYPE_CIRCLE = 'CIRCLE';
-	const TYPE_KML = 'KML';
-	const TYPE_KML_GEOXML = 'KML_GEOXML';
+    const TYPE_MARKER         = 'MARKER';
+    const TYPE_INFOWINDOW     = 'INFOWINDOW';
+    const TYPE_POLYLINE       = 'POLYLINE';
+    const TYPE_POLYGON        = 'POLYGON';
+    const TYPE_GROUND_OVERLAY = 'GROUND_OVERLAY';
+    const TYPE_RECTANGLE      = 'RECTANGLE';
+    const TYPE_CIRCLE         = 'CIRCLE';
+    const TYPE_KML            = 'KML';
+    const TYPE_KML_GEOXML     = 'KML_GEOXML';
 
-	const MARKERTYPE_SIMPLE = 'SIMPLE';
-	const MARKERTYPE_ICON = 'ICON';
+    const MARKERTYPE_SIMPLE = 'SIMPLE';
+    const MARKERTYPE_ICON   = 'ICON';
 
-	const MARKERACTION_NONE = 'NONE';
-	const MARKERACTION_LINK = 'LINK';
-	const MARKERACTION_INFO = 'INFO';
-	const MARKERACTION_MODAL = 'MODAL';
+    const MARKERACTION_NONE  = 'NONE';
+    const MARKERACTION_LINK  = 'LINK';
+    const MARKERACTION_INFO  = 'INFO';
+    const MARKERACTION_MODAL = 'MODAL';
 
-	public function __construct()
-	{
-		if (!static::init())
-		{
-			throw new \Exception('dlh_googlemaps module is not enabled');
-		}
+    public function __construct()
+    {
+        if (!static::init())
+        {
+            throw new \Exception('dlh_googlemaps module is not enabled');
+        }
 
-		$this->prepare();
-	}
+        $this->prepare();
+    }
 
-	public function generate(array $arrOptions = [])
-	{
-		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
+    public function generate(array $arrOptions = [])
+    {
+        $this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
-		$arrData = $this->getData($this->arrOptions);
-		
-		$strTemplate = sprintf('dlh_%s', $arrData['customTpl'] ?: strtolower($arrData['type']));
+        $arrData = $this->getData($this->arrOptions);
 
-		$objTemplate          = new \FrontendTemplate($strTemplate);
-		$objTemplate->map     = $arrData['map'];
-		$objTemplate->element = $arrData;
+        $strTemplate = sprintf('dlh_%s', $arrData['customTpl'] ?: strtolower($arrData['type']));
 
-		return $objTemplate->parse();
-	}
+        $objTemplate          = new \FrontendTemplate($strTemplate);
+        $objTemplate->map     = $arrData['map'];
+        $objTemplate->element = $arrData;
 
-	public function generateStatic(array $arrOptions = [])
-	{
-		$this->arrOptions = array_merge($this->arrOptions, $arrOptions);
+        return $objTemplate->parse();
+    }
 
-		$arrData = $this->getData($this->arrOptions);
+    public function generateStatic(array $arrOptions = [])
+    {
+        $this->arrOptions = array_merge($this->arrOptions, $arrOptions);
 
-		$strMarker = '';
+        $arrData = $this->getData($this->arrOptions);
 
-		switch($arrData['type']) {
-			case 'MARKER':
-				if($arrData['markerType'] == 'ICON') {
-					$arrData['iconSRC'] = \FilesModel::findByUuid($arrData['iconSRC'])->path;
-					return ['icon:' . rawurlencode(\Environment::get('base') . $arrData['iconSRC']) . '|shadow:false|' => $arrData['singleCoords']];
-				}
-				else
-				{
-					$strMarker = '&amp;markers='.$arrData['singleCoords'];
-				}
-				break;
-			case 'POLYLINE':
-				if(is_array($arrData['multiCoords']) && count($arrData['multiCoords'])>0) {
-					$strMarker .= '&amp;path=weight:'.$arrData['strokeWeight']['value'].'|color:0x'.$arrData['strokeColor'].dechex($arrData['strokeOpacity']*255);
-					foreach($arrData['multiCoords'] as $coords) {
-						$strMarker .= '|'.str_replace(' ','',$coords);
-					}
-				}
-				break;
-			case 'POLYGON':
-				if(is_array($arrData['multiCoords']) && count($arrData['multiCoords'])>0) {
-					$strMarker .= '&amp;path=weight:'.$arrData['strokeWeight']['value'].'|color:0x'.$arrData['strokeColor'].dechex($arrData['strokeOpacity']*255).'|fillcolor:0x'.$arrData['fillColor'].dechex($arrData['fillOpacity']*255);
-					foreach($arrData['multiCoords'] as $coords) {
-						$strMarker .= '|'.str_replace(' ','',$coords);
-					}
-					$strMarker .= '|'.str_replace(' ','',$arrData['multiCoords'][0]);
-				}
-				break;
-		}
+        $strMarker = '';
 
-		return $strMarker;
-	}
+        switch ($arrData['type'])
+        {
+            case 'MARKER':
+                if ($arrData['markerType'] == 'ICON')
+                {
+                    $arrData['iconSRC'] = \FilesModel::findByUuid($arrData['iconSRC'])->path;
 
-	protected function getData(array $arrData)
-	{
-		$arrData['singleCoords'] = str_replace(' ','',$arrData['singleCoords']);
+                    return ['icon:' . rawurlencode(\Environment::get('base') . $arrData['iconSRC']) . '|shadow:false|' => $arrData['singleCoords']];
+                }
+                else
+                {
+                    $strMarker = '&amp;markers=' . $arrData['singleCoords'];
+                }
+                break;
+            case 'POLYLINE':
+                if (is_array($arrData['multiCoords']) && count($arrData['multiCoords']) > 0)
+                {
+                    $strMarker .= '&amp;path=weight:' . $arrData['strokeWeight']['value'] . '|color:0x' . $arrData['strokeColor'] . dechex(
+                            $arrData['strokeOpacity'] * 255
+                        );
+                    foreach ($arrData['multiCoords'] as $coords)
+                    {
+                        $strMarker .= '|' . str_replace(' ', '', $coords);
+                    }
+                }
+                break;
+            case 'POLYGON':
+                if (is_array($arrData['multiCoords']) && count($arrData['multiCoords']) > 0)
+                {
+                    $strMarker .= '&amp;path=weight:' . $arrData['strokeWeight']['value'] . '|color:0x' . $arrData['strokeColor'] . dechex(
+                            $arrData['strokeOpacity'] * 255
+                        ) . '|fillcolor:0x' . $arrData['fillColor'] . dechex($arrData['fillOpacity'] * 255);
+                    foreach ($arrData['multiCoords'] as $coords)
+                    {
+                        $strMarker .= '|' . str_replace(' ', '', $coords);
+                    }
+                    $strMarker .= '|' . str_replace(' ', '', $arrData['multiCoords'][0]);
+                }
+                break;
+        }
 
-		$arrData['multiCoords'] = deserialize($arrData['multiCoords']);
-		if(is_array($arrData['multiCoords'])) {
-			$tmp1 = [];
-			foreach($arrData['multiCoords'] as $coords) {
-				$tmp2 = explode(',',$coords);
-				$tmp1[0][] = $tmp2[0];
-				$tmp1[1][] = $tmp2[1];
-			}
-			$arrData['windowPosition'] = array_sum($tmp1[0])/sizeof($tmp1[0]).','.array_sum($tmp1[1])/sizeof($tmp1[1]);
-		}
+        return $strMarker;
+    }
 
-		$arrData['iconSize'] = deserialize($arrData['iconSize']);
+    protected function getData(array $arrData)
+    {
+        $arrData['singleCoords'] = str_replace(' ', '', $arrData['singleCoords']);
 
-		$arrData['iconAnchor'] = deserialize($arrData['iconAnchor']);
+        $arrData['multiCoords'] = deserialize($arrData['multiCoords']);
+        if (is_array($arrData['multiCoords']))
+        {
+            $tmp1 = [];
+            foreach ($arrData['multiCoords'] as $coords)
+            {
+                $tmp2      = explode(',', $coords);
+                $tmp1[0][] = $tmp2[0];
+                $tmp1[1][] = $tmp2[1];
+            }
+            $arrData['windowPosition'] = array_sum($tmp1[0]) / sizeof($tmp1[0]) . ',' . array_sum($tmp1[1]) / sizeof($tmp1[1]);
+        }
 
-		if(!$arrData['iconAnchor'][0] || $arrData['iconAnchor'][0]==0) {
-			$arrData['iconAnchor'][0] = floor($arrData['iconSize'][0]/2);
-		}
-		else
-		{
-			$arrData['iconAnchor'][0] = floor($arrData['iconSize'][0]/2) + $arrData['iconAnchor'][0];
-		}
+        $arrData['iconSize'] = deserialize($arrData['iconSize']);
 
-		if(!$arrData['iconAnchor'][1] || $arrData['iconAnchor'][1]==0) {
-			$arrData['iconAnchor'][1] = floor($arrData['iconSize'][1]/2);
-		}
-		else
-		{
-			$arrData['iconAnchor'][1] = floor($arrData['iconSize'][1]/2) + $arrData['iconAnchor'][1];
-		}
+        $arrData['iconAnchor'] = deserialize($arrData['iconAnchor']);
 
-		$objFile = \FilesModel::findByPk($arrData['overlaySRC']);
-		$arrData['overlaySRC'] = $objFile->path;
+        if (!$arrData['iconAnchor'][0] || $arrData['iconAnchor'][0] == 0)
+        {
+            $arrData['iconAnchor'][0] = floor($arrData['iconSize'][0] / 2);
+        }
+        else
+        {
+            $arrData['iconAnchor'][0] = floor($arrData['iconSize'][0] / 2) + $arrData['iconAnchor'][0];
+        }
 
-		$objFile = \FilesModel::findByPk($arrData['shadowSRC']);
-		$arrData['shadowSRC'] = $objFile->path;
+        if (!$arrData['iconAnchor'][1] || $arrData['iconAnchor'][1] == 0)
+        {
+            $arrData['iconAnchor'][1] = floor($arrData['iconSize'][1] / 2);
+        }
+        else
+        {
+            $arrData['iconAnchor'][1] = floor($arrData['iconSize'][1] / 2) + $arrData['iconAnchor'][1];
+        }
 
-		$arrData['shadowSize'] = deserialize($arrData['shadowSize']);
+        $objFile               = \FilesModel::findByPk($arrData['overlaySRC']);
+        $arrData['overlaySRC'] = $objFile->path;
 
-		$arrData['strokeWeight'] = deserialize($arrData['strokeWeight']);
+        $objFile              = \FilesModel::findByPk($arrData['shadowSRC']);
+        $arrData['shadowSRC'] = $objFile->path;
 
-		$tmp1 = deserialize($arrData['strokeOpacity']);
-		$arrData['strokeOpacity'] = $tmp1/100;
+        $arrData['shadowSize'] = deserialize($arrData['shadowSize']);
 
-		$tmp1 = deserialize($arrData['fillOpacity']);
-		$arrData['fillOpacity'] = $tmp1/100;
+        $arrData['strokeWeight'] = deserialize($arrData['strokeWeight']);
 
-		$arrData['radius'] = deserialize($arrData['radius']);
-		$arrData['bounds'] = deserialize($arrData['bounds']);
-		$tmp1 = explode(',',$arrData['bounds'][0]);
-		$tmp2 = explode(',',$arrData['bounds'][1]);
-		$arrData['bounds'][2] = (trim($tmp1[0]).trim($tmp2[0]))/2 . ',' . (trim($tmp1[1]).trim($tmp2[1]))/2;
-		// important: escape front slashes for js (/ -> \/)
-		$arrData['infoWindow'] = preg_replace('/[\n\r\t]+/i', '', str_replace('/', '\/', addslashes(stripslashes(html_entity_decode(\Controller::replaceInsertTags($arrData['infoWindow']))))));
+        $tmp1                     = deserialize($arrData['strokeOpacity']);
+        $arrData['strokeOpacity'] = $tmp1 / 100;
 
-		$arrData['infoWindowAnchor'] = deserialize($arrData['infoWindowAnchor']);
-		$arrData['infoWindowAnchor'][0] = $arrData['infoWindowAnchor'][0] ? -1 * $arrData['infoWindowAnchor'][0] : 0;
-		$arrData['infoWindowAnchor'][1] = $arrData['infoWindowAnchor'][1] ? -1 * $arrData['infoWindowAnchor'][1] : 0;
+        $tmp1                   = deserialize($arrData['fillOpacity']);
+        $arrData['fillOpacity'] = $tmp1 / 100;
 
-		$tmpSize = deserialize($arrData['infoWindowSize']);
+        $arrData['radius'] = deserialize($arrData['radius']);
 
-		$arrData['infoWindowSize'] = '';
-		if(is_array($tmpSize) && $tmpSize[0] > 0 && $tmpSize[1] > 0) {
-			$arrData['infoWindowSize'] = sprintf(' style="width:%spx;height:%spx;"', $tmpSize[0], $tmpSize[1]);
-		}
+        if ($arrData['bounds'])
+        {
+            $arrData['bounds']    = deserialize($arrData['bounds']);
+            $tmp1                 = explode(',', $arrData['bounds'][0]);
+            $tmp2                 = explode(',', $arrData['bounds'][1]);
+            $arrData['bounds'][2] = (trim($tmp1[0]) . trim($tmp2[0])) / 2 . ',' . (trim($tmp1[1]) . trim($tmp2[1])) / 2;
+        }
 
-		$arrData['routingAddress'] = str_replace('\"','"', addslashes(str_replace('
-','',$arrData['routingAddress'])));
-		$arrData['labels'] = $GLOBALS['TL_LANG']['dlh_googlemaps']['labels'];
+        // important: escape front slashes for js (/ -> \/)
+        $arrData['infoWindow'] = preg_replace(
+            '/[\n\r\t]+/i',
+            '',
+            str_replace('/', '\/', addslashes(stripslashes(html_entity_decode(\Controller::replaceInsertTags($arrData['infoWindow'])))))
+        );
 
-		$arrData['staticMapPart'] = '';
+        $arrData['infoWindowAnchor']    = deserialize($arrData['infoWindowAnchor']);
+        $arrData['infoWindowAnchor'][0] = $arrData['infoWindowAnchor'][0] ? -1 * $arrData['infoWindowAnchor'][0] : 0;
+        $arrData['infoWindowAnchor'][1] = $arrData['infoWindowAnchor'][1] ? -1 * $arrData['infoWindowAnchor'][1] : 0;
 
-		//supporting insertags
-		$arrData['kmlUrl'] =  \Controller::replaceInsertTags($arrData['kmlUrl'],false);
-		$objFile = \FilesModel::findByPk($arrData['kmlUrl']);
-		$arrData['kmlUrl'] = $objFile->path;
+        $tmpSize = deserialize($arrData['infoWindowSize']);
 
-		return $arrData;
-	}
+        $arrData['infoWindowSize'] = '';
+        if (is_array($tmpSize) && $tmpSize[0] > 0 && $tmpSize[1] > 0)
+        {
+            $arrData['infoWindowSize'] = sprintf(' style="width:%spx;height:%spx;"', $tmpSize[0], $tmpSize[1]);
+        }
+
+        $arrData['routingAddress'] = str_replace(
+            '\"',
+            '"',
+            addslashes(
+                str_replace(
+                    '
+',
+                    '',
+                    $arrData['routingAddress']
+                )
+            )
+        );
+        $arrData['labels']         = $GLOBALS['TL_LANG']['dlh_googlemaps']['labels'];
+
+        $arrData['staticMapPart'] = '';
+
+        //supporting insertags
+        $arrData['kmlUrl'] = \Controller::replaceInsertTags($arrData['kmlUrl'], false);
+        $objFile           = \FilesModel::findByPk($arrData['kmlUrl']);
+        $arrData['kmlUrl'] = $objFile->path;
+
+        return $arrData;
+    }
 
 
-	protected function isAvailable()
-	{
-		return in_array('dlh_googlemaps', \ModuleLoader::getActive());
-	}
+    protected function isAvailable()
+    {
+        return in_array('dlh_googlemaps', \ModuleLoader::getActive());
+    }
 
-	protected function prepare(array $arrOptions = [])
-	{
-		$arrDefaults = [
+    protected function prepare(array $arrOptions = [])
+    {
+        $arrDefaults = [
             'map'                    => '', // the id of the GoogleMap
             'infoWindowUnique'       => false,
             'id'                     => rand(10000, 99999),
@@ -203,10 +238,10 @@ class GoogleMapOverlay
             'markerTypesAvailable'   => ['SIMPLE', 'ICON'],
             'markerAction'           => 'NONE',
             'markerActionsAvailable' => ['NONE', 'LINK', 'INFO'],
-            'multiCoords'			 => NULL,
-            'markerShowTitle'		 => true,
-            'overlaySRC'			 => NULL,
-            'iconSRC'		 		 => NULL,
+            'multiCoords'            => null,
+            'markerShowTitle'        => true,
+            'overlaySRC'             => null,
+            'iconSRC'                => null,
             'iconSize'               => [16, 16, 'px'],
             'iconAnchor'             => [0, 0, 'px'],
             'hasShadow'              => '',
@@ -236,220 +271,243 @@ class GoogleMapOverlay
             'kmlScreenOverlays'      => true,
             'kmlSuppressInfowindows' => false,
             'inverted'               => false,
-            'published'              => true];
+            'published'              => true
+        ];
 
-		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
-	}
+        $this->arrOptions = array_merge($arrDefaults, $arrOptions);
+    }
 
-	public function getId()
-	{
-		return $this->arrOptions['id'];
-	}
+    public function getId()
+    {
+        return $this->arrOptions['id'];
+    }
 
-	/**
-	 * @param $strCoordinates the coordinates where to route to
-	 *
-	 * @return $this
-	 */
-	public function setRoute($strCoordinates)
-	{
-		$this->routingAddress = $strCoordinates;
-		$this->markerAction = 'INFO';
+    /**
+     * @param $strCoordinates the coordinates where to route to
+     *
+     * @return $this
+     */
+    public function setRoute($strCoordinates)
+    {
+        $this->routingAddress = $strCoordinates;
+        $this->markerAction   = 'INFO';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setTitle($strTitle)
-	{
-		$this->title = $strTitle;
-		$this->markerShowTitle = true;
+    public function setTitle($strTitle)
+    {
+        $this->title           = $strTitle;
+        $this->markerShowTitle = true;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setPosition($strCoordinates)
-	{
-		$this->singleCoords = $strCoordinates;
-		return $this;
-	}
+    public function setPosition($strCoordinates)
+    {
+        $this->singleCoords = $strCoordinates;
 
-	public function setPositions($arrCoordinates)
-	{
-		$this->multiCoords = $arrCoordinates;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setMarkerType($strMarkerType)
-	{
-		$this->markerType = $strMarkerType;
-		return $this;
-	}
+    public function setPositions($arrCoordinates)
+    {
+        $this->multiCoords = $arrCoordinates;
 
-	public function setType($strType)
-	{
-		$this->type = $strType;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setIconSRC($strIconSrc)
-	{
-		$this->iconSRC = $strIconSrc;
-		return $this;
-	}
+    public function setMarkerType($strMarkerType)
+    {
+        $this->markerType = $strMarkerType;
 
-	public function setIconSize($strIconSize)
-	{
-		$this->iconSize = $strIconSize;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setIconAnchor($strIconAnchor)
-	{
-		$this->iconAnchor = $strIconAnchor;
-		return $this;
-	}
+    public function setType($strType)
+    {
+        $this->type = $strType;
 
-	public function setMarkerAction($strMarkerAction)
-	{
-		$this->markerAction = $strMarkerAction;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setUrl($strUrl)
-	{
-		$this->url = $strUrl;
-		return $this;
-	}
+    public function setIconSRC($strIconSrc)
+    {
+        $this->iconSRC = $strIconSrc;
 
-	public function setTarget($strTarget)
-	{
-		$this->target = $strTarget;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setInfoWindow($strInfoWindow)
-	{
-		$this->infoWindow = $strInfoWindow;
-		return $this;
-	}
+    public function setIconSize($strIconSize)
+    {
+        $this->iconSize = $strIconSize;
 
-	public function setInfoWindowAnchor($strInfoWindowAnchor)
-	{
-		$this->infoWindowAnchor = $strInfoWindowAnchor;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setInfoWindowSize($strInfoWindowSize)
-	{
-		$this->infoWindowSize = $strInfoWindowSize;
-		return $this;
-	}
+    public function setIconAnchor($strIconAnchor)
+    {
+        $this->iconAnchor = $strIconAnchor;
 
-	public function setInfoWindowMaxWidth($strInfoWindowMaxWidth)
-	{
-		$this->infoWindowMaxWidth = $strInfoWindowMaxWidth;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setStrokeColor($strStrokeColor)
-	{
-		$this->strokeColor = $strStrokeColor;
-		return $this;
-	}
+    public function setMarkerAction($strMarkerAction)
+    {
+        $this->markerAction = $strMarkerAction;
 
-	public function setStrokeOpacity($intStrokeOpacity)
-	{
-		$this->strokeOpacity = $intStrokeOpacity;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setStrokeWeight($intStrokeWeight)
-	{
-		$this->strokeWeight = $intStrokeWeight;
-		return $this;
-	}
+    public function setUrl($strUrl)
+    {
+        $this->url = $strUrl;
 
-	public function setFillColor($strFillColor)
-	{
-		$this->fillColor = $strFillColor;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setFillOpacity($intFillOpacity)
-	{
-		$this->fillOpacity = $intFillOpacity;
-		return $this;
-	}
+    public function setTarget($strTarget)
+    {
+        $this->target = $strTarget;
 
-	public function setKmlUrl($strUrl)
-	{
-		$this->kmlUrl = $strUrl;
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setInverted($blnInverted)
-	{
-		$this->inverted = $blnInverted;
-		return $this;
-	}
+    public function setInfoWindow($strInfoWindow)
+    {
+        $this->infoWindow = $strInfoWindow;
 
-	private static function init()
-	{
-		if (!in_array('dlh_googlemaps', \ModuleLoader::getActive())) {
-			return false;
-		}
+        return $this;
+    }
 
-		\Controller::loadLanguageFile('tl_dlh_googlemaps');
+    public function setInfoWindowAnchor($strInfoWindowAnchor)
+    {
+        $this->infoWindowAnchor = $strInfoWindowAnchor;
 
-		return true;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set an object property
-	 *
-	 * @param string $strKey
-	 * @param mixed  $varValue
-	 */
-	public function __set($strKey, $varValue)
-	{
-		$this->arrOptions[$strKey] = $varValue;
-	}
+    public function setInfoWindowSize($strInfoWindowSize)
+    {
+        $this->infoWindowSize = $strInfoWindowSize;
 
+        return $this;
+    }
 
-	/**
-	 * Return an object property
-	 *
-	 * @param string $strKey
-	 *
-	 * @return mixed
-	 */
-	public function __get($strKey)
-	{
-		if (isset($this->arrOptions[$strKey]))
-		{
-			return $this->arrOptions[$strKey];
-		}
+    public function setInfoWindowMaxWidth($strInfoWindowMaxWidth)
+    {
+        $this->infoWindowMaxWidth = $strInfoWindowMaxWidth;
 
-		return parent::__get($strKey);
-	}
+        return $this;
+    }
 
+    public function setStrokeColor($strStrokeColor)
+    {
+        $this->strokeColor = $strStrokeColor;
 
-	/**
-	 * Check whether a property is set
-	 *
-	 * @param string $strKey
-	 *
-	 * @return boolean
-	 */
-	public function __isset($strKey)
-	{
-		return isset($this->arrOptions[$strKey]);
-	}
+        return $this;
+    }
+
+    public function setStrokeOpacity($intStrokeOpacity)
+    {
+        $this->strokeOpacity = $intStrokeOpacity;
+
+        return $this;
+    }
+
+    public function setStrokeWeight($intStrokeWeight)
+    {
+        $this->strokeWeight = $intStrokeWeight;
+
+        return $this;
+    }
+
+    public function setFillColor($strFillColor)
+    {
+        $this->fillColor = $strFillColor;
+
+        return $this;
+    }
+
+    public function setFillOpacity($intFillOpacity)
+    {
+        $this->fillOpacity = $intFillOpacity;
+
+        return $this;
+    }
+
+    public function setKmlUrl($strUrl)
+    {
+        $this->kmlUrl = $strUrl;
+
+        return $this;
+    }
+
+    public function setInverted($blnInverted)
+    {
+        $this->inverted = $blnInverted;
+
+        return $this;
+    }
+
+    private static function init()
+    {
+        if (!in_array('dlh_googlemaps', \ModuleLoader::getActive()))
+        {
+            return false;
+        }
+
+        \Controller::loadLanguageFile('tl_dlh_googlemaps');
+
+        return true;
+    }
+
+    /**
+     * Set an object property
+     *
+     * @param string $strKey
+     * @param mixed  $varValue
+     */
+    public function __set($strKey, $varValue)
+    {
+        $this->arrOptions[$strKey] = $varValue;
+    }
 
 
-	public function getOptions()
-	{
-		return $this->arrOptions;
-	}
+    /**
+     * Return an object property
+     *
+     * @param string $strKey
+     *
+     * @return mixed
+     */
+    public function __get($strKey)
+    {
+        if (isset($this->arrOptions[$strKey]))
+        {
+            return $this->arrOptions[$strKey];
+        }
+
+        return parent::__get($strKey);
+    }
+
+
+    /**
+     * Check whether a property is set
+     *
+     * @param string $strKey
+     *
+     * @return boolean
+     */
+    public function __isset($strKey)
+    {
+        return isset($this->arrOptions[$strKey]);
+    }
+
+
+    public function getOptions()
+    {
+        return $this->arrOptions;
+    }
 
 }

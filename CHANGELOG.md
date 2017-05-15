@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.61] - 2017-05-15
+
+### Fixed
+- bounds check in GoogleMapsOverlay
+
 ## [1.6.60] - 2017-05-09
 
 ### Added
