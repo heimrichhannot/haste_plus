@@ -10,11 +10,15 @@ $GLOBALS['TL_CONFIG']['phpfastcachePath'] = 'system/cache/phpfastcache/';
  */
 if (TL_MODE == 'BE')
 {
+    $strJQueryPath = version_compare(VERSION, '4.0', '<') ?
+        'assets/jquery/core/' . $GLOBALS['TL_ASSETS']['JQUERY'] . '/jquery.min.js' :
+        'assets/jquery/jquery.min.js';
+
     array_insert(
         $GLOBALS['TL_JAVASCRIPT'],
         0,
         [
-            'jquery'            => 'assets/jquery/core/' . $GLOBALS['TL_ASSETS']['JQUERY'] . '/jquery.min.js',
+            'jquery'            => $strJQueryPath,
             'jquery-noconflict' => 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js',
         ]
     );

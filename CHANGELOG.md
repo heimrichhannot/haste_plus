@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.62] - 2017-06-12
+
+### Fixed
+- General::getModalEditLink(), General::getArchiveModalEditLink()
+- contao 4 support for paths
+
 ## [1.6.61] - 2017-05-15
 
 ### Fixed

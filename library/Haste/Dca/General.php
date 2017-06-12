@@ -629,7 +629,7 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px; float: right" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 ($strTable ? '&amp;table=' . $strTable : ''),
@@ -649,7 +649,7 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;id=%s&amp;table=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left:3px; float: right" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 $strTable,
