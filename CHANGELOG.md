@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.63] - 2017-06-23
+
+### Added
+- HeimrichHannot\Haste\Util\GeoLocation
+
 ## [1.6.62] - 2017-06-12
 
 ### Fixed
