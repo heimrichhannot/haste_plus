@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.66] - 2017-06-27
+
+### Fixed
+- QueryHelper::computeCondition() now works correctly with blobs
+
 ## [1.6.65] - 2017-06-27
 
 ### Added
