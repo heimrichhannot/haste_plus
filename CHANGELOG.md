@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.65] - 2017-06-27
+
+### Added
+- added an action to the custom control
+
 ## [1.6.64] - 2017-06-27
 
 ### Added

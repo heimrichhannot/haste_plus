@@ -348,6 +348,8 @@ class GoogleMap
 				'BOTTOM_RIGHT',
             ],
             'useCustomControl'              => 0,
+            'customControlAction'           => 'NONE',
+            'customControlActionsAvailable' => ['NONE', 'RESIZE'],
             'customControlPos'              => 'LEFT_CENTER',
             'customControlHTML'             => '',
             'customControlPosAvailable'     => [

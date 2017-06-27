@@ -134,6 +134,13 @@
         <?php else : ?>
         <?php endif; ?>
 
+        <?php if ($this->map['customControlAction'] === 'RESIZE') : ?>
+            $(document).on('click', '.googleMaps_customControl', function () {
+                google.maps.event.trigger(gmap<?= $this->map['id']; ?>, "resize");
+                gmap<?= $this->map['id']; ?>.setCenter(new google.maps.LatLng(<?= $this->map['elements'][0]['data']['singleCoords']; ?>));
+            });
+        <?php endif; ?>
+
         <?php if ($this->map['moreParameter']) : echo $this->map['moreParameter']; endif; ?>
 
 		// create bounds object to fit markers into current map boundaries
