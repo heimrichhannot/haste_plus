@@ -122,7 +122,19 @@
 
 		gmap<?= $this->map['id']; ?> = new google.maps.Map(document.getElementById("dlh_googlemap_<?= $this->map['id']; ?>"), gmap<?= $this->map['id']; ?>_Options);
 
-		<?php if ($this->map['moreParameter']) : echo $this->map['moreParameter']; endif; ?>
+        // create your own custom control
+        <?php if ($this->map['useCustomControl']) : ?>
+            var centerControlDiv = document.createElement('button');
+            centerControlDiv.className = 'button googleMaps_customControl';
+        <?php if ($this->map['customControlHTML'] !== '') : ?>
+            centerControlDiv.innerHTML = '<?= $this->map['customControlHTML']; ?>';
+        <?php endif; ?>
+        centerControlDiv.index = 1;
+            gmap<?= $this->map['id']; ?>.controls[google.maps.ControlPosition.<?= $this->map['customControlPos']; ?>].push(centerControlDiv);
+        <?php else : ?>
+        <?php endif; ?>
+
+        <?php if ($this->map['moreParameter']) : echo $this->map['moreParameter']; endif; ?>
 
 		// create bounds object to fit markers into current map boundaries
 		var bounds = new google.maps.LatLngBounds();

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.64] - 2017-06-27
+
+### Added
+- you can now create your own custom control button for the google map
+
 ## [1.6.63] - 2017-06-23
 
 ### Added

@@ -347,8 +347,29 @@ class GoogleMap
 				'BOTTOM_CENTER',
 				'BOTTOM_RIGHT',
             ],
+            'useCustomControl'              => 0,
+            'customControlPos'              => 'LEFT_CENTER',
+            'customControlHTML'             => '',
+            'customControlPosAvailable'     => [
+                'TOP_LEFT',
+                'TOP_CENTER',
+                'TOP_RIGHT',
+                'LEFT_TOP',
+                'C1',
+                'RIGHT_TOP',
+                'LEFT_CENTER',
+                'C2',
+                'RIGHT_CENTER',
+                'LEFT_BOTTOM',
+                'C3',
+                'RIGHT_BOTTOM',
+                'BOTTOM_LEFT',
+                'BOTTOM_CENTER',
+                'BOTTOM_RIGHT',
+            ],
             'parameter'                     => '',
-            'moreParamter'                  => '',];
+            'moreParamter'                  => '',
+        ];
 
 		$this->arrOptions = array_merge($arrDefaults, $arrOptions);
 
