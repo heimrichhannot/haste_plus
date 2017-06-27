@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - you can now create your own custom control button for the google map
+### Fixed
+- undefinded check
 
 ## [1.6.63] - 2017-06-23
 

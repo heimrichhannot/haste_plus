@@ -144,8 +144,8 @@
 		//extend the bounds to include each marker's position
 		<?= $element['parsed']; ?>
 		// extend the bounds with current marker position
-		if (typeof gmap<?= $element['data']['id'] ?>_overlay.position !== 'undefined')
-			bounds.extend(gmap<?= $element['data']['id'] ?>_overlay.position);
+		if (typeof gmap<?= $element['data']['id'] ?>_marker.position !== 'undefined')
+			bounds.extend(gmap<?= $element['data']['id'] ?>_marker.position);
 		<?php endforeach; ?>
 
 		//now fit the map to the newly inclusive bounds
