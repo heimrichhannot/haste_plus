@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.66] - 2017-07-10
+
+### Fixed
+- undefined check
+
 ## [1.6.65] - 2017-06-27
 
 ### Added
