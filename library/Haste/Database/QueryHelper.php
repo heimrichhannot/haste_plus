@@ -374,16 +374,29 @@ class QueryHelper
      *
      * @return array Returns array($strQuery, $arrValues)
      */
-    public static function computeCondition($strField, $strOperator, $varValue)
+    public static function computeCondition($strField, $strOperator, $varValue, $strTable = null)
     {
         $strOperator = trim(strtolower($strOperator));
         $arrValues   = [];
         $strPattern  = '?';
+        $blnAddQuotes = false;
+
+        if ($strTable)
+        {
+            \Controller::loadDataContainer($strTable);
+
+            $arrDca = &$GLOBALS['TL_DCA'][$strTable]['fields'][$strField];
+
+            if (isset($arrDca['sql']) && stripos($arrDca['sql'], 'blob') !== false)
+            {
+                $blnAddQuotes = true;
+            }
+        }
 
         switch ($strOperator)
         {
             case static::OPERATOR_UNLIKE:
-                $arrValues[] = '%' . (is_string($varValue) ? '"' . $varValue . '"' : $varValue). '%';
+                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue). '%';
                 break;
             case static::OPERATOR_EQUAL:
                 $arrValues[] = $varValue;
@@ -433,7 +446,7 @@ class QueryHelper
                     ) . ')';
                 break;
             default:
-                $arrValues[] = '%' . (is_string($varValue) ? '"' . $varValue . '"' : $varValue). '%';
+                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue). '%';
                 break;
         }
 
