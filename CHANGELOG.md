@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.69] - 2017-07-12
+
+### Added
+- `HeimrichHannot\Haste\Util\DOMUtil::createAttributes` to create string tag attributes from array 
+
 ## [1.6.68] - 2017-07-11
 
 ### Fixed
