@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.70] - 2017-07-18
+
+### Fixed
+- `dlh_googlemaps_haste` maps `_marker` element was changed to `_overlay`, changed back to `_marker`
+
 ## [1.6.69] - 2017-07-12
 
 ### Added

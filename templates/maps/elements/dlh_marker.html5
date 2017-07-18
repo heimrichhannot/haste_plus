@@ -1,5 +1,5 @@
 <?php if ($this->element['singleCoords'] && $this->element['markerType']) : ?>
-    var gmap<?= $this->element['id']; ?>_overlay = new google.maps.Marker({
+    var gmap<?= $this->element['id']; ?>_marker = new google.maps.Marker({
     position: new google.maps.LatLng(<?= $this->element['singleCoords']; ?>)
     , map: gmap<?= $this->map; ?>
     <?php if($this->element['markerType']=='ICON') : ?>
@@ -62,7 +62,7 @@
             , maxWidth: <?= $this->element['infoWindowMaxWidth'] ?>
         <?php endif; ?>
         });
-        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_overlay, 'click', function() {
+        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_marker, 'click', function() {
             <?php if ($this->element['infoWindowUnique']): ?>
             if (lastInfoWindow != null)
                 lastInfoWindow.close();
@@ -76,7 +76,7 @@
             gmap<?= $this->element['id']; ?>_infowindow.open(gmap<?= $this->map; ?>);
         <?php endif; ?>
     <?php elseif($this->element['markerAction'] == 'LINK') : ?>
-        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_overlay, 'click', function() {
+        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_marker, 'click', function() {
         <?php if($this->element['target']) : ?>
             window.open('<?= $this->element['url']; ?>','_blank','resizable=yes,scrollbars=yes,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes');
         <?php else :?>
@@ -84,7 +84,7 @@
         <?php endif; ?>
         });
     <?php elseif($this->element['markerAction'] == 'MODAL') : ?>
-        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_overlay, 'click', function(e) {
+        google.maps.event.addListener(gmap<?= $this->element['id']; ?>_marker, 'click', function(e) {
             var $modal = $('<?= $this->element['target']?>');
             var  $replace = $modal.find('.modal-dialog');
 
