@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.72] - 2017-07-18
+
+### Added
+- `width` % and pcnt dimension support for `dlh_googlemaps_haste.html`
+
 ## [1.6.71] - 2017-07-18
 
 ### Fixed
