@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.71] - 2017-07-18
+
+### Fixed
+- `tl_settings` palette invokation
+
 ## [1.6.70] - 2017-07-18
 
 ### Fixed
