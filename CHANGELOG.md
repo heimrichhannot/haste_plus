@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.73] - 2017-07-19
+
+### Fixed
+- dlh_marker template
+
 ## [1.6.72] - 2017-07-18
 
 ### Added
