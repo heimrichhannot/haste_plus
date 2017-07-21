@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.74] - 2017-07-21
+
+### Fixed
+- fixed `jquery` js path for contao 4
+
 ## [1.6.73] - 2017-07-19
 
 ### Fixed
