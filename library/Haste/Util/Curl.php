@@ -118,7 +118,7 @@ class Curl
         }
     }
 
-    public function createCurlObject($strUrl)
+    public static function createCurlObject($strUrl)
     {
         $objCurl = curl_init($strUrl);
 
@@ -128,7 +128,7 @@ class Curl
         return $objCurl;
     }
 
-    public function setHeaders($objCurl, array $arrHeaders)
+    public static function setHeaders($objCurl, array $arrHeaders)
     {
         $arrPrepared = [];
 

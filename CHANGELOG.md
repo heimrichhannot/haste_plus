@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.75] - 2017-07-21
+
+### Fixed
+- Curl
+
 ## [1.6.74] - 2017-07-21
 
 ### Fixed
