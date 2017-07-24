@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.77] - 2017-07-24
+
+### Added
+- Url::redirect (contao 3 redirect behavior -> no exception thrown as in contao 4)
+
+## [1.6.76] - 2017-07-24
+
+### Fixed
+- jquery loading order
+
 ## [1.6.75] - 2017-07-21
 
 ### Fixed

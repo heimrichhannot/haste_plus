@@ -308,4 +308,59 @@ class Url extends \Haste\Util\Url
 
         return \Controller::generateFrontendUrl($objPage->row(), $strAutoItem);
     }
+
+    /**
+     * Redirect to another page
+     *
+     * @param string  $strLocation The target URL
+     * @param integer $intStatus   The HTTP status code (defaults to 303)
+     */
+    public static function redirect($strLocation, $intStatus=303)
+    {
+        if (headers_sent())
+        {
+            exit;
+        }
+
+        $strLocation = str_replace('&amp;', '&', $strLocation);
+
+        // Make the location an absolute URL
+        if (!preg_match('@^https?://@i', $strLocation))
+        {
+            $strLocation = \Environment::get('base') . ltrim($strLocation, '/');
+        }
+
+        // Ajax request
+        if (\Environment::get('isAjaxRequest'))
+        {
+            header('HTTP/1.1 204 No Content');
+            header('X-Ajax-Location: ' . $strLocation);
+        }
+        else
+        {
+            // Add the HTTP header
+            switch ($intStatus)
+            {
+                case 301:
+                    header('HTTP/1.1 301 Moved Permanently');
+                    break;
+
+                case 302:
+                    header('HTTP/1.1 302 Found');
+                    break;
+
+                case 303:
+                    header('HTTP/1.1 303 See Other');
+                    break;
+
+                case 307:
+                    header('HTTP/1.1 307 Temporary Redirect');
+                    break;
+            }
+
+            header('Location: ' . $strLocation);
+        }
+
+        exit;
+    }
 }
