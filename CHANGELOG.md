@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.78] - 2017-07-25
+
+### Fixed
+- empty line in config.php
+
 ## [1.6.77] - 2017-07-24
 
 ### Added
