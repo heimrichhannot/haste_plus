@@ -95,6 +95,13 @@ If you want to add google maps with ease that are build from dynamic entities, a
 ); ?>
 ```
 
+## Inserttags
+
+Tag | Arguments | Example
+------ | ---- | ------- 
+trimsplit | 1st: the delimiter, 2nd: the value | {{trimsplit::,::2,1}}
+encrypt | 1st: the value | {{encrypt::my secret value}}
+
 ## Developer notes
 
 - provide a minimum of 3 unit test for each test case of a util method

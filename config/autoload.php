@@ -74,6 +74,7 @@ ClassLoader::addClasses(
         'HeimrichHannot\Haste\Dca\Member'                       => 'system/modules/haste_plus/library/Haste/Dca/Member.php',
         'HeimrichHannot\Haste\Dca\User'                         => 'system/modules/haste_plus/library/Haste/Dca/User.php',
         'HeimrichHannot\Haste\Image\Image'                      => 'system/modules/haste_plus/library/Haste/Image/Image.php',
+        'HeimrichHannot\Haste\InsertTags\InsertTags'            => 'system/modules/haste_plus/library/Haste/InsertTags/InsertTags.php',
     ]
 );
 

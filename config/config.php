@@ -59,7 +59,7 @@ if (TL_MODE == 'FE')
  */
 $GLOBALS['TL_HOOKS']['modifyFrontendPage'][]          = ['\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders'];
 $GLOBALS['TL_HOOKS']['addCustomRegexp']['haste_plus'] = ['HeimrichHannot\Haste\Util\Widget', 'addCustomRegexp'];
-
+$GLOBALS['TL_HOOKS']['replaceInsertTags']['haste_plus'] =  ['HeimrichHannot\Haste\InsertTags\InsertTags', 'replace'];
 
 /**
  * PurgeData

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.79] - 2017-07-27
+
+### Added
+- `InsertTags` class and two new inserttags `{{trimsplit::,::2,1}} & {{encrypt::SECRET_VALUE}}`
+
 ## [1.6.78] - 2017-07-25
 
 ### Fixed
