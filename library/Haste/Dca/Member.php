@@ -16,48 +16,96 @@ use HeimrichHannot\Haste\Util\Arrays;
 
 class Member extends \Backend
 {
-	protected static $arrMemberOptionsCache = [];
-	protected static $arrMemberOptionsIdsCache = [];
+    protected static $arrMemberOptionsCache        = [];
+    protected static $arrMemberOptionsIdsCache     = [];
+    protected static $arrMemberOptionsEmailIdCache = [];
 
-	public static function getMembersAsOptions(\DataContainer $objDc = null, $blnIncludeId = false)
-	{
-		if (!$blnIncludeId && !empty(static::$arrMemberOptionsCache))
-			return static::$arrMemberOptionsCache;
+    public static function getMembersAsOptions(\DataContainer $objDc = null, $blnIncludeId = false)
+    {
+        if (!$blnIncludeId && !empty(static::$arrMemberOptionsCache))
+        {
+            return static::$arrMemberOptionsCache;
+        }
 
-		if ($blnIncludeId && !empty(static::$arrMemberOptionsIdsCache))
-			return static::$arrMemberOptionsIdsCache;
+        if ($blnIncludeId && !empty(static::$arrMemberOptionsIdsCache))
+        {
+            return static::$arrMemberOptionsIdsCache;
+        }
 
-		$objDatabase = \Database::getInstance();
-		$objMembers = $objDatabase->execute('SELECT id, firstname, lastname FROM tl_member');
-		$arrOptions = [];
+        $objDatabase = \Database::getInstance();
+        $objMembers  = $objDatabase->execute('SELECT id, firstname, lastname, email FROM tl_member');
+        $arrOptions  = [];
 
-		if ($objMembers->numRows > 0)
-		{
-			if ($blnIncludeId)
-			{
-				$arrIds = array_values($objMembers->fetchEach('id'));
-				$arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('firstname'), $objMembers->fetchEach('lastname'),
-						array_map(function($val) {return '(ID ' . $val . ')';}, array_combine($arrIds, $arrIds)));
-			}
-			else
-			{
-				$arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('firstname'), $objMembers->fetchEach('lastname'));
-			}
-		}
+        if ($objMembers->numRows > 0)
+        {
+            if ($blnIncludeId)
+            {
+                $arrIds     = array_values($objMembers->fetchEach('id'));
+                $arrOptions = Arrays::concatArrays(
+                    ' ',
+                    $objMembers->fetchEach('firstname'),
+                    $objMembers->fetchEach('lastname'),
+                    array_map(function ($val) { return '(ID ' . $val . ')'; }, array_combine($arrIds, $arrIds))
+                );
+            }
+            else
+            {
+                $arrOptions = Arrays::concatArrays(' ', $objMembers->fetchEach('firstname'), $objMembers->fetchEach('lastname'));
+            }
+        }
 
-		asort($arrOptions);
+        asort($arrOptions);
 
-		if ($blnIncludeId)
-			static::$arrMemberOptionsIdsCache = $arrOptions;
-		else
-			static::$arrMemberOptionsCache = $arrOptions;
+        if ($blnIncludeId)
+        {
+            static::$arrMemberOptionsIdsCache = $arrOptions;
+        }
+        else
+        {
+            static::$arrMemberOptionsCache = $arrOptions;
+        }
 
-		return $arrOptions;
-	}
+        return $arrOptions;
+    }
 
-	public static function getMembersAsOptionsIncludingIds(\DataContainer $objDc)
-	{
-		return static::getMembersAsOptions($objDc, true);
-	}
+    public static function getMembersAsOptionsIncludingIds(\DataContainer $objDc)
+    {
+        return static::getMembersAsOptions($objDc, true);
+    }
+
+    public static function getMembersAsOptionsIncludingEmailAndId(\DataContainer $objDc = null, $blnIncludeId = false)
+    {
+        if (!empty(static::$arrMemberOptionsEmailIdCache))
+        {
+            return static::$arrMemberOptionsEmailIdCache;
+        }
+
+        $objDatabase = \Database::getInstance();
+        $objMembers  = $objDatabase->execute('SELECT id, firstname, lastname, email FROM tl_member');
+        $arrOptions  = [];
+
+        if ($objMembers->numRows > 0)
+        {
+            while ($objMembers->next())
+            {
+                $arrAttributes = [];
+
+                if ($objMembers->email)
+                {
+                    $arrAttributes[] = $objMembers->email;
+                }
+
+                $arrAttributes[] = 'ID ' . $objMembers->id;
+
+                $arrOptions[$objMembers->id] = $objMembers->firstname . ' ' . $objMembers->lastname . ' (' . implode(', ', $arrAttributes) . ')';
+            }
+        }
+
+        asort($arrOptions);
+
+        static::$arrMemberOptionsEmailIdCache = $arrOptions;
+
+        return $arrOptions;
+    }
 
 }

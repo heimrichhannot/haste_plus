@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.80] - 2017-08-01
+
+### Added
+- Member::getMembersAsOptionsIncludingEmailAndId
+
 ## [1.6.79] - 2017-07-27
 
 ### Added
