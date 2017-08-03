@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.81] - 2017-08-03
+
+### Added
+- Number functions
+
 ## [1.6.80] - 2017-08-01
 
 ### Added
