@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.82] - 2017-08-07
+
+### Added
+- General::checkUrl
+
 ## [1.6.81] - 2017-08-03
 
 ### Added
