@@ -898,7 +898,7 @@ class General extends \Backend
 
     public static function checkUrl($varValue, \DataContainer $objDc)
     {
-        if (strpos($varValue, 'http://') === false && strpos($varValue, 'https://') === false)
+        if ($varValue && strpos($varValue, 'http://') === false && strpos($varValue, 'https://') === false)
         {
             $varValue = 'http://' . $varValue;
         }

@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.83] - 2017-08-16
+
+### Fixed
+- General::checkUrl
+
+### Added
+- Member::getMembersAsOptionsIncludingEmailAndIdByGroups
+
 ## [1.6.82] - 2017-08-07
 
 ### Added
