@@ -63,6 +63,7 @@ ClassLoader::addClasses(
         'HeimrichHannot\Haste\Util\Validator'                   => 'system/modules/haste_plus/library/Haste/Util/Validator.php',
         'HeimrichHannot\Haste\Util\StringUtil'                  => 'system/modules/haste_plus/library/Haste/Util/StringUtil.php',
         'HeimrichHannot\Haste\Util\Url'                         => 'system/modules/haste_plus/library/Haste/Util/Url.php',
+        'HeimrichHannot\Haste\Util\Container'                   => 'system/modules/haste_plus/library/Haste/Util/Container.php',
         'HeimrichHannot\Haste\Util\GeoLocation'                 => 'system/modules/haste_plus/library/Haste/Util/GeoLocation.php',
         'HeimrichHannot\Haste\Model\Model'                      => 'system/modules/haste_plus/library/Haste/Model/Model.php',
         'HeimrichHannot\Haste\Model\MemberModel'                => 'system/modules/haste_plus/library/Haste/Model/MemberModel.php',

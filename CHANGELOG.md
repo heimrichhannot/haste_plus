@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.84] - 2017-08-25
+
+### Added
+- Container util class containing shortcuts: isFrontend, isBackend and getRequest
+
 ## [1.6.83] - 2017-08-16
 
 ### Fixed
