@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.85] - 2017-08-28
+
+### Added
+- `phpFastCache` symfony support for within contao 4
+
 ## [1.6.84] - 2017-08-25
 
 ### Added

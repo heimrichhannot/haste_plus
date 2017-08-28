@@ -56,6 +56,7 @@ abstract class Cache extends phpFastCacheAbstractProxy
 		$arrOptions = [];
 
 		$arrOptions['storage'] = static::$driver;
+        $arrOptions['ignoreSymfonyNotice'] = true;
 
 		$arrOptions = static::extendOptions($arrOptions);
 
