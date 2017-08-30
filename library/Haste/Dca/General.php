@@ -378,7 +378,7 @@ class General extends \Backend
         }
 
         if (!$blnKeepUmlauts) {
-            $varValue = preg_replace(['/ä/i', '/ö/i', '/ü/i'], ['ae', 'oe', 'ue'], $varValue);
+            $varValue = preg_replace(['/ä/i', '/ö/i', '/ü/i', '/ß/i'], ['ae', 'oe', 'ue', 'ss'], $varValue);
         }
 
         $objAlias = \Database::getInstance()->prepare("SELECT id FROM $strTable WHERE alias=?")->execute($varValue);
