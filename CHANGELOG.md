@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.86] - 2017-08-30
+
+### Added
+- keepUmlauts option for Generate::generateAlias
+
 ## [1.6.85] - 2017-08-28
 
 ### Added

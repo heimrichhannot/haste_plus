@@ -382,11 +382,12 @@ class General extends \Backend
      * @param $intId    int The entity's id
      * @param $strTable string The entity's table
      * @param $strAlias string The value to use as a base for the alias
+     * @param $blnKeepUmlauts bool Set to true if German umlauts should be kept
      *
      * @return string
      * @throws \Exception
      */
-    public static function generateAlias($varValue, $intId, $strTable, $strAlias)
+    public static function generateAlias($varValue, $intId, $strTable, $strAlias, $blnKeepUmlauts = true)
     {
         $autoAlias = false;
 
@@ -395,6 +396,11 @@ class General extends \Backend
         {
             $autoAlias = true;
             $varValue  = \StringUtil::generateAlias($strAlias);
+        }
+
+        if (!$blnKeepUmlauts)
+        {
+            $varValue = preg_replace(['/ä/i', '/ö/i', '/ü/i'], ['ae', 'oe', 'ue'], $varValue);
         }
 
         $objAlias = \Database::getInstance()->prepare("SELECT id FROM $strTable WHERE alias=?")->execute($varValue);
