@@ -30,7 +30,7 @@ class General extends \Backend
      * Set initial $varData from dca
      *
      * @param string $strTable Dca table name
-     * @param mixed  $varData  Object or array
+     * @param mixed $varData Object or array
      *
      * @return mixed Object or array with the default values
      */
@@ -38,41 +38,31 @@ class General extends \Backend
     {
         \Controller::loadDataContainer($strTable);
 
-        if (empty($GLOBALS['TL_DCA'][$strTable]))
-        {
+        if (empty($GLOBALS['TL_DCA'][$strTable])) {
             return $varData;
         }
 
         // Get all default values for the new entry
-        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $k => $v)
-        {
+        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $k => $v) {
             // Use array_key_exists here (see #5252)
-            if (array_key_exists('default', $v))
-            {
-                if (is_object($varData))
-                {
+            if (array_key_exists('default', $v)) {
+                if (is_object($varData)) {
                     $varData->{$k} = is_array($v['default']) ? serialize($v['default']) : $v['default'];
 
                     // Encrypt the default value (see #3740)
-                    if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
-                    {
+                    if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt']) {
                         $varData->{$k} = \Encryption::encrypt($varData->{$k});
                     }
-                }
-                else
-                {
-                    if($varData === null)
-                    {
+                } else {
+                    if ($varData === null) {
                         $varData = [];
                     }
 
-                    if (is_array($varData))
-                    {
+                    if (is_array($varData)) {
                         $varData[$k] = is_array($v['default']) ? serialize($v['default']) : $v['default'];
 
                         // Encrypt the default value (see #3740)
-                        if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt'])
-                        {
+                        if ($GLOBALS['TL_DCA'][$strTable]['fields'][$k]['eval']['encrypt']) {
                             $varData[$k] = \Encryption::encrypt($varData[$k]);
                         }
                     }
@@ -98,19 +88,15 @@ class General extends \Backend
      */
     public static function getConfigByArrayOrCallbackOrFunction(array $arrArray, $strProperty, array $arrArgs = [])
     {
-        if (isset($arrArray[$strProperty]))
-        {
+        if (isset($arrArray[$strProperty])) {
             return $arrArray[$strProperty];
         }
 
-        if (is_array($arrArray[$strProperty . '_callback']))
-        {
+        if (is_array($arrArray[$strProperty . '_callback'])) {
             $arrCallback = $arrArray[$strProperty . '_callback'];
 
             return call_user_func_array($arrCallback[0] . '::' . $arrCallback[1], $arrArgs);
-        }
-        elseif (is_callable($arrArray[$strProperty . '_callback']))
-        {
+        } elseif (is_callable($arrArray[$strProperty . '_callback'])) {
             return call_user_func_array($arrArray[$strProperty . '_callback'], $arrArgs);
         }
 
@@ -127,8 +113,7 @@ class General extends \Backend
         \System::loadLanguageFile($strDestinationTable);
         $arrDestinationDca = &$GLOBALS['TL_DCA'][$strDestinationTable];
 
-        foreach ($arrFields as $strField)
-        {
+        foreach ($arrFields as $strField) {
             // add override boolean field
             $strOverrideFieldName = 'override' . ucfirst($strField);
 
@@ -159,8 +144,8 @@ class General extends \Backend
      * model instance is only used if it's either the first instance in $arrInstances or "overrideFieldname" is set to true
      * in the instance.
      *
-     * @param string $strProperty  The property name to retrieve
-     * @param array  $arrInstances An array of instances in ascending priority. Instances can be passed in the following form:
+     * @param string $strProperty The property name to retrieve
+     * @param array $arrInstances An array of instances in ascending priority. Instances can be passed in the following form:
      *                             ['tl_some_table', $intInstanceId] or $objInstance
      *
      * @return mixed
@@ -171,25 +156,18 @@ class General extends \Backend
         $arrPreparedInstances = [];
 
         // prepare instances
-        foreach ($arrInstances as $varInstance)
-        {
-            if (is_array($varInstance))
-            {
-                if (($objInstance = static::getModelInstance($varInstance[0], $varInstance[1])) !== null)
-                {
+        foreach ($arrInstances as $varInstance) {
+            if (is_array($varInstance)) {
+                if (($objInstance = static::getModelInstance($varInstance[0], $varInstance[1])) !== null) {
                     $arrPreparedInstances[] = $objInstance;
                 }
-            }
-            elseif ($varInstance instanceof \Model)
-            {
+            } elseif ($varInstance instanceof \Model) {
                 $arrPreparedInstances[] = $varInstance;
             }
         }
 
-        foreach ($arrPreparedInstances as $i => $objInstance)
-        {
-            if ($i == 0 || $objInstance->{'override' . ucfirst($strProperty)})
-            {
+        foreach ($arrPreparedInstances as $i => $objInstance) {
+            if ($i == 0 || $objInstance->{'override' . ucfirst($strProperty)}) {
                 $varResult = $objInstance->{$strProperty};
             }
         }
@@ -220,8 +198,7 @@ class General extends \Backend
      */
     public static function setDateAdded(\DataContainer $objDc)
     {
-        if ($objDc === null || !$objDc->id || $objDc->activeRecord->dateAdded > 0)
-        {
+        if ($objDc === null || !$objDc->id || $objDc->activeRecord->dateAdded > 0) {
             return false;
         }
 
@@ -248,7 +225,7 @@ class General extends \Backend
      * @param       $strDca
      * @param       $arrGenerateAliasCallback array The callback to call for generating the alias
      * @param       $strPaletteField          String The field after which to insert the alias field in the palettes
-     * @param array $arrPalettes              The palettes in which to insert the field
+     * @param array $arrPalettes The palettes in which to insert the field
      */
     public static function addAliasToDca($strDca, array $arrGenerateAliasCallback, $strPaletteField, $arrPalettes = ['default'])
     {
@@ -257,8 +234,7 @@ class General extends \Backend
         $arrDca = &$GLOBALS['TL_DCA'][$strDca];
 
         // add to palettes
-        foreach ($arrPalettes as $strPalette)
-        {
+        foreach ($arrPalettes as $strPalette) {
             $arrDca['palettes'][$strPalette] = str_replace($strPaletteField . ',', $strPaletteField . ',alias,', $arrDca['palettes'][$strPalette]);
         }
 
@@ -294,14 +270,14 @@ class General extends \Backend
         \Controller::loadDataContainer($strTable);
 
         $GLOBALS['TL_DCA'][$strTable]['select']['buttons_callback'] = [
-            ['HeimrichHannot\Haste\Dca\General', 'doAddAliasButton'],
+            ['HeimrichHannot\Haste\Dca\General', 'doAddAliasButton']
         ];
     }
 
     /**
      * Generic method for automatically generating aliases
      *
-     * @param array          $arrButtons
+     * @param array $arrButtons
      * @param \DataContainer $dc
      *
      * @return array
@@ -309,24 +285,27 @@ class General extends \Backend
     public function doAddAliasButton($arrButtons, \DataContainer $dc)
     {
         // Generate the aliases
-        if (\Input::post('FORM_SUBMIT') == 'tl_select' && isset($_POST['alias']))
-        {
-            $objSessionData = \Session::getInstance()->getData();
-            $arrIds         = $objSessionData['CURRENT']['IDS'];
+        if (\Input::post('FORM_SUBMIT') == 'tl_select' && isset($_POST['alias'])) {
+            if (version_compare(VERSION, '4.0', '<')) {
+                $objSessionData = \Session::getInstance()->getData();
+                $arrIds         = $objSessionData['CURRENT']['IDS'];
+            } else {
+                /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface $objSession */
+                $objSession = \System::getContainer()->get('session');
+                $session    = $objSession->all();
+                $arrIds     = $session['CURRENT']['IDS'];
+            }
 
             $strItemClass = \Model::getClassFromTable($dc->table);
 
-            if(!class_exists($strItemClass))
-            {
+            if (!class_exists($strItemClass)) {
                 return $arrButtons;
             }
 
-            foreach ($arrIds as $intId)
-            {
+            foreach ($arrIds as $intId) {
                 $objItem = $strItemClass::findByPk($intId);
 
-                if ($objItem === null)
-                {
+                if ($objItem === null) {
                     continue;
                 }
 
@@ -336,22 +315,17 @@ class General extends \Backend
                 $strAlias = '';
 
                 // Generate new alias through save callbacks
-                foreach ($GLOBALS['TL_DCA'][$dc->table]['fields']['alias']['save_callback'] as $callback)
-                {
-                    if (is_array($callback))
-                    {
+                foreach ($GLOBALS['TL_DCA'][$dc->table]['fields']['alias']['save_callback'] as $callback) {
+                    if (is_array($callback)) {
                         $this->import($callback[0]);
                         $strAlias = $this->{$callback[0]}->{$callback[1]}($strAlias, $dc);
-                    }
-                    elseif (is_callable($callback))
-                    {
+                    } elseif (is_callable($callback)) {
                         $strAlias = $callback($strAlias, $dc);
                     }
                 }
 
                 // The alias has not changed
-                if ($strAlias == $objItem->alias)
-                {
+                if ($strAlias == $objItem->alias) {
                     continue;
                 }
 
@@ -370,9 +344,15 @@ class General extends \Backend
         }
 
         // Add the button
-        $arrButtons['alias'] = '<input type="submit" name="alias" id="alias" class="tl_submit" accesskey="a" value="' . specialchars(
-                $GLOBALS['TL_LANG']['MSC']['aliasSelected']
-            ) . '"> ';
+        if (version_compare(VERSION, '4.0', '<')) {
+            $arrButtons['alias'] = '<input type="submit" name="alias" id="alias" class="tl_submit" accesskey="a" value="' . specialchars(
+                    $GLOBALS['TL_LANG']['MSC']['aliasSelected']
+                ) . '"> ';
+        } else {
+            $arrButtons['alias'] = '<button type="submit" name="alias" id="alias" class="tl_submit" accesskey="a">' .
+                $GLOBALS['TL_LANG']['MSC']['aliasSelected'] .
+                '</button> ';
+        }
 
         return $arrButtons;
     }
@@ -392,28 +372,24 @@ class General extends \Backend
         $autoAlias = false;
 
         // Generate alias if there is none
-        if ($varValue == '')
-        {
+        if ($varValue == '') {
             $autoAlias = true;
             $varValue  = \StringUtil::generateAlias($strAlias);
         }
 
-        if (!$blnKeepUmlauts)
-        {
+        if (!$blnKeepUmlauts) {
             $varValue = preg_replace(['/ä/i', '/ö/i', '/ü/i'], ['ae', 'oe', 'ue'], $varValue);
         }
 
         $objAlias = \Database::getInstance()->prepare("SELECT id FROM $strTable WHERE alias=?")->execute($varValue);
 
         // Check whether the alias exists
-        if ($objAlias->numRows > 1 && !$autoAlias)
-        {
+        if ($objAlias->numRows > 1 && !$autoAlias) {
             throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
         }
 
         // Add ID to alias
-        if ($objAlias->numRows && $objAlias->id != $intId && $autoAlias || !$varValue)
-        {
+        if ($objAlias->numRows && $objAlias->id != $intId && $autoAlias || !$varValue) {
             $varValue .= '-' . $intId;
         }
 
@@ -424,8 +400,8 @@ class General extends \Backend
     {
         return ltrim(
             ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ? '/' : '/' . $strAutoItem . '/') . ((!\Config::get('disableAlias')
-                                                                                                                  && $objItem->alias
-                                                                                                                     != '') ? $objItem->alias : $objItem->id),
+                && $objItem->alias
+                != '') ? $objItem->alias : $objItem->id),
             '/'
         );
     }
@@ -470,8 +446,7 @@ class General extends \Backend
         $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . $strAddress . '&sensor=false');
 
         // Request failed
-        if (!$strResult)
-        {
+        if (!$strResult) {
             \System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
 
             return null;
@@ -487,8 +462,7 @@ class General extends \Backend
         $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($strAddress) . '&sensor=false');
 
         // Request failed
-        if (!$strResult)
-        {
+        if (!$strResult) {
             \System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
 
             return null;
@@ -524,21 +498,16 @@ class General extends \Backend
 
         $arrModules = \ModuleLoader::getActive();
 
-        if (!is_array($arrModules))
-        {
+        if (!is_array($arrModules)) {
             return $arrDCA;
         }
 
-        foreach ($arrModules as $strModule)
-        {
+        foreach ($arrModules as $strModule) {
             $strDir = TL_ROOT . '/system/modules/' . $strModule . '/dca';
 
-            if (file_exists($strDir))
-            {
-                foreach (scandir($strDir) as $strFile)
-                {
-                    if (substr($strFile, 0, 1) != '.' && file_exists($strDir . '/' . $strFile))
-                    {
+            if (file_exists($strDir)) {
+                foreach (scandir($strDir) as $strFile) {
+                    if (substr($strFile, 0, 1) != '.' && file_exists($strDir . '/' . $strFile)) {
                         $arrDCA[] = str_replace('.php', '', $strFile);
                     }
                 }
@@ -564,46 +533,36 @@ class General extends \Backend
 
         $arrOptions = [];
 
-        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData)
-        {
+        foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData) {
             // skip special fields
-            if (in_array($strField, $arrSkipFields))
-            {
+            if (in_array($strField, $arrSkipFields)) {
                 continue;
             }
 
             // input type
             if ($varInputType
                 && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType)
-            )
-            {
+            ) {
                 continue;
             }
 
             // eval filters
-            if (!empty($arrEvalFilters))
-            {
-                foreach ($arrEvalFilters as $strKey => $varValue)
-                {
-                    if (!isset($arrData['eval'][$strKey]) || $arrData['eval'][$strKey] != $varValue)
-                    {
+            if (!empty($arrEvalFilters)) {
+                foreach ($arrEvalFilters as $strKey => $varValue) {
+                    if (!isset($arrData['eval'][$strKey]) || $arrData['eval'][$strKey] != $varValue) {
                         continue 2;
                     }
                 }
             }
 
-            if ($blnLocalized)
-            {
+            if ($blnLocalized) {
                 $arrOptions[$strField] = $GLOBALS['TL_LANG'][$strTable][$strField][0] ?: $strField;
-            }
-            else
-            {
+            } else {
                 $arrOptions[$strField] = $strField;
             }
         }
 
-        if ($blnSort)
-        {
+        if ($blnSort) {
             asort($arrOptions);
         }
 
@@ -612,8 +571,7 @@ class General extends \Backend
 
     public static function getEditLink($strModule, $intId, $strLabel = null)
     {
-        if ($intId)
-        {
+        if ($intId) {
             $strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
 
             return sprintf(
@@ -629,8 +587,7 @@ class General extends \Backend
 
     public static function getModalEditLink($strModule, $intId, $strLabel = null, $strTable = '')
     {
-        if ($intId)
-        {
+        if ($intId) {
             $strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
 
             return sprintf(
@@ -649,8 +606,7 @@ class General extends \Backend
 
     public static function getArchiveModalEditLink($strModule, $intId, $strTable, $strLabel = null)
     {
-        if ($intId)
-        {
+        if ($intId) {
             $strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
 
             return sprintf(
@@ -676,13 +632,11 @@ class General extends \Backend
 
     public static function getModelInstanceIfId($varInstance, $strTable)
     {
-        if ($varInstance instanceof Model)
-        {
+        if ($varInstance instanceof Model) {
             return $varInstance;
         }
 
-        if ($varInstance instanceof Collection)
-        {
+        if ($varInstance instanceof Collection) {
             return $varInstance->current();
         }
 
@@ -711,8 +665,7 @@ class General extends \Backend
     {
         $objModel = static::getModelInstance($strTable, $intId);
 
-        if ($objModel === null || !\Database::getInstance()->fieldExists(static::PROPERTY_SESSION_ID, $strTable))
-        {
+        if ($objModel === null || !\Database::getInstance()->fieldExists(static::PROPERTY_SESSION_ID, $strTable)) {
             return false;
         }
 
@@ -785,22 +738,17 @@ class General extends \Backend
         if ($objModel === null
             || !\Database::getInstance()->fieldExists(static::PROPERTY_AUTHOR_TYPE, $strTable)
             || !\Database::getInstance()->fieldExists(static::PROPERTY_AUTHOR, $strTable)
-        )
-        {
+        ) {
             return false;
         }
 
-        if (TL_MODE == 'FE')
-        {
-            if (FE_USER_LOGGED_IN)
-            {
+        if (TL_MODE == 'FE') {
+            if (FE_USER_LOGGED_IN) {
                 $objModel->{static::PROPERTY_AUTHOR_TYPE} = static::AUTHOR_TYPE_MEMBER;
                 $objModel->{static::PROPERTY_AUTHOR}      = \FrontendUser::getInstance()->id;
                 $objModel->save();
             }
-        }
-        else
-        {
+        } else {
             $objModel->{static::PROPERTY_AUTHOR_TYPE} = static::AUTHOR_TYPE_USER;
             $objModel->{static::PROPERTY_AUTHOR}      = \BackendUser::getInstance()->id;
             $objModel->save();
@@ -809,31 +757,26 @@ class General extends \Backend
 
     public static function modifyAuthorPaletteOnLoad(\DataContainer $objDc)
     {
-        if (TL_MODE != 'BE')
-        {
+        if (TL_MODE != 'BE') {
             return;
         }
 
-        if ($objDc === null || !$objDc->id)
-        {
+        if ($objDc === null || !$objDc->id) {
             return false;
         }
 
-        if (($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null)
-        {
+        if (($objModel = static::getModelInstance($objDc->table, $objDc->id)) === null) {
             return false;
         }
 
         $arrDca = &$GLOBALS['TL_DCA'][$objDc->table];
 
         // author handling
-        if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_NONE)
-        {
+        if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_NONE) {
             unset($arrDca['fields']['author']);
         }
 
-        if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_USER)
-        {
+        if ($objModel->{static::PROPERTY_AUTHOR_TYPE} == static::AUTHOR_TYPE_USER) {
             $arrDca['fields']['author']['options_callback'] = ['HeimrichHannot\Haste\Dca\User', 'getUsersAsOptions'];
         }
     }
@@ -843,8 +786,7 @@ class General extends \Backend
         \Controller::loadDataContainer($strChildTable);
         \System::loadLanguageFile($strChildTable);
 
-        if (!isset($GLOBALS['TL_DCA'][$strChildTable]['config']['ptable']))
-        {
+        if (!isset($GLOBALS['TL_DCA'][$strChildTable]['config']['ptable'])) {
             throw new \Exception('No parent table found for ' . $strChildTable);
         }
 
@@ -863,40 +805,34 @@ class General extends \Backend
     {
         \Controller::loadDataContainer($strTable);
 
-        $arrOptions = [];
+        $arrOptions  = [];
         $arrFieldDca = $GLOBALS['TL_DCA'][$strTable]['fields'][$strField];
 
-        if ((is_array($arrFieldDca['options_callback']) || is_callable($arrFieldDca['options_callback'])) && !$arrFieldDca['reference'])
-        {
-            if (is_array($arrFieldDca['options_callback']))
-            {
+        if ((is_array($arrFieldDca['options_callback']) || is_callable($arrFieldDca['options_callback'])) && !$arrFieldDca['reference']) {
+            if (is_array($arrFieldDca['options_callback'])) {
                 $strClass  = $arrFieldDca['options_callback'][0];
                 $strMethod = $arrFieldDca['options_callback'][1];
 
                 $arrOptions = @$strClass->{$strMethod}($objDc);
-            }
-            elseif (is_callable($arrFieldDca['options_callback']))
-            {
+            } elseif (is_callable($arrFieldDca['options_callback'])) {
                 $arrOptions = @$arrFieldDca['options_callback']($objDc);
             }
         }
 
-        if (is_array($arrFieldDca['options']))
-        {
+        if (is_array($arrFieldDca['options'])) {
             $arrOptions = $arrFieldDca['options'];
         }
 
-        if (!$blnLocalizeOptions)
-        {
+        if (!$blnLocalizeOptions) {
             return $arrOptions;
-        }
-        else if (!empty($arrOptions) && is_array($arrFieldDca['reference']))
-        {
-            $arrReference = $arrFieldDca['reference'];
+        } else {
+            if (!empty($arrOptions) && is_array($arrFieldDca['reference'])) {
+                $arrReference = $arrFieldDca['reference'];
 
-            return array_combine($arrOptions, array_map(function($varValue) use ($arrReference) {
-                return $arrReference[$varValue];
-            }, $arrOptions));
+                return array_combine($arrOptions, array_map(function ($varValue) use ($arrReference) {
+                    return $arrReference[$varValue];
+                }, $arrOptions));
+            }
         }
 
         return $arrOptions;
@@ -904,8 +840,7 @@ class General extends \Backend
 
     public static function checkUrl($varValue, \DataContainer $objDc)
     {
-        if ($varValue && strpos($varValue, 'http://') === false && strpos($varValue, 'https://') === false)
-        {
+        if ($varValue && strpos($varValue, 'http://') === false && strpos($varValue, 'https://') === false) {
             $varValue = 'http://' . $varValue;
         }
 

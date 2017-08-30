@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.87] - 2017-08-30
+
+### Fixed
+- General::doAddAliasButton for Contao 4
+
 ## [1.6.86] - 2017-08-30
 
 ### Added
