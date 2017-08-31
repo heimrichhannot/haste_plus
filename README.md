@@ -64,6 +64,8 @@ maxlength | maxlength::120 | Validate the user input without html elements again
 
 The following Classes and Methods are helpers that ease the working with Contao.
 
+[StringUtils](docs/Util/StringUtil.md)
+
 Type | Name | Method | Description
 ---- | ---- | ---- | ----
 Url | addScheme | \HeimrichHannot\Haste\Util\Url::addScheme($strUrl, $strScheme) | Add the given protocol/scheme (http://,https://,ftp://…) to the given url if not present.

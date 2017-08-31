@@ -378,4 +378,17 @@ class StringUtil extends \Haste\Util\StringUtil
 
         return $strHtml;
     }
+
+    /**
+     * Convert german special letters to webconform letters
+     * Converts "ä", "ö", "ü", "ß", "Ä", "Ö", "Ü" to "ae", "oe", "ue", "ss", "Ae", "Oe", "Ue"
+     * @param $str
+     * @return mixed
+     */
+    public static function convertGermanSpecialLetters($str)
+    {
+        $search = array("ä", "ö", "ü", "ß", "Ä", "Ö", "Ü");
+        $replace = array("ae", "oe", "ue", "ss", "Ae", "Oe", "Ue");
+        return str_replace($search, $replace, $str);
+    }
 }
