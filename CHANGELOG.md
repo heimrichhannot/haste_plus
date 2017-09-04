@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.90] - 2017-09-04
+
+### Added 
+* StringUtil::replaceNonXmlEntities
+* documentation for StringUtil::replaceNonXmlEntities
+
+## [1.6.89] - 2017-08-31
+
+### Added
+- StringUtil::convertGermanSpecialLetters
+- documentation for StringUtil::convertGermanSpecialLetters
+
 ## [1.6.88] - 2017-08-30
 
 ### Added

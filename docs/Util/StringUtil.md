@@ -1,4 +1,4 @@
-# StringUtil Class
+# StringUtil class
 
 > This documentation is incomplete
 
@@ -17,3 +17,14 @@ StringUtil::convertGermanSpecialLetters(string $str)
 #### Return
 The string, where "ä", "ö", "ü", "ß", "Ä", "Ö", "Ü" is replaced with "ae", "oe", "ue", "ss", "Ae", "Oe", "Ue"
 
+
+### replaceNonXmlEntities
+
+Converts non XML Entities in XML Strings to compatible entities.
+
+```
+StringUtil::replaceNonXmlEntities(string $str)
+```
+
+#### Return
+The string where `&nbsp;` and `&mdash;` are replace with `&#xA0;` or `&#x2014;`.

@@ -391,4 +391,17 @@ class StringUtil extends \Haste\Util\StringUtil
         $replace = array("ae", "oe", "ue", "ss", "Ae", "Oe", "Ue");
         return str_replace($search, $replace, $str);
     }
+
+    /**
+     * Replaces non XML-Entities in XML-String
+     *
+     * @param $xml
+     * @return mixed
+     */
+    public static function replaceNonXmlEntities($xml)
+    {
+        $search = array("&nbsp;", "&mdash;");
+        $replace = array("&#xA0;", "&#x2014;");
+        return str_replace($search, $replace, $xml);
+    }
 }
