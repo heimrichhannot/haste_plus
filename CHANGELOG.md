@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.91] - 2017-09-12
+
+### Added 
+* `strict` mode parameter can now be provided within `HeimrichHannot\Haste\Util\Arrays::insertInArrayByName` forwarded `array_search`
+
 ## [1.6.90] - 2017-09-04
 
 ### Added 

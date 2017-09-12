@@ -210,9 +210,9 @@ class Arrays
         return $objResult;
     }
 
-    public static function insertInArrayByName(&$arrOld, $strKey, $arrNew, $intOffset = 0)
+    public static function insertInArrayByName(&$arrOld, $strKey, $arrNew, $intOffset = 0, $blnStrict = false)
     {
-        if (($intIndex = array_search($strKey, array_keys($arrOld))) !== false)
+        if (($intIndex = array_search($strKey, array_keys($arrOld), $blnStrict)) !== false)
         {
             array_insert($arrOld, $intIndex + $intOffset, $arrNew);
         }
