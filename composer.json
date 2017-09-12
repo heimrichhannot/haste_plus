@@ -29,7 +29,8 @@
     "phpFastCache/phpFastCache": "^5.0",
     "roderik/pwgen-php": ">=0.1.5",
     "html2text/html2text": "~4.0",
-    "globalcitizen/php-iban": "~2.0"
+    "globalcitizen/php-iban": "~2.0",
+    "heimrichhannot/contao-components": "^1.1"
   },
   "suggest": {
     "mpdf/mpdf": "Required for PdfTemplate in version 6.1.*",

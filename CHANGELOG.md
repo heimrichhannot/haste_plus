@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.92] - 2017-09-12
+
+### Changed 
+* `js` invokation in front end mode is now handled with `heimrichhannot/contao-components`
+
 ## [1.6.91] - 2017-09-12
 
 ### Added 
