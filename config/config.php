@@ -41,82 +41,79 @@ if (TL_MODE == 'BE') {
     );
 }
 
-if (TL_MODE == 'FE') {
-
-    $GLOBALS['TL_COMPONENTS']['google_charts'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/vendor/visualization/charts/loader.js|static',
-                'system/modules/haste_plus/assets/js/vendor/load-charts.js|static',
-                'system/modules/haste_plus/assets/js/vendor/geoxml3.js|static'
-            ],
-            'sort'  => 0, // invoke always before all other javascript
+$GLOBALS['TL_COMPONENTS']['google_charts'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/vendor/visualization/charts/loader.js|static',
+            'system/modules/haste_plus/assets/js/vendor/load-charts.js|static',
+            'system/modules/haste_plus/assets/js/vendor/geoxml3.js|static'
         ],
-    ];
+        'sort'  => 0, // invoke always before all other javascript
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/haste_plus.min.js|static',
-            ],
-            'sort'  => 1, // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/haste_plus.min.js|static',
         ],
-    ];
+        'sort'  => 1, // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.environment'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/environment.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.environment'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/environment.min.js|static',
         ],
-    ];
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.files'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/files.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.files'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/files.min.js|static',
         ],
-    ];
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.array'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/arrays.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.array'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/arrays.min.js|static',
         ],
-    ];
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.dom'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/dom.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.dom'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/dom.min.js|static',
         ],
-    ];
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.geo'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/geo.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.geo'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/geo.min.js|static',
         ],
-    ];
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
-    $GLOBALS['TL_COMPONENTS']['haste_plus.util'] = [
-        'js' => [
-            'files' => [
-                'system/modules/haste_plus/assets/js/util.min.js|static',
-            ],
-            'sort'  => 1,  // invoke always after jquery
+$GLOBALS['TL_COMPONENTS']['haste_plus.util'] = [
+    'js' => [
+        'files' => [
+            'system/modules/haste_plus/assets/js/util.min.js|static',
         ],
-    ];
-}
+        'sort'  => 1,  // invoke always after jquery
+    ],
+];
 
 
 /**
