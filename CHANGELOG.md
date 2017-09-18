@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.93] - 2017-09-18
+
+### Added 
+* `StringUtil::nl2p`
+
 ## [1.6.92] - 2017-09-12
 
 ### Changed 

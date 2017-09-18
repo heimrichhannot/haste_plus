@@ -25,6 +25,26 @@ class StringUtil extends \Haste\Util\StringUtil
 
 
     /**
+     * Convert new line or br with <p> tags
+     * @param $text
+     * @return string
+     */
+    public static function nl2p($text)
+    {
+        $text = preg_replace('#<br\s*/?>#i', "\n", $text); // replace br with new line
+
+        $paragraphs = '';
+
+        foreach (explode("\n", $text) as $line) {
+            if (trim($line)) {
+                $paragraphs .= '<p>' . $line . '</p>';
+            }
+        }
+
+        return $paragraphs;
+    }
+
+    /**
      * Convert html 2 text with Html2Text\Html2Text
      * @param       $strHtml The html
      * @param array $arrOptions Html2Text\Html2Text options
@@ -44,14 +64,13 @@ class StringUtil extends \Haste\Util\StringUtil
      * Create string like `John Smith <john.smith@example.org>` from email an name
      *
      * @param        $strEmail A valid email
-     * @param string $strName  A sender name
+     * @param string $strName A sender name
      *
      * @return string `John Smith <john.smith@example.org>.` or the email if no name was given. Use htmlentities() for frontend presentation!
      */
     public static function generateEmailWithName($strEmail, $strName = '')
     {
-        if (!$strName)
-        {
+        if (!$strName) {
             return $strEmail;
         }
 
@@ -62,7 +81,7 @@ class StringUtil extends \Haste\Util\StringUtil
      * Strip tags from text and truncate if needed
      *
      * @param        $strText     The text
-     * @param null   $intLength   Truncate length or null if not needed
+     * @param null $intLength Truncate length or null if not needed
      * @param string $allowedTags Allowed tags for strip_tags
      *
      * @return string The slim text
@@ -71,8 +90,7 @@ class StringUtil extends \Haste\Util\StringUtil
     {
         $strText = strip_tags($strText, $allowedTags);
 
-        if ($intLength !== null)
-        {
+        if ($intLength !== null) {
             $strText = static::truncateHtml($strText, $intLength);
         }
 
@@ -83,8 +101,7 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function underscoreToCamelCase($strValue, $blnFirstCharCapital = false)
     {
-        if ($blnFirstCharCapital == true)
-        {
+        if ($blnFirstCharCapital == true) {
             $strValue[0] = strtoupper($strValue[0]);
         }
 
@@ -107,8 +124,7 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function preg_replace_last($strRegExp, $strSubject)
     {
-        if (!$strRegExp)
-        {
+        if (!$strRegExp) {
             return $strSubject;
         }
 
@@ -148,11 +164,9 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function truncateHtml($text, $length = 100, $ending = '&nbsp;&hellip;', $exact = false, $considerHtml = true)
     {
-        if ($considerHtml)
-        {
+        if ($considerHtml) {
             // if the plain text is shorter than the maximum length, return the whole text
-            if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length)
-            {
+            if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
                 return $text;
             }
             // splits all html-tags to scanable lines
@@ -160,36 +174,26 @@ class StringUtil extends \Haste\Util\StringUtil
             $total_length = strlen($ending);
             $open_tags    = [];
             $truncate     = '';
-            foreach ($lines as $line_matchings)
-            {
+            foreach ($lines as $line_matchings) {
                 // if there is any html-tag in this line, handle it and add it (uncounted) to the output
-                if (!empty($line_matchings[1]))
-                {
+                if (!empty($line_matchings[1])) {
                     // if it's an "empty element" with or without xhtml-conform closing slash
                     if (preg_match(
                         '/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is',
                         $line_matchings[1]
-                    ))
-                    {
+                    )) {
                         // do nothing
                         // if tag is a closing tag
-                    }
-                    else
-                    {
-                        if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings))
-                        {
+                    } else {
+                        if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
                             // delete tag from $open_tags list
                             $pos = array_search($tag_matchings[1], $open_tags);
-                            if ($pos !== false)
-                            {
+                            if ($pos !== false) {
                                 unset($open_tags[$pos]);
                             }
                             // if tag is an opening tag
-                        }
-                        else
-                        {
-                            if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings))
-                            {
+                        } else {
+                            if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
                                 // add tag to the beginning of $open_tags list
                                 array_unshift($open_tags, strtolower($tag_matchings[1]));
                             }
@@ -200,24 +204,18 @@ class StringUtil extends \Haste\Util\StringUtil
                 }
                 // calculate the length of the plain text part of the line; handle entities as one character
                 $content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
-                if ($total_length + $content_length > $length)
-                {
+                if ($total_length + $content_length > $length) {
                     // the number of characters which are left
                     $left            = $length - $total_length;
                     $entities_length = 0;
                     // search for html entities
-                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE))
-                    {
+                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
                         // calculate the real length of all entities in the legal range
-                        foreach ($entities[0] as $entity)
-                        {
-                            if ($entity[1] + 1 - $entities_length <= $left)
-                            {
+                        foreach ($entities[0] as $entity) {
+                            if ($entity[1] + 1 - $entities_length <= $left) {
                                 $left--;
                                 $entities_length += strlen($entity[0]);
-                            }
-                            else
-                            {
+                            } else {
                                 // no more characters left
                                 break;
                             }
@@ -226,48 +224,36 @@ class StringUtil extends \Haste\Util\StringUtil
                     $truncate .= substr($line_matchings[2], 0, $left + $entities_length);
                     // maximum lenght is reached, so get off the loop
                     break;
-                }
-                else
-                {
-                    $truncate .= $line_matchings[2];
+                } else {
+                    $truncate     .= $line_matchings[2];
                     $total_length += $content_length;
                 }
                 // if the maximum length is reached, get off the loop
-                if ($total_length >= $length)
-                {
+                if ($total_length >= $length) {
                     break;
                 }
             }
-        }
-        else
-        {
-            if (strlen($text) <= $length)
-            {
+        } else {
+            if (strlen($text) <= $length) {
                 return $text;
-            }
-            else
-            {
+            } else {
                 $truncate = substr($text, 0, $length - strlen($ending));
             }
         }
         // if the words shouldn't be cut in the middle...
-        if (!$exact)
-        {
+        if (!$exact) {
             // ...search the last occurance of a space...
             $spacepos = strrpos($truncate, ' ');
-            if (isset($spacepos))
-            {
+            if (isset($spacepos)) {
                 // ...and cut the text in this position
                 $truncate = substr($truncate, 0, $spacepos);
             }
         }
         // add the defined ending to the text
         $truncate .= $ending;
-        if ($considerHtml)
-        {
+        if ($considerHtml) {
             // close all unclosed html-tags
-            foreach ($open_tags as $tag)
-            {
+            foreach ($open_tags as $tag) {
                 $truncate .= '</' . $tag . '>';
             }
         }
@@ -277,12 +263,9 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function randomChar($includeAmbiguousChars = false)
     {
-        if ($includeAmbiguousChars)
-        {
+        if ($includeAmbiguousChars) {
             $arrChars = static::CAPITAL_LETTERS . static::SMALL_LETTERS . static::NUMBERS;
-        }
-        else
-        {
+        } else {
             $arrChars = static::CAPITAL_LETTERS_NONAMBIGUOUS . static::SMALL_LETTERS_NONAMBIGUOUS . static::NUMBERS_NONAMBIGUOUS;
         }
 
@@ -291,12 +274,9 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function randomLetter($includeAmbiguousChars = false)
     {
-        if ($includeAmbiguousChars)
-        {
+        if ($includeAmbiguousChars) {
             $arrChars = static::CAPITAL_LETTERS . static::SMALL_LETTERS;
-        }
-        else
-        {
+        } else {
             $arrChars = static::CAPITAL_LETTERS_NONAMBIGUOUS . static::SMALL_LETTERS_NONAMBIGUOUS;
         }
 
@@ -305,12 +285,9 @@ class StringUtil extends \Haste\Util\StringUtil
 
     public static function randomNumber($includeAmbiguousChars = false)
     {
-        if ($includeAmbiguousChars)
-        {
+        if ($includeAmbiguousChars) {
             $arrChars = static::NUMBERS;
-        }
-        else
-        {
+        } else {
             $arrChars = static::NUMBERS_NONAMBIGUOUS;
         }
 
@@ -342,8 +319,7 @@ class StringUtil extends \Haste\Util\StringUtil
         preg_match_all('/<script.*?>[\s\S]*?<\/script>/', $strHtml, $tmp);
         $arrScripts = $tmp[0];
 
-        foreach ($arrScripts as $script_id => $script_item)
-        {
+        foreach ($arrScripts as $script_id => $script_item) {
             $strHtml = self::str_replace_once(
                 $script_item,
                 '<div class="script_item_num_' . $script_id . '"></div>',
@@ -367,8 +343,7 @@ class StringUtil extends \Haste\Util\StringUtil
     {
         preg_match_all('/<div class="script_item_num_(.*?)"><\/div>/', $strHtml, $tmp);
 
-        foreach ($tmp[1] as $script_num_item)
-        {
+        foreach ($tmp[1] as $script_num_item) {
             $strHtml = str_replace(
                 '<div class="script_item_num_' . $script_num_item . '"></div>',
                 $arrScripts[$script_num_item],
@@ -387,8 +362,8 @@ class StringUtil extends \Haste\Util\StringUtil
      */
     public static function convertGermanSpecialLetters($str)
     {
-        $search = array("ä", "ö", "ü", "ß", "Ä", "Ö", "Ü");
-        $replace = array("ae", "oe", "ue", "ss", "Ae", "Oe", "Ue");
+        $search  = ["ä", "ö", "ü", "ß", "Ä", "Ö", "Ü"];
+        $replace = ["ae", "oe", "ue", "ss", "Ae", "Oe", "Ue"];
         return str_replace($search, $replace, $str);
     }
 
@@ -400,8 +375,9 @@ class StringUtil extends \Haste\Util\StringUtil
      */
     public static function replaceNonXmlEntities($xml)
     {
-        $search = array("&nbsp;", "&mdash;");
-        $replace = array("&#xA0;", "&#x2014;");
+        $search  = ["&nbsp;", "&mdash;"];
+        $replace = ["&#xA0;", "&#x2014;"];
         return str_replace($search, $replace, $xml);
     }
 }
+
