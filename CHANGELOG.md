@@ -1,26 +1,31 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.94] - 2017-10-06
+
+### Fixed
+- FileCache timeout -> see README for changing
+
 ## [1.6.93] - 2017-09-18
 
-### Added 
-* `StringUtil::nl2p`
+### Added
+- `StringUtil::nl2p`
 
 ## [1.6.92] - 2017-09-12
 
-### Changed 
-* `js` invokation in front end mode is now handled with `heimrichhannot/contao-components`
+### Changed
+- `js` invokation in front end mode is now handled with `heimrichhannot/contao-components`
 
 ## [1.6.91] - 2017-09-12
 
-### Added 
-* `strict` mode parameter can now be provided within `HeimrichHannot\Haste\Util\Arrays::insertInArrayByName` forwarded `array_search`
+### Added
+- `strict` mode parameter can now be provided within `HeimrichHannot\Haste\Util\Arrays::insertInArrayByName` forwarded `array_search`
 
 ## [1.6.90] - 2017-09-04
 
-### Added 
-* StringUtil::replaceNonXmlEntities
-* documentation for StringUtil::replaceNonXmlEntities
+### Added
+- StringUtil::replaceNonXmlEntities
+- documentation for StringUtil::replaceNonXmlEntities
 
 ## [1.6.89] - 2017-08-31
 

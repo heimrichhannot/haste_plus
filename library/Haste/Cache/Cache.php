@@ -16,9 +16,7 @@ use phpFastCache\Proxy\phpFastCacheAbstractProxy;
 
 abstract class Cache extends phpFastCacheAbstractProxy
 {
-	protected static $timeout = 86400; // 24 Hours
-
-	protected static $driver = 'files';
+    protected static $driver = 'files';
 
     protected static $objInstance;
 
@@ -31,40 +29,42 @@ abstract class Cache extends phpFastCacheAbstractProxy
         $this->instance = parent::__construct($driver, self::getOptions());
     }
 
-   /**
+    /**
      * Return the object instance (Singleton)
      *
      * @return \HeimrichHannot\Haste\Cache\Cache The object instance
      */
-    public static function getInstance()
+    public static function getInstance(array $arrOptions = [])
     {
-        if (static::$objInstance === null)
-        {
-            static::$objInstance = CacheManager::getInstance(static::$driver, self::getOptions());
+        if (static::$objInstance === null) {
+            static::$objInstance = CacheManager::getInstance(static::$driver, self::getOptions($arrOptions));
         }
 
         return static::$objInstance;
     }
 
-	protected function extendOptions(array $arrOptions = [])
-	{
-		return $arrOptions;
-	}
+    protected function extendOptions(array $arrOptions = [])
+    {
+        return $arrOptions;
+    }
 
-	public static function getOptions()
-	{
-		$arrOptions = [];
-
-		$arrOptions['storage'] = static::$driver;
+    public static function getOptions(array $arrOptions = [])
+    {
+        $arrOptions['storage']             = static::$driver;
         $arrOptions['ignoreSymfonyNotice'] = true;
 
-		$arrOptions = static::extendOptions($arrOptions);
+        if (!isset($arrOptions['defaultTtl']) || !$arrOptions['defaultTtl'])
+        {
+            $arrOptions['defaultTtl'] = 86400;
+        }
 
-		$arrOptions = array_merge(
-			CacheManager::getDefaultConfig(),
-			$arrOptions
-		);
-		
-		return $arrOptions;
-	}
+        $arrOptions = static::extendOptions($arrOptions);
+
+        $arrOptions = array_merge(
+            CacheManager::getDefaultConfig(),
+            $arrOptions
+        );
+
+        return $arrOptions;
+    }
 }

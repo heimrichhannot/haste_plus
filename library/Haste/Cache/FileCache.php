@@ -12,19 +12,18 @@ namespace HeimrichHannot\Haste\Cache;
 
 class FileCache extends Cache
 {
-	protected static $cacheDir = 'system/cache/phpfastcache';
+    protected static $cacheDir = 'system/cache/phpfastcache';
 
-	protected static $driver = 'files';
+    protected static $driver = 'files';
 
-	protected function extendOptions(array $arrOptions = [])
-	{
-		if (!is_dir(TL_ROOT . '/' . ltrim(self::$cacheDir, '/')))
-		{
-			new \Folder(self::$cacheDir);
-		}
+    protected function extendOptions(array $arrOptions = [])
+    {
+        if (!is_dir(TL_ROOT . '/' . ltrim(self::$cacheDir, '/'))) {
+            new \Folder(self::$cacheDir);
+        }
 
-		$arrOptions['path'] = TL_ROOT . '/' . ltrim(self::$cacheDir, '/');
+        $arrOptions['path'] = TL_ROOT . '/' . ltrim(self::$cacheDir, '/');
 
-		return $arrOptions;
-	}
+        return $arrOptions;
+    }
 }
