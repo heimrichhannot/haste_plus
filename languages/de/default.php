@@ -28,6 +28,9 @@ $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] = 'Hallo';
 $GLOBALS['TL_LANG']['MSC']['haste_plus']['genderMale']   = 'Herr';
 $GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFemale'] = 'Frau';
 
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFe']['male']   = 'Herr';
+$GLOBALS['TL_LANG']['MSC']['haste_plus']['genderFe']['female'] = 'Frau';
+
 /**
  * Date/time
  */

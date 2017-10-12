@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.95] - 2017-10-12
+
+### Added
+- frontend gender localization
+
 ## [1.6.94] - 2017-10-06
 
 ### Fixed
