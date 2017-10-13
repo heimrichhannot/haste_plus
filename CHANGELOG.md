@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.96] - 2017-10-13
+
+### Added
+- Container::getGet, Container::getPost
+
 ## [1.6.95] - 2017-10-12
 
 ### Added

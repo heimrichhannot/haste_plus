@@ -47,6 +47,16 @@ class Container
         return \System::getContainer()->get('request_stack')->getCurrentRequest();
     }
 
+    public static function getGet($key)
+    {
+        return \System::getContainer()->get('request_stack')->getCurrentRequest()->query->get($key);
+    }
+
+    public static function getPost($key)
+    {
+        return \System::getContainer()->get('request_stack')->getCurrentRequest()->request->get($key);
+    }
+
     /**
      * @param $text string
      * @param $function string
