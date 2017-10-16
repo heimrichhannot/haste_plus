@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.97] - 2017-10-16
+
+### Fixed
+- backend jquery load error when loading haste_plus after another module which set `['TL_JAVASCRIPT']['jquery']`
+
 ## [1.6.96] - 2017-10-13
 
 ### Added

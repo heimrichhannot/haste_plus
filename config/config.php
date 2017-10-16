@@ -9,17 +9,17 @@ $GLOBALS['TL_CONFIG']['phpfastcachePath'] = 'system/cache/phpfastcache/';
  * Add jquery to backend
  */
 if (TL_MODE == 'BE') {
-    $strJQueryPath = version_compare(VERSION, '4.0', '<') ? 'assets/jquery/core/' . $GLOBALS['TL_ASSETS']['JQUERY']
-        . '/jquery.min.js' : 'assets/jquery/js/jquery.min.js';
-
-    array_insert(
-        $GLOBALS['TL_JAVASCRIPT'],
-        0,
-        [
-            'jquery'            => $strJQueryPath,
-            'jquery-noconflict' => 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js'
-        ]
-    );
+    if (!isset($GLOBALS['TL_JAVASCRIPT']['jquery']))
+    {
+        $strJQueryPath = version_compare(VERSION, '4.0', '<')
+            ? 'assets/jquery/core/' . $GLOBALS['TL_ASSETS']['JQUERY'] . '/jquery.min.js'
+            : 'assets/jquery/js/jquery.min.js';
+        $GLOBALS['TL_JAVASCRIPT']['jquery'] = $strJQueryPath;
+    }
+    if (!isset($GLOBALS['TL_JAVASCRIPT']['jquery-noconflict']))
+    {
+        $GLOBALS['TL_JAVASCRIPT']['jquery-noconflict'] = 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js';
+    }
 }
 
 /**
