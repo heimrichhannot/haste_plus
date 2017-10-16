@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.98] - 2017-10-16
+
+### Fixed
+- jquery loading to late
+
 ## [1.6.97] - 2017-10-16
 
 ### Fixed
