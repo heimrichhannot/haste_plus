@@ -12,4 +12,4 @@ unset($paths[$key]);
 $paths[$key] = $catchAll;
 $container->setParameter('nelmio_security.clickjacking.paths', $paths);
 ```
-¹ *state 17.10.2017 with Contao 4.4.7 and Symfony 3.3.10. If the situations changes or you found a better solution, please don't hesitate to write and issue or pull request.*
+¹ *state 17.10.2017 with Contao 4.4.7 and Symfony 3.3.10. If the situations changes or you found a better solution, please don't hesitate to write an issue or pull request.*
