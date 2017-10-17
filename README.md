@@ -49,6 +49,8 @@ Add security headers to http request (configurable in tl_settings)
 - IFRAME Clickjacking Protection: X-Frame-Options: SAMEORIGIN
 - Allow Origins Check: Access-Control-Allow-Origins & Access-Control-Allow-Headers
 
+> These options don't work anymore with Contao 4! [Further Information](docs/Security/HttpResponce.md)
+
 ### Input/Widget rgxp
 
 The following regular expression can be used to validate widget input.
