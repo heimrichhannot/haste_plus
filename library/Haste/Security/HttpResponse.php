@@ -10,9 +10,25 @@
 
 namespace HeimrichHannot\Haste\Security;
 
-
+/**
+ * Class HttpResponse
+ * @package HeimrichHannot\Haste\Security
+ *
+ * @deprecated Don't work contao 4. Should be replaced by a compiler pass implementation.
+ */
 class HttpResponse
 {
+    /**
+     * Set security headers
+     *
+     * NOTE ABOUT CONTAO 4: This won't work with contao 4 anymore. See readme about further informations!
+     *
+     * @param $strBuffer
+     * @param $strTemplate
+     * @return mixed
+     *
+     *
+     */
     public static function setSecurityHeaders($strBuffer, $strTemplate)
     {
         if (\Config::get('headerAddXFrame'))

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.99] - 2017-10-17
+
+### Changed
+- documented not working x-frame-options in contao 4 
+
 ## [1.6.98] - 2017-10-16
 
 ### Fixed
