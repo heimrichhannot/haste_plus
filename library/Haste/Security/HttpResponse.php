@@ -31,6 +31,11 @@ class HttpResponse
      */
     public static function setSecurityHeaders($strBuffer, $strTemplate)
     {
+        if (version_compare(VERSION, "4.4", ">="))
+        {
+            return $strBuffer;
+        }
+
         if (\Config::get('headerAddXFrame'))
         {
             static::addXFrame();
