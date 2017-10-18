@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.100] - 2017-10-18
+
+### Fixed
+- already set headers warning in contao 4.4 in `HttpResponse` 
+
 ## [1.6.99] - 2017-10-17
 
 ### Changed
