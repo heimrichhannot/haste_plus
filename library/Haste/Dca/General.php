@@ -575,7 +575,7 @@ class General extends \Backend
             $strLabel = sprintf(specialchars($strLabel ?: $GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $intId);
 
             return sprintf(
-                ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s&amp;rt=%s" title="%s" style="padding-left:3px">%s</a>',
+                ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s&amp;rt=%s" title="%s" style="padding-left: 5px; padding-top: 2px; display: inline-block;">%s</a>',
                 $strModule,
                 $intId,
                 \RequestToken::get(),
@@ -592,7 +592,7 @@ class General extends \Backend
 
             return sprintf(
                 ' <a href="contao/main.php?do=%s&amp;act=edit&amp;id=%s%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" '
-                . 'style="padding-left:3px; float: right" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
+                . 'style="padding-left: 5px; padding-top: 2px; display: inline-block;" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s' . '\',\'url\':this.href});return false">%s</a>',
                 $strModule,
                 $intId,
                 ($strTable ? '&amp;table=' . $strTable : ''),
