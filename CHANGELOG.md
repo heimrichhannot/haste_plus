@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.102] - 2017-10-27
+
+### Added
+- Image::getSizedImagePath()
+
 ## [1.6.101] - 2017-10-25
 
 ### Fixed

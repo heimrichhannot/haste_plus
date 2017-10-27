@@ -12,6 +12,8 @@
 
 namespace HeimrichHannot\Haste\Image;
 
+use HeimrichHannot\Haste\Util\Files;
+
 class Image
 {
     public static function getBackgroundHtml($image, $width, $height, $mode = '', $class = '', $target = null, $force = false)
@@ -50,5 +52,39 @@ class Image
         }
 
         return $arrConsts;
+    }
+
+    /**
+     * Returns path of sized image.
+     * @param $uuid mixed binary uuid
+     * @param $size int|array
+     * @return bool|string
+     */
+    public static function getSizedImagePath($uuid, $size)
+    {
+        $container = \System::getContainer();
+        $rootDir = $container->getParameter('kernel.project_dir');
+
+        if (!($path = Files::getPathFromUuid($uuid))) {
+            return false;
+        }
+
+        $size = unserialize($size);
+
+        if (is_array($size))
+        {
+            if (count($size) < 3)
+            {
+                return false;
+            }
+            else
+            {
+                $size = $size[2];
+            }
+        }
+
+        return $container->get('contao.image.image_factory')->create(
+            $rootDir . '/' . $path, $size
+        )->getUrl($rootDir);
     }
 }
