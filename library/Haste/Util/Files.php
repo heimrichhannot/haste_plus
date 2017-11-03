@@ -255,6 +255,11 @@ class Files
 
         $strName = standardize($strName, $blnPreserveUppercase);
 
+        if ($strName != 'id-' && !StringUtil::startsWith($strFileName, 'id-'))
+        {
+            $strName = ltrim($strName, 'id-');
+        }
+
         if ($maxCount > 0)
         {
             $strName = substr($strName, 0, $maxCount - 1);

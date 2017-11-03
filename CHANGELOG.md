@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.0] - 2017-11-03
+
+### Changed
+- don't set an id prefix to file- or foldernames
+
 ## [1.6.100] - 2017-10-18
 
 ### Fixed
