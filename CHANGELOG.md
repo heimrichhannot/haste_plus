@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - don't set an id prefix to file- or foldernames
 
+## [1.6.102] - 2017-10-27
+
+### Added
+- Image::getSizedImagePath()
+
+## [1.6.101] - 2017-10-25
+
+### Fixed
+- edit links for Contao 4
+
 ## [1.6.100] - 2017-10-18
 
 ### Fixed
