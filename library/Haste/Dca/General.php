@@ -361,20 +361,20 @@ class General extends \Backend
      * @param $varValue mixed The current alias (if available)
      * @param $intId    int The entity's id
      * @param $strTable string The entity's table
-     * @param $strAlias string The value to use as a base for the alias
+     * @param $strBase string The value to use as a base for the alias
      * @param $blnKeepUmlauts bool Set to true if German umlauts should be kept
      *
      * @return string
      * @throws \Exception
      */
-    public static function generateAlias($varValue, $intId, $strTable, $strAlias, $blnKeepUmlauts = true)
+    public static function generateAlias($varValue, $intId, $strTable, $strBase, $blnKeepUmlauts = true)
     {
         $autoAlias = false;
 
         // Generate alias if there is none
         if ($varValue == '') {
             $autoAlias = true;
-            $varValue  = \StringUtil::generateAlias($strAlias);
+            $varValue  = \StringUtil::generateAlias($strBase);
         }
 
         if (!$blnKeepUmlauts) {

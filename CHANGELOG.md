@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.1] - 2017-11-06
+
+### Changed
+- improved General::generateAlias method signature
+
 ## [1.7.0] - 2017-11-03
 
 ### Changed
