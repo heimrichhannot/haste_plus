@@ -34,7 +34,7 @@ array_insert($GLOBALS['TL_JAVASCRIPT'], 1, [
     'haste_plus_geo'         => '/system/modules/haste_plus/assets/js/geo.min.js|static',
     'haste_plus_util'        => '/system/modules/haste_plus/assets/js/util.min.js|static',
     'google_charts_loader'   => 'system/modules/haste_plus/assets/js/vendor/visualization/charts/loader.js|static',
-    'google_charts'          => 'system/modules/haste_plus/assets/js/vendor/load-charts.js',
+    'google_charts'          => 'system/modules/haste_plus/assets/js/vendor/load-charts.js|static',
     'geoxml3'                => 'system/modules/haste_plus/assets/js/vendor/geoxml3.js|static',
 ]);
 
