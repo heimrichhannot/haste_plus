@@ -73,4 +73,14 @@ class Container
             $logger->log($level, $text, ['contao' => new \Contao\CoreBundle\Monolog\ContaoContext($function, $category)]);
         }
     }
+
+    public static function getProjectDir()
+    {
+        return \System::getContainer()->getParameter('kernel.project_dir');
+    }
+
+    public static function getWebDir()
+    {
+        return \System::getContainer()->getParameter('contao.web_dir');
+    }
 }
