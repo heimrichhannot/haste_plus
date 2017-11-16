@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.5] - 2017-11-16
+
+### fixes 
+- `sanitizeFileName` id prefix remover was to greedy
+
+### Added 
+- test for `sanitizeFileName`
+- updates to documentation
+
 ## [1.7.4] - 2017-11-15
 
 ### Added
