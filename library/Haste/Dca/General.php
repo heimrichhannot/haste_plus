@@ -494,30 +494,24 @@ class General extends \Backend
 
     public static function getDataContainers()
     {
-        $arrDCA = [];
+        $dca = [];
 
-        $arrModules = \ModuleLoader::getActive();
-
-        if (!is_array($arrModules)) {
-            return $arrDCA;
-        }
-
-        foreach ($arrModules as $strModule) {
-            $strDir = TL_ROOT . '/system/modules/' . $strModule . '/dca';
-
-            if (file_exists($strDir)) {
-                foreach (scandir($strDir) as $strFile) {
-                    if (substr($strFile, 0, 1) != '.' && file_exists($strDir . '/' . $strFile)) {
-                        $arrDCA[] = str_replace('.php', '', $strFile);
+        foreach ($GLOBALS['BE_MOD'] as $arrSection) {
+            foreach ($arrSection as $strModule => $arrModule) {
+                foreach ($arrModule as $strKey => $varValue) {
+                    if (is_array($arrModule['tables']))
+                    {
+                        $dca = array_merge($dca, $arrModule['tables']);
                     }
                 }
             }
         }
 
-        $arrDCA = array_unique($arrDCA);
-        sort($arrDCA);
+        $dca = array_unique($dca);
 
-        return $arrDCA;
+        asort($dca);
+
+        return array_values($dca);
     }
 
     public static function getFields(

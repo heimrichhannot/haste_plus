@@ -1,9 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.6] - 2017-11-21
+
+### Fixed
+- General::getDataContainers() for Contao 4
+
 ## [1.7.5] - 2017-11-16
 
-### fixes 
+### Fixed
 - `sanitizeFileName` id prefix remover was to greedy
 
 ### Added 
