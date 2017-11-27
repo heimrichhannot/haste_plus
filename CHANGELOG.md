@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.7] - 2017-11-24
+
+### Fixed
+- General::addOverridableFields -> field now not mandatory anymore (you should have the opportunity to override with null)
+
 ## [1.7.6] - 2017-11-21
 
 ### Fixed

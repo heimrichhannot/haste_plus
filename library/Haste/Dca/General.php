@@ -128,8 +128,7 @@ class General extends \Backend
             $arrDestinationDca['palettes']['__selector__'][] = $strOverrideFieldName;
 
             // copy field
-            $arrDestinationDca['fields'][$strField]                      = $arrSourceDca['fields'][$strField];
-            $arrDestinationDca['fields'][$strField]['eval']['mandatory'] = true;
+            $arrDestinationDca['fields'][$strField] = $arrSourceDca['fields'][$strField];
 
             // subpalette
             $arrDestinationDca['subpalettes'][$strOverrideFieldName] = $strField;
@@ -499,8 +498,7 @@ class General extends \Backend
         foreach ($GLOBALS['BE_MOD'] as $arrSection) {
             foreach ($arrSection as $strModule => $arrModule) {
                 foreach ($arrModule as $strKey => $varValue) {
-                    if (is_array($arrModule['tables']))
-                    {
+                    if (is_array($arrModule['tables'])) {
                         $dca = array_merge($dca, $arrModule['tables']);
                     }
                 }
