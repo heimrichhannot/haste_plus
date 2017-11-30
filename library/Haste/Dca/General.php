@@ -11,6 +11,7 @@
 
 namespace HeimrichHannot\Haste\Dca;
 
+use Contao\DataContainer;
 use Contao\Model;
 use Contao\Model\Collection;
 use Haste\Geodesy\Datum\WGS84;
@@ -103,7 +104,7 @@ class General extends \Backend
         return null;
     }
 
-    public static function addOverridableFields($arrFields, $strSourceTable, $strDestinationTable)
+    public static function addOverridableFields($arrFields, $strSourceTable, $strDestinationTable, $arrCheckboxDca = [])
     {
         \Controller::loadDataContainer($strSourceTable);
         \System::loadLanguageFile($strSourceTable);
@@ -117,13 +118,13 @@ class General extends \Backend
             // add override boolean field
             $strOverrideFieldName = 'override' . ucfirst($strField);
 
-            $arrDestinationDca['fields'][$strOverrideFieldName] = [
+            $arrDestinationDca['fields'][$strOverrideFieldName] = array_merge([
                 'label'     => &$GLOBALS['TL_LANG'][$strDestinationTable][$strOverrideFieldName],
                 'exclude'   => true,
                 'inputType' => 'checkbox',
                 'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
                 'sql'       => "char(1) NOT NULL default ''",
-            ];
+            ], $arrCheckboxDca);
 
             $arrDestinationDca['palettes']['__selector__'][] = $strOverrideFieldName;
 
@@ -613,6 +614,24 @@ class General extends \Backend
                 \Image::getHtml('alias.gif', $strLabel, 'style="vertical-align:top"')
             );
         }
+    }
+
+    public static function valueChangedInCallback($newValue, DataContainer $dc)
+    {
+        if (null !== ($entity = static::getModelInstance($dc->table, $dc->id))) {
+            return $newValue != $entity->{$dc->field};
+        }
+
+        return true;
+    }
+
+    public static function getModelInstancePropertyValue($property, $table, $id)
+    {
+        if (null !== ($entity = static::getModelInstance($table, $id))) {
+            return $entity->{$property};
+        }
+
+        return null;
     }
 
     public static function getModelInstance($strTable, $intId)

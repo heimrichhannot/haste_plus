@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.8] - 2017-11-30
+
+### Added
+- General::valueChangedInCallback(), General::getModelInstancePropertyValue()
+
+### Fixed
+- General::addOverridableFields -> eval of checkbox field can now be extended
+
 ## [1.7.7] - 2017-11-24
 
 ### Fixed
