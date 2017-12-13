@@ -35,12 +35,9 @@ class DateUtil
             \Contao\Date::parse($strFormat, $intEnd)
         );
 
-        if ($intEnd > 0 && $intEnd > $intStart && $strStart != $strEnd)
-        {
+        if ($intEnd > 0 && $intEnd > $intStart && $strStart != $strEnd) {
             return $strStart . $strDelimiter . $strEnd;
-        }
-        else
-        {
+        } else {
             return $strStart;
         }
     }
@@ -61,16 +58,13 @@ class DateUtil
         $strIntervalDelimiter = ' &ndash; ',
         $strDelimiter = ', '
     ) {
-        if (date(\Contao\Date::getNumericDateFormat(), $intStart) == date(\Contao\Date::getNumericDateFormat(), $intEnd))
-        {
+        if (date(\Contao\Date::getNumericDateFormat(), $intStart) == date(\Contao\Date::getNumericDateFormat(), $intEnd)) {
             return static::getNumericDateInterval($intStart, $intEnd, $strIntervalDelimiter) . $strDelimiter . static::getNumericTimeInterval(
-                $intStart,
-                $intEnd,
-                $strIntervalDelimiter
-            );
-        }
-        else
-        {
+                    $intStart,
+                    $intEnd,
+                    $strIntervalDelimiter
+                );
+        } else {
             return static::getDateTimeInterval(
                 \Contao\Date::getNumericDatimFormat(),
                 $intStart,
@@ -96,19 +90,14 @@ class DateUtil
 
         $strResult = $strStartDate;
 
-        if ($intEndDate > 0 && $intEndDate > $intStartDate && $strStartDate != $strEndDate)
-        {
+        if ($intEndDate > 0 && $intEndDate > $intStartDate && $strStartDate != $strEndDate) {
             $strResult .= $strIntervalDelimiter . $strEndDate;
         }
 
-        if ($intStartTime > 0)
-        {
-            if ($intEndTime > $intStartTime && $strStartTime != $strEndTime)
-            {
+        if ($intStartTime > 0) {
+            if ($intEndTime > $intStartTime && $strStartTime != $strEndTime) {
                 $strResult .= $strDelimiter . $strStartTime . $strIntervalDelimiter . $strEndTime;
-            }
-            else
-            {
+            } else {
                 $strResult .= $strDelimiter . $strStartTime;
             }
         }
@@ -118,24 +107,18 @@ class DateUtil
 
     public static function getFormattedDateTime($objEvent, $blnSeparatedDateTime = true)
     {
-        if ($objEvent->addTime)
-        {
-            if ($blnSeparatedDateTime)
-            {
+        if ($objEvent->addTime) {
+            if ($blnSeparatedDateTime) {
                 $strDateTime = DateUtil::getSeparatedNumericDateTimeInterval(
                     $objEvent->startDate,
                     $objEvent->endDate,
                     $objEvent->startTime,
                     $objEvent->endTime
                 );
-            }
-            else
-            {
+            } else {
                 $strDateTime = DateUtil::getNumericDateInterval($objEvent->startTime, $objEvent->endTime);
             }
-        }
-        else
-        {
+        } else {
             $strDateTime = DateUtil::getNumericDateInterval($objEvent->startDate, $objEvent->endDate);
         }
 
@@ -147,13 +130,10 @@ class DateUtil
         $objDatime = new \DateTime();
         $objDatime->setTimestamp($intDatime);
 
-        if (!is_null($intCompareTo))
-        {
+        if (!is_null($intCompareTo)) {
             $objCompareTo = new \DateTime();
             $objCompareTo->setTimestamp($intCompareTo);
-        }
-        else
-        {
+        } else {
             $objCompareTo = new \DateTime('now');
         }
 
@@ -162,60 +142,37 @@ class DateUtil
 
     public static function getTimeElapsed($intDatime, $intCompareTo = null)
     {
-        $intDiff = static::getTimeDiff($intDatime, $intCompareTo);
+        $intDiff    = static::getTimeDiff($intDatime, $intCompareTo);
         $intDayDiff = floor($intDiff / 86400);
 
-        if (is_nan($intDayDiff) || $intDayDiff < 0)
-        {
+        if (is_nan($intDayDiff) || $intDayDiff < 0) {
             return '';
         }
 
-        if ($intDayDiff == 0)
-        {
-            if ($intDiff < 60)
-            {
+        if ($intDayDiff == 0) {
+            if ($intDiff < 60) {
                 return $GLOBALS['TL_LANG']['MSC']['datediff']['just_now'];
-            }
-            elseif ($intDiff < 120)
-            {
+            } elseif ($intDiff < 120) {
                 return $GLOBALS['TL_LANG']['MSC']['datediff']['min_ago'];
-            }
-            elseif ($intDiff < 3600)
-            {
+            } elseif ($intDiff < 3600) {
                 return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nmins_ago'], floor($intDiff / 60));
-            }
-            elseif ($intDiff < 7200)
-            {
+            } elseif ($intDiff < 7200) {
                 return $GLOBALS['TL_LANG']['MSC']['datediff']['hour_ago'];
-            }
-            elseif ($intDiff < 86400)
-            {
+            } elseif ($intDiff < 86400) {
                 return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nhours_ago'], floor($intDiff / 3600));
             }
-        }
-        elseif ($intDayDiff == 1)
-        {
+        } elseif ($intDayDiff == 1) {
             return $GLOBALS['TL_LANG']['MSC']['datediff']['yesterday'];
-        }
-        elseif ($intDayDiff < 7)
-        {
+        } elseif ($intDayDiff < 7) {
             return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['ndays_ago'], $intDayDiff);
-        }
-        elseif ($intDayDiff == 7)
-        {
+        } elseif ($intDayDiff == 7) {
             return $GLOBALS['TL_LANG']['MSC']['datediff']['week_ago'];
-        }
-        elseif ($intDayDiff < (7 * 6))
-        { // Modifications Start Here
+        } elseif ($intDayDiff < (7 * 6)) { // Modifications Start Here
             // 6 weeks at most
             return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nweeks_ago'], ceil($intDayDiff / 7));
-        }
-        elseif ($intDayDiff < 365)
-        {
+        } elseif ($intDayDiff < 365) {
             return sprintf($GLOBALS['TL_LANG']['MSC']['datediff']['nmonths_ago'], ceil($intDayDiff / (365 / 12)));
-        }
-        else
-        {
+        } else {
             $years = round($intDayDiff / 365);
 
             return sprintf(
@@ -231,14 +188,12 @@ class DateUtil
     {
         $arrTimePeriod = deserialize($arrTimePeriod, true);
 
-        if (!isset($arrTimePeriod['unit']) || !isset($arrTimePeriod['value']))
-        {
+        if (!isset($arrTimePeriod['unit']) || !isset($arrTimePeriod['value'])) {
             return null;
         }
 
         $intFactor = 1;
-        switch ($arrTimePeriod['unit'])
-        {
+        switch ($arrTimePeriod['unit']) {
             case 'm':
                 $intFactor = 60;
                 break;
@@ -266,31 +221,77 @@ class DateUtil
         return $objDate && $objDate->format($strFormat) === $strDate;
     }
 
-    // TODO
-//	public static function getSymbolicDate($intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ') {
-//		$intStartMonth = date('n', $intStart) - 1;
-//		$strStartMonth = isset($GLOBALS['TL_LANG'][$intStartMonth]) ? $GLOBALS['TL_LANG'][$intStartMonth] : '';
-//
-//		$arrStartReplacements = array(
-//			'F' => $strStartMonth
-//		);
-//
-//		$arrEndReplacements = array();
-//
-//		if ($intEnd > 0)
-//		{
-//			$intEndMonth = date('n', $intEnd) - 1;
-//			$strEndMonth = isset($GLOBALS['TL_LANG'][$intEndMonth]) ? $GLOBALS['TL_LANG'][$intEndMonth] : '';
-//
-//			$arrEndReplacements['F'] = $strEndMonth;
-//		}
-//
-//		return static::getDateTime(Date::getSymbolicDateFormat(), $intStart, $intEnd, $strDelimiter,
-//				$arrStartReplacements, $arrEndReplacements);
-//	}
-//
-//	public static function getSymbolicDateTime($intStart = null, $intEnd = null, $strDelimiter = ' &ndash; ') {
-//		return static::getDateTime(\Contao\Date::getNumericDatimFormat(), $intStart, $intEnd, $strDelimiter);
-//	}
+
+    /**
+     * Format a php date format string to javascript compatible date format string
+     * @param string $php_format The date format (e.g. "d.m.y H:i")
+     * @return string The formatted js date string
+     */
+    public static function formatPhpDateToJsDate($php_format)
+    {
+        $SYMBOLS_MATCHING = [
+            // Day
+            'd' => 'DD',
+            'D' => 'D',
+            'j' => 'd',
+            'l' => 'DD',
+            'N' => '',
+            'S' => '',
+            'w' => '',
+            'z' => 'o',
+            // Week
+            'W' => '',
+            // Month
+            'F' => 'MM',
+            'm' => 'MM',
+            'M' => 'M',
+            'n' => 'm',
+            't' => '',
+            // Year
+            'L' => '',
+            'o' => '',
+            'Y' => 'YYYY',
+            'y' => 'y',
+            // Time
+            'a' => '',
+            'A' => '',
+            'B' => '',
+            'g' => '',
+            'G' => '',
+            'h' => '',
+            'H' => 'HH',
+            'i' => 'mm',
+            's' => '',
+            'u' => ''
+        ];
+
+        $replacement = "";
+        $escaping    = false;
+
+        for ($i = 0; $i < strlen($php_format); $i++) {
+            $char = $php_format [$i];
+            if ($char === '\\')            // PHP date format escaping character
+            {
+                $i++;
+                if ($escaping) {
+                    $replacement .= $php_format [$i];
+                } else {
+                    $replacement .= '\'' . $php_format [$i];
+                }
+                $escaping = true;
+            } else {
+                if ($escaping) {
+                    $replacement .= "'";
+                    $escaping    = false;
+                }
+                if (isset ($SYMBOLS_MATCHING [$char])) {
+                    $replacement .= $SYMBOLS_MATCHING [$char];
+                } else {
+                    $replacement .= $char;
+                }
+            }
+        }
+        return $replacement;
+    }
 
 }

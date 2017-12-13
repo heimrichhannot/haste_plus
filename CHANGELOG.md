@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.9] - 2017-12-13
+
+### Added
+- `DateUtil::formatPhpDateToJsDate`
+
 ## [1.7.8] - 2017-11-30
 
 ### Added
