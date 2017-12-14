@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 2017-12-14
+
+#### Changed
+- added `Encryption::decrypt` to `prepareSpecialValueForPrint` if encription is set
+
 ## [1.7.9] - 2017-12-13
 
 ### Added
