@@ -369,6 +369,11 @@ class FormSubmission
             $varValue = implode(', ', $varValue);
         }
 
+        if ($arrData['eval']['encrypt'])
+        {
+            $varValue = \Encryption::decrypt($varValue);
+        }
+
         // Convert special characters (see #1890)
         return specialchars($varValue);
     }
