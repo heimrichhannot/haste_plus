@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.1] - 2018-01-19
+
+#### Fixed
+- General::getConfigByArrayOrCallbackOrFunction for Contao 4
+
 ## [1.8.0] - 2017-12-14
 
 #### Changed

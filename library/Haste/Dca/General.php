@@ -11,6 +11,7 @@
 
 namespace HeimrichHannot\Haste\Dca;
 
+use Contao\Controller;
 use Contao\DataContainer;
 use Contao\Model;
 use Contao\Model\Collection;
@@ -94,9 +95,11 @@ class General extends \Backend
         }
 
         if (is_array($arrArray[$strProperty . '_callback'])) {
-            $arrCallback = $arrArray[$strProperty . '_callback'];
+            $arrCallback = $arrArray[$strProperty.'_callback'];
 
-            return call_user_func_array($arrCallback[0] . '::' . $arrCallback[1], $arrArgs);
+            $instance = Controller::importStatic($arrCallback[0]);
+
+            return call_user_func_array([$instance, $arrCallback[1]], $arrArgs);
         } elseif (is_callable($arrArray[$strProperty . '_callback'])) {
             return call_user_func_array($arrArray[$strProperty . '_callback'], $arrArgs);
         }
@@ -204,7 +207,6 @@ class General extends \Backend
 
         \Database::getInstance()->prepare("UPDATE $objDc->table SET dateAdded=? WHERE id=? AND dateAdded = 0")->execute(time(), $objDc->id);
     }
-
 
     /**
      * @return array The dca for the data added field
