@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.2] - 2018-01-24
+
+### Added
+- some missing english translations
+
+### Changed
+- licence LGPL-3.0+ is now LGPL-3.0-or-later  
+
 ## [1.8.1] - 2018-01-19
 
 #### Fixed
