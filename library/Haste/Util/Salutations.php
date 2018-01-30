@@ -84,6 +84,11 @@ class Salutations
         $blnHasLastname  = $varEntity->lastname;
         $blnHasTitle     = $varEntity->title && $varEntity->title != '-' && $varEntity->title != 'Titel' && $varEntity->title != 'Title';
 
+        if (!$blnHasTitle)
+        {
+            $blnHasTitle = $varEntity->academicTitle && $varEntity->academicTitle != '-' && $varEntity->academicTitle != 'Titel' && $varEntity->academicTitle != 'Title';
+        }
+
         if ($strLanguage)
         {
             \Controller::loadLanguageFile('default', $strLanguage, true);
@@ -111,7 +116,7 @@ class Salutations
                 {
                     if ($blnHasTitle)
                     {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] . ' ' . $varEntity->title;
+                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] . ' ' . ($varEntity->title ?: $varEntity->academicTitle);
                     }
                     else
                     {
@@ -149,7 +154,7 @@ class Salutations
 
                     if ($blnHasTitle)
                     {
-                        $strSalutation .= ' ' . $varEntity->title;
+                        $strSalutation .= ' ' . ($varEntity->title ?: $varEntity->academicTitle);
                     }
 
                     $strSalutation = $strSalutation . ' ' . $varEntity->lastname;

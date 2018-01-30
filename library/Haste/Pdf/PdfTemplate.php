@@ -91,7 +91,7 @@ class PdfTemplate extends \Controller
      *
      * @throws \MpdfException
      */
-    public function saveToFile($strFolder, $strFilename = '')
+    public function saveToFile($strFolder, $strFilename = '', $blnSkipDb = false)
     {
         $strFilename = $strFilename ?: $this->buildFilename();
 
@@ -101,8 +101,11 @@ class PdfTemplate extends \Controller
         $this->objPdf->Output(TL_ROOT . '/' . trim($strFolder, '/') . '/' . $strFilename, 'F');
 
         // save database entity
-        $objFile = new \File(trim($strFolder, '/') . '/' . $strFilename);
-        $objFile->close();
+        if (!$blnSkipDb)
+        {
+            $objFile = new \File(trim($strFolder, '/') . '/' . $strFilename);
+            $objFile->close();
+        }
     }
 
     /**
@@ -149,7 +152,8 @@ class PdfTemplate extends \Controller
     private function addFont($strFontName, $strFileName, $strType)
     {
         $strFontName = str_replace(' ', '', strtolower($strFontName));
-        $strFileName = '../../../../../' . ltrim($strFileName, '/');
+        $strFileName = '../../../../' . (version_compare(VERSION, '4.0', '<') ? '../' : '')
+                       . ltrim($strFileName, '/');
 
         if (!is_array($this->objPdf->fontdata[$strFontName]))
         {

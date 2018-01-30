@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.3] - 2018-01-30
+
+### Fixed
+- salutations
+- pdf handling
+
 ## [1.8.2] - 2018-01-24
 
 ### Added
