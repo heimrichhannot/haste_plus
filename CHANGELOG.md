@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.1] - 2018-02-05
+
+### Fixed
+- namespace issue
+
 ## [1.9.0] - 2018-02-05
 
 ### Fixed

@@ -10,8 +10,6 @@
 
 namespace HeimrichHannot\Haste\Database;
 
-use Contao\Database\Mysql;
-use Contao\Database\Mysqli;
 use Contao\System;
 use HeimrichHannot\Haste\Util\Arrays;
 
@@ -322,14 +320,14 @@ class QueryHelper
         {
             $db = \Contao\Database::getInstance();
 
-            if ($db instanceof Mysqli)
+            if ($db instanceof \Contao\Database\Mysqli)
             {
                 $db    = Contao3MysqliHelper::getInstance();
                 $where = "'" . $db->getConnection()->real_escape_string($where) . "'";
             }
             else
             {
-                if ($db instanceof Mysql)
+                if ($db instanceof \Contao\Database\Mysql)
                 {
                     $db    = Contao3MysqlHelper::getInstance();
                     $where = "'" . mysql_real_escape_string($where, $db->getConnection()) . "'";
@@ -563,5 +561,6 @@ class Contao3MysqlHelper extends Mysql
         return $this->resConnection;
     }
 }
+
 
 
