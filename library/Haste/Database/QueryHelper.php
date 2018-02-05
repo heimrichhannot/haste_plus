@@ -482,85 +482,84 @@ class QueryHelper
 
 }
 
-class Contao3MysqliHelper extends Mysqli
-{
-    public static function getInstance(array $arrCustom = null)
+if (version_compare(VERSION, '4.0', '<')) {
+    class Contao3MysqliHelper extends \Contao\Database\Mysqli
     {
-        $arrConfig = [
-            'dbDriver'   => \Config::get('dbDriver'),
-            'dbHost'     => \Config::get('dbHost'),
-            'dbUser'     => \Config::get('dbUser'),
-            'dbPass'     => \Config::get('dbPass'),
-            'dbDatabase' => \Config::get('dbDatabase'),
-            'dbPconnect' => \Config::get('dbPconnect'),
-            'dbCharset'  => \Config::get('dbCharset'),
-            'dbPort'     => \Config::get('dbPort'),
-            'dbSocket'   => \Config::get('dbSocket'),
-            'dbSqlMode'  => \Config::get('dbSqlMode')
-        ];
-
-        if (is_array($arrCustom))
+        public static function getInstance(array $arrCustom = null)
         {
-            $arrConfig = array_merge($arrConfig, $arrCustom);
+            $arrConfig = [
+                'dbDriver'   => \Config::get('dbDriver'),
+                'dbHost'     => \Config::get('dbHost'),
+                'dbUser'     => \Config::get('dbUser'),
+                'dbPass'     => \Config::get('dbPass'),
+                'dbDatabase' => \Config::get('dbDatabase'),
+                'dbPconnect' => \Config::get('dbPconnect'),
+                'dbCharset'  => \Config::get('dbCharset'),
+                'dbPort'     => \Config::get('dbPort'),
+                'dbSocket'   => \Config::get('dbSocket'),
+                'dbSqlMode'  => \Config::get('dbSqlMode')
+            ];
+
+            if (is_array($arrCustom))
+            {
+                $arrConfig = array_merge($arrConfig, $arrCustom);
+            }
+
+            // Sort the array before generating the key
+            ksort($arrConfig);
+            $strKey = md5(implode('', $arrConfig));
+
+            if (isset(static::$arrInstances[$strKey]))
+            {
+                static::$arrInstances[$strKey] = new static($arrConfig);
+            }
+
+            return static::$arrInstances[$strKey];
         }
 
-        // Sort the array before generating the key
-        ksort($arrConfig);
-        $strKey = md5(implode('', $arrConfig));
-
-        if (isset(static::$arrInstances[$strKey]))
+        public function getConnection()
         {
-            static::$arrInstances[$strKey] = new static($arrConfig);
+            return $this->resConnection;
         }
-
-        return static::$arrInstances[$strKey];
     }
 
-    public function getConnection()
+    class Contao3MysqlHelper extends \Contao\Database\Mysql
     {
-        return $this->resConnection;
+        public static function getInstance(array $arrCustom = null)
+        {
+            $arrConfig = [
+                'dbDriver'   => \Config::get('dbDriver'),
+                'dbHost'     => \Config::get('dbHost'),
+                'dbUser'     => \Config::get('dbUser'),
+                'dbPass'     => \Config::get('dbPass'),
+                'dbDatabase' => \Config::get('dbDatabase'),
+                'dbPconnect' => \Config::get('dbPconnect'),
+                'dbCharset'  => \Config::get('dbCharset'),
+                'dbPort'     => \Config::get('dbPort'),
+                'dbSocket'   => \Config::get('dbSocket'),
+                'dbSqlMode'  => \Config::get('dbSqlMode')
+            ];
+
+            if (is_array($arrCustom))
+            {
+                $arrConfig = array_merge($arrConfig, $arrCustom);
+            }
+
+            // Sort the array before generating the key
+            ksort($arrConfig);
+            $strKey = md5(implode('', $arrConfig));
+
+            if (isset(static::$arrInstances[$strKey]))
+            {
+                static::$arrInstances[$strKey] = new static($arrConfig);
+            }
+
+            return static::$arrInstances[$strKey];
+        }
+
+        public function getConnection()
+        {
+            return $this->resConnection;
+        }
     }
 }
-
-class Contao3MysqlHelper extends Mysql
-{
-    public static function getInstance(array $arrCustom = null)
-    {
-        $arrConfig = [
-            'dbDriver'   => \Config::get('dbDriver'),
-            'dbHost'     => \Config::get('dbHost'),
-            'dbUser'     => \Config::get('dbUser'),
-            'dbPass'     => \Config::get('dbPass'),
-            'dbDatabase' => \Config::get('dbDatabase'),
-            'dbPconnect' => \Config::get('dbPconnect'),
-            'dbCharset'  => \Config::get('dbCharset'),
-            'dbPort'     => \Config::get('dbPort'),
-            'dbSocket'   => \Config::get('dbSocket'),
-            'dbSqlMode'  => \Config::get('dbSqlMode')
-        ];
-
-        if (is_array($arrCustom))
-        {
-            $arrConfig = array_merge($arrConfig, $arrCustom);
-        }
-
-        // Sort the array before generating the key
-        ksort($arrConfig);
-        $strKey = md5(implode('', $arrConfig));
-
-        if (isset(static::$arrInstances[$strKey]))
-        {
-            static::$arrInstances[$strKey] = new static($arrConfig);
-        }
-
-        return static::$arrInstances[$strKey];
-    }
-
-    public function getConnection()
-    {
-        return $this->resConnection;
-    }
-}
-
-
-
