@@ -10,6 +10,9 @@
 
 namespace HeimrichHannot\Haste\Database;
 
+use Contao\Database\Mysql;
+use Contao\Database\Mysqli;
+use Contao\System;
 use HeimrichHannot\Haste\Util\Arrays;
 
 class QueryHelper
@@ -107,12 +110,12 @@ class QueryHelper
      * @param          $strTable                The database table, where new items should be stored inside
      * @param array    $arrData                 An array of values associated to its field
      * @param array    $arrFixedValues          A array of fixed values associated to its field that should be set for each row as fixed values
-     * @param mixed    $onDuplicateKey          null = Throw error on duplicates, self::ON_DUPLICATE_KEY_IGNORE = ignore error duplicates (skip this entries),
-     *                                          self::ON_DUPLICATE_KEY_UPDATE = update existing entries
+     * @param mixed    $onDuplicateKey          null = Throw error on duplicates, self::ON_DUPLICATE_KEY_IGNORE = ignore error duplicates (skip this
+     *                                          entries), self::ON_DUPLICATE_KEY_UPDATE = update existing entries
      * @param callable $callback                A callback that should be triggered after each cycle, contains $arrValues of current cycle
-     * @param callable $itemCallback            A callback to change the insert values for each items, contains $arrValues as first argument, $arrFields as
-     *                                          second, $arrOriginal as third, expects an array as return value with same order as $arrFields, if no array is
-     *                                          returned, insert of the row will be skipped item insert
+     * @param callable $itemCallback            A callback to change the insert values for each items, contains $arrValues as first argument,
+     *                                          $arrFields as second, $arrOriginal as third, expects an array as return value with same order as
+     *                                          $arrFields, if no array is returned, insert of the row will be skipped item insert
      * @param int      $intBulkSize             The bulk size
      * @param string   $strPk                   The primary key of the current table (default: id)
      *
@@ -315,6 +318,30 @@ class QueryHelper
             $where .= $strCondition == self::SQL_CONDITION_AND ? ")" : "";
         }
 
+        if (version_compare(VERSION, '4.0', '<'))
+        {
+            $db = \Contao\Database::getInstance();
+
+            if ($db instanceof Mysqli)
+            {
+                $db    = Contao3MysqliHelper::getInstance();
+                $where = "'" . $db->getConnection()->real_escape_string($where) . "'";
+            }
+            else
+            {
+                if ($db instanceof Mysql)
+                {
+                    $db    = Contao3MysqlHelper::getInstance();
+                    $where = "'" . mysql_real_escape_string($where, $db->getConnection()) . "'";
+                }
+            }
+        }
+        else
+        {
+            $connection = System::getContainer()->get('database_connection');
+            $where      = $connection->quote($where);
+        }
+
         return "($where)";
     }
 
@@ -376,9 +403,9 @@ class QueryHelper
      */
     public static function computeCondition($strField, $strOperator, $varValue, $strTable = null)
     {
-        $strOperator = trim(strtolower($strOperator));
-        $arrValues   = [];
-        $strPattern  = '?';
+        $strOperator  = trim(strtolower($strOperator));
+        $arrValues    = [];
+        $strPattern   = '?';
         $blnAddQuotes = false;
 
         if ($strTable)
@@ -396,7 +423,7 @@ class QueryHelper
         switch ($strOperator)
         {
             case static::OPERATOR_UNLIKE:
-                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue). '%';
+                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue) . '%';
                 break;
             case static::OPERATOR_EQUAL:
                 $arrValues[] = $varValue;
@@ -446,7 +473,7 @@ class QueryHelper
                     ) . ')';
                 break;
             default:
-                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue). '%';
+                $arrValues[] = '%' . ($blnAddQuotes ? '"' . $varValue . '"' : $varValue) . '%';
                 break;
         }
 
@@ -456,3 +483,85 @@ class QueryHelper
     }
 
 }
+
+class Contao3MysqliHelper extends Mysqli
+{
+    public static function getInstance(array $arrCustom = null)
+    {
+        $arrConfig = [
+            'dbDriver'   => \Config::get('dbDriver'),
+            'dbHost'     => \Config::get('dbHost'),
+            'dbUser'     => \Config::get('dbUser'),
+            'dbPass'     => \Config::get('dbPass'),
+            'dbDatabase' => \Config::get('dbDatabase'),
+            'dbPconnect' => \Config::get('dbPconnect'),
+            'dbCharset'  => \Config::get('dbCharset'),
+            'dbPort'     => \Config::get('dbPort'),
+            'dbSocket'   => \Config::get('dbSocket'),
+            'dbSqlMode'  => \Config::get('dbSqlMode')
+        ];
+
+        if (is_array($arrCustom))
+        {
+            $arrConfig = array_merge($arrConfig, $arrCustom);
+        }
+
+        // Sort the array before generating the key
+        ksort($arrConfig);
+        $strKey = md5(implode('', $arrConfig));
+
+        if (isset(static::$arrInstances[$strKey]))
+        {
+            static::$arrInstances[$strKey] = new static($arrConfig);
+        }
+
+        return static::$arrInstances[$strKey];
+    }
+
+    public function getConnection()
+    {
+        return $this->resConnection;
+    }
+}
+
+class Contao3MysqlHelper extends Mysql
+{
+    public static function getInstance(array $arrCustom = null)
+    {
+        $arrConfig = [
+            'dbDriver'   => \Config::get('dbDriver'),
+            'dbHost'     => \Config::get('dbHost'),
+            'dbUser'     => \Config::get('dbUser'),
+            'dbPass'     => \Config::get('dbPass'),
+            'dbDatabase' => \Config::get('dbDatabase'),
+            'dbPconnect' => \Config::get('dbPconnect'),
+            'dbCharset'  => \Config::get('dbCharset'),
+            'dbPort'     => \Config::get('dbPort'),
+            'dbSocket'   => \Config::get('dbSocket'),
+            'dbSqlMode'  => \Config::get('dbSqlMode')
+        ];
+
+        if (is_array($arrCustom))
+        {
+            $arrConfig = array_merge($arrConfig, $arrCustom);
+        }
+
+        // Sort the array before generating the key
+        ksort($arrConfig);
+        $strKey = md5(implode('', $arrConfig));
+
+        if (isset(static::$arrInstances[$strKey]))
+        {
+            static::$arrInstances[$strKey] = new static($arrConfig);
+        }
+
+        return static::$arrInstances[$strKey];
+    }
+
+    public function getConnection()
+    {
+        return $this->resConnection;
+    }
+}
+
+

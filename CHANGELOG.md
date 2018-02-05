@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.0] - 2018-02-05
+
+### Fixed
+- security issue
+
 ## [1.8.3] - 2018-01-30
 
 ### Fixed
