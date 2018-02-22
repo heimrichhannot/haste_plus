@@ -88,13 +88,14 @@ $GLOBALS['TL_COMPONENTS']['haste_plus.util'] = [
     ],
 ];
 
-
 /**
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['modifyFrontendPage'][]            = ['\\HeimrichHannot\\Haste\\Security\\HttpResponse', 'setSecurityHeaders'];
 $GLOBALS['TL_HOOKS']['addCustomRegexp']['haste_plus']   = ['HeimrichHannot\Haste\Util\Widget', 'addCustomRegexp'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags']['haste_plus'] = ['HeimrichHannot\Haste\InsertTags\InsertTags', 'replace'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags']['haste_plus.googlemaps'] = ['HeimrichHannot\Haste\Map\GoogleMap', 'addAssets'];
+
 
 /**
  * PurgeData

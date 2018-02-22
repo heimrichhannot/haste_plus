@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.4] - 2018-02-22
+
+### Changed
+- always invoke googlemaps assets in order to load maps inside modal windows or elements that are loaded via ajax
+
 ## [1.9.3] - 2018-02-19
 
 ### Fixed
