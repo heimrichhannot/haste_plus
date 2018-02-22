@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.5] - 2018-02-22
+
+### Fixed
+- `'delahaye\googlemaps\Googlemap' not found` exception
+
 ## [1.9.4] - 2018-02-22
 
 ### Changed

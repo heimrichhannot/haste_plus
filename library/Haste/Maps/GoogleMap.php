@@ -115,6 +115,8 @@ class GoogleMap
      */
     public static function addAssets($strBuffer)
     {
+	if(!class_exists('\delahaye\googlemaps\Googlemap')) return $strBuffer;
+
         \delahaye\googlemaps\Googlemap::CssInjection();
 
         if (!isset($GLOBALS['TL_JAVASCRIPT']['googlemaps'])) {
