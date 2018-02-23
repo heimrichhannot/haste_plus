@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.8] - 2018-02-23
+
+### Fixed
+- performance issues provided by `GoogleMapOverlay`, added cache for marker icons, overlay images and shadow images 
+
 ## [1.9.7] - 2018-02-23
 
 ### Added

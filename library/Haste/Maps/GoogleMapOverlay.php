@@ -33,6 +33,10 @@ class GoogleMapOverlay
     const MARKERACTION_INFO  = 'INFO';
     const MARKERACTION_MODAL = 'MODAL';
 
+    private static $iconUrlCache;
+    private static $shadowUrlCache;
+    private static $overlayUrlCache;
+
     public function __construct()
     {
         if (!static::init())
@@ -71,7 +75,15 @@ class GoogleMapOverlay
             case 'MARKER':
                 if ($arrData['markerType'] == 'ICON')
                 {
-                    $arrData['iconSRC'] = \FilesModel::findByUuid($arrData['iconSRC'])->path;
+                    if(isset(static::$iconUrlCache[$arrData['iconSRC']]))
+                    {
+                        $arrData['iconSRC'] = static::$iconUrlCache[$arrData['iconSRC']];
+                    }
+                    else if($arrData['iconSRC'] > 0  && null !== ($filesModel = \FilesModel::findByUuid($arrData['iconSRC'])))
+                    {
+                        static::$iconUrlCache[$arrData['iconSRC']] = $filesModel->path;
+                        $arrData['iconSRC'] = static::$iconUrlCache[$arrData['iconSRC']];
+                    }
 
                     return ['icon:' . rawurlencode(\Environment::get('base') . $arrData['iconSRC']) . '|shadow:false|' => $arrData['singleCoords']];
                 }
@@ -149,11 +161,29 @@ class GoogleMapOverlay
             $arrData['iconAnchor'][1] = floor($arrData['iconSize'][1] / 2) + $arrData['iconAnchor'][1];
         }
 
-        $objFile               = \FilesModel::findByPk($arrData['overlaySRC']);
-        $arrData['overlaySRC'] = $objFile->path;
+        if($arrData['overlaySRC'] > 0)
+        {
+            $objFile               = \FilesModel::findByPk($arrData['overlaySRC']);
+            $arrData['overlaySRC'] = $objFile->path;
+        }
 
-        $objFile              = \FilesModel::findByPk($arrData['shadowSRC']);
-        $arrData['shadowSRC'] = $objFile->path;
+        if(isset(static::$overlayUrlCache[$arrData['overlaySRC']]))
+        {
+            $arrData['overlaySRC'] = static::$overlayUrlCache[$arrData['overlaySRC']];
+        }
+        else if($arrData['overlaySRC'] > 0 && null !== ($filesModel = \FilesModel::findByPk($arrData['overlaySRC']))){
+            static::$overlayUrlCache[$arrData['overlaySRC']] = $filesModel->path;
+            $arrData['overlaySRC'] = static::$overlayUrlCache[$arrData['overlaySRC']];
+        }
+
+        if(isset(static::$shadowUrlCache[$arrData['shadowSRC']]))
+        {
+            $arrData['shadowSRC'] = static::$shadowUrlCache[$arrData['shadowSRC']];
+        }
+        else if($arrData['shadowSRC'] > 0 && null !== ($filesModel = \FilesModel::findByPk($arrData['shadowSRC']))){
+            static::$shadowUrlCache[$arrData['shadowSRC']] = $filesModel->path;
+            $arrData['shadowSRC'] = static::$shadowUrlCache[$arrData['shadowSRC']];
+        }
 
         $arrData['shadowSize'] = deserialize($arrData['shadowSize']);
 
@@ -212,8 +242,12 @@ class GoogleMapOverlay
 
         //supporting insertags
         $arrData['kmlUrl'] = \Controller::replaceInsertTags($arrData['kmlUrl'], false);
-        $objFile           = \FilesModel::findByPk($arrData['kmlUrl']);
-        $arrData['kmlUrl'] = $objFile->path;
+
+        if($arrData['kmlUrl'] > 0)
+        {
+            $objFile           = \FilesModel::findByPk($arrData['kmlUrl']);
+            $arrData['kmlUrl'] = $objFile->path;
+        }
 
         return $arrData;
     }
