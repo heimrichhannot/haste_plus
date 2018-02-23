@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.6] - 2018-02-23
+
+### Fixed
+- `FormSubmission::prepareSpecialValueForPrint()` throws error in case field is of type `multiColumnEditor` but value has no arrays as rows
+
 ## [1.9.5] - 2018-02-22
 
 ### Fixed

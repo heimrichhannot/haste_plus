@@ -260,6 +260,10 @@ class FormSubmission
                 {
                     $arrFields = [];
 
+                    if(!is_array($arrRow)){
+                        continue;
+                    }
+
                     foreach ($arrRow as $strField => $varFieldValue)
                     {
                         $arrDca = $arrData['eval']['multiColumnEditor']['fields'][$strField];
@@ -424,3 +428,4 @@ class FormSubmission
         return $varValue;
     }
 }
+
