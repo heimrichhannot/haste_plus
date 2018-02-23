@@ -151,15 +151,22 @@
         // create bounds object to fit markers into current map boundaries
         var bounds = new google.maps.LatLngBounds();
 
+        var markers = [];
+
         // Auto-generated map elements
         <?php foreach($this->map['elements'] AS $element): ?>
         //extend the bounds to include each marker's position
         <?= $element['parsed']; ?>
+        markers.push(gmap<?= $element['data']['id'] ?>_marker);
         // extend the bounds with current marker position
         if (typeof gmap<?= $element['data']['id'] ?>_marker !== 'undefined')
             if (typeof gmap<?= $element['data']['id'] ?>_marker.position !== 'undefined')
                 bounds.extend(gmap<?= $element['data']['id'] ?>_marker.position);
         <?php endforeach; ?>
+
+        <?php if($this->map['cluster']): ?>
+            var markerCluster = new MarkerClusterer(gmap<?= $this->map['id']; ?>, markers,{imagePath: '<?= $this->map['clusterImagePath']; ?>'});
+        <?php endif; ?>
 
         //now fit the map to the newly inclusive bounds
         <?php if(count($this->map['elements']) > 1): ?>

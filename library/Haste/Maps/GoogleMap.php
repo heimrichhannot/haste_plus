@@ -97,6 +97,17 @@ class GoogleMap
         return $this;
     }
 
+    /**
+     * Add marker cluster
+     * @param string $imagePath Path to the cluster images (png) including prefix files prefix (/m1.png) -> (/m)
+     */
+    public function enableCluster($imagePath = null)
+    {
+        $this->arrOptions['cluster']          = true;
+        $this->arrOptions['clusterImagePath'] = $imagePath ?: 'system/modules/haste_plus/assets/js/vendor/marker-clustering/m';
+
+    }
+
     public function initId()
     {
         $this->arrOptions['id'] = $this->arrOptions['id'] ?: substr(md5(implode('', $this->arrOptions) . rand(0, 10000)), 0, 8);
@@ -115,7 +126,9 @@ class GoogleMap
      */
     public static function addAssets($strBuffer)
     {
-	if(!class_exists('\delahaye\googlemaps\Googlemap')) return $strBuffer;
+        if (!class_exists('\delahaye\googlemaps\Googlemap') || \Config::get('loadGoogleMapsAssetsOnDemand')) {
+            return $strBuffer;
+        }
 
         \delahaye\googlemaps\Googlemap::CssInjection();
 
@@ -130,7 +143,12 @@ class GoogleMap
                 $strUrl = Url::addQueryString('key=' . $objRootPage->dlh_googlemaps_apikey, $strUrl);
             }
 
-            $GLOBALS['TL_JAVASCRIPT']['googlemaps'] = $strUrl;
+            $GLOBALS['TL_JAVASCRIPT']['googlemaps']            = $strUrl;
+
+        }
+
+        if (!isset($GLOBALS['TL_JAVASCRIPT']['googlemaps_clustering'])) {
+            $GLOBALS['TL_JAVASCRIPT']['googlemaps_clustering'] = 'system/modules/haste_plus/assets/js/vendor/marker-clustering/markerclusterer.min.js|static';
         }
 
         return $strBuffer;
@@ -162,6 +180,10 @@ class GoogleMap
             }
 
             $GLOBALS['TL_JAVASCRIPT']['googlemaps'] = $strUrl;
+        }
+
+        if (!isset($GLOBALS['TL_JAVASCRIPT']['googlemaps_clustering'])) {
+            $GLOBALS['TL_JAVASCRIPT']['googlemaps_clustering'] = 'system/modules/haste_plus/assets/js/vendor/marker-clustering/markerclusterer.min.js|static';
         }
 
         $objTemplate->map    = $arrData;

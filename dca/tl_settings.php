@@ -14,11 +14,16 @@ $dc = &$GLOBALS['TL_DCA']['tl_settings'];
  * Palettes
  */
 
-$strPalette = '{haste_legend},headerAddXFrame,headerXFrameSkipPages,headerAllowOrigins,hpProxy;';
+$strPalette = '{haste_legend},loadGoogleMapsAssetsOnDemand,headerAddXFrame,headerXFrameSkipPages,headerAllowOrigins,hpProxy;';
 
 $dc['palettes']['default'] = str_replace('{chmod_legend', $strPalette . ';{chmod_legend', $dc['palettes']['default']);
 
 $arrFields = [
+    'loadGoogleMapsAssetsOnDemand' => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_settings']['loadGoogleMapsAssetsOnDemand'],
+        'inputType' => 'checkbox',
+        'eval'      => ['tl_class' => 'w50'],
+    ],
     'headerAddXFrame'       => [
         'label'     => &$GLOBALS['TL_LANG']['tl_settings']['headerAddXFrame'],
         'inputType' => 'checkbox',

@@ -428,4 +428,3 @@ class FormSubmission
         return $varValue;
     }
 }
-
