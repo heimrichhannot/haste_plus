@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.9] - 2018-02-23
+
+### Fixed
+- memory issues provided by `GoogleMapOverlay` in `GoogleMap`
+
 ## [1.9.8] - 2018-02-23
 
 ### Fixed

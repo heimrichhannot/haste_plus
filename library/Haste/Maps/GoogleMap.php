@@ -246,12 +246,15 @@ class GoogleMap
         // empty markers before
         $arrData['elements'] = [];
 
-        foreach ($this->arrOverlays as $objOverlay) {
+        foreach ($this->arrOverlays as $key => $objOverlay) {
             $arrData['elements'][] = [
                 'data'          => $objOverlay->getOptions(),
                 'parsed'        => $objOverlay->generate(['map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique']]),
                 'staticMapPart' => $objOverlay->generateStatic(['map' => $arrData['id'], 'infoWindowUnique' => $arrData['infoWindowUnique']]),
             ];
+
+            // free memory
+            unset($this->arrOverlays[$key]);
         }
 
         return $arrData;
