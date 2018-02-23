@@ -1,11 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.9.6] - 2018-02-23
+## [1.9.7] - 2018-02-23
 
 ### Added
 - google maps [marker clustering] (https://developers.google.com/maps/documentation/javascript/marker-clustering) use  `GoogleMap::enableCluster()`
 - `tl_settings.loadGoogleMapsAssetsOnDemand` options to prevent invoking google maps assets when no maps in xhr content are used 
+
+## [1.9.6] - 2018-02-23
+
+### Fixed
+- `FormSubmission::prepareSpecialValueForPrint()` throws error in case field is of type `multiColumnEditor` but value has no arrays as rows
 
 ## [1.9.5] - 2018-02-22
 
