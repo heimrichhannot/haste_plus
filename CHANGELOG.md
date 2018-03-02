@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.10] - 2018-03-23
+
+### Fixed
+- `HeimrichHannot\Haste\Util\FormSubmission::prepareSpecialValueForSave()` now properly decodes values if `allowHtml`, `rte`, `preserveTags` or inpuType is`fileTree` 
+
 ## [1.9.9] - 2018-02-23
 
 ### Fixed

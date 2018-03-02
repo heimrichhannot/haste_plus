@@ -14,6 +14,7 @@ namespace HeimrichHannot\Haste\Util;
 
 use HeimrichHannot\Haste\DC_Table;
 use HeimrichHannot\Haste\Dca\General;
+use HeimrichHannot\Request\Request;
 
 class FormSubmission
 {
@@ -424,7 +425,16 @@ class FormSubmission
         {
             $varValue = \Encryption::encrypt($varValue);
         }
-
+    
+        $allowHtml = ($arrData['eval']['allowHtml'] || strlen($arrData['eval']['rte']) || $arrData['eval']['preserveTags']) ? true : false;
+    
+        // Decode entities if HTML is allowed
+        if ($allowHtml || $arrData['inputType'] == 'fileTree')
+        {
+            $varValue = Request::cleanHtml($varValue, true, true, $arrData['eval']['allowedTags'] ?: \Config::get('allowedTags'));
+        }
+        
         return $varValue;
     }
 }
+
