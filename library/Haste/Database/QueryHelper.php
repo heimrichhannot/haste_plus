@@ -306,16 +306,27 @@ class QueryHelper
 
             $where .= $strCondition == self::SQL_CONDITION_AND ? "(" : "";
 
-            $where .= "$strField REGEXP (':\"$val\"')";
+            $where .= "$strField REGEXP (':\"" . str_replace('\'', '',$val) . "\"')";
 
             if ($blnFallback)
             {
-                $where .= " OR $strField='$val'"; // backwards compatibility (if field was no array before)
+                $where .= " OR $strField=" . static::escapeString($val); // backwards compatibility (if field was no array before)
             }
 
             $where .= $strCondition == self::SQL_CONDITION_AND ? ")" : "";
         }
 
+        return "($where)";
+    }
+
+    /**
+     * Mysql real_escape helper
+     * @param mixed $value
+     *
+     * @return string The escaped value
+     */
+    public static function escapeString($value)
+    {
         if (version_compare(VERSION, '4.0', '<'))
         {
             $db = \Contao\Database::getInstance();
@@ -323,24 +334,24 @@ class QueryHelper
             if ($db instanceof \Contao\Database\Mysqli)
             {
                 $db    = Contao3MysqliHelper::getInstance();
-                $where = "'" . $db->getConnection()->real_escape_string($where) . "'";
+                $value = "'" . $db->getConnection()->real_escape_string($value) . "'";
             }
             else
             {
                 if ($db instanceof \Contao\Database\Mysql)
                 {
                     $db    = Contao3MysqlHelper::getInstance();
-                    $where = "'" . mysql_real_escape_string($where, $db->getConnection()) . "'";
+                    $value = "'" . mysql_real_escape_string($value, $db->getConnection()) . "'";
                 }
             }
         }
         else
         {
             $connection = System::getContainer()->get('database_connection');
-            $where      = $connection->quote($where);
+            $value      = $connection->quote($value);
         }
 
-        return "($where)";
+        return $value;
     }
 
     /**
