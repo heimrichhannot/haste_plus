@@ -86,7 +86,17 @@ class Url extends \Haste\Util\Url
     {
         $arrParsed = parse_url($uri);
 
-        return rtrim(\Environment::get('url'), '/') . '/' . ltrim($arrParsed['path'], '/');
+        $host = \Environment::get('url');
+
+        if(isset($arrParsed['host']))
+        {
+            // support non scheme urls like //youtube.com/embed/…
+            if(StringUtil::startsWith($uri, '//')){
+                $host = '//' . $arrParsed['host'];
+            }
+        }
+
+        return rtrim($host, '/') . '/' . ltrim($arrParsed['path'], '/');
     }
 
     public static function getUriFragments($uri)
@@ -364,3 +374,4 @@ class Url extends \Haste\Util\Url
         exit;
     }
 }
+

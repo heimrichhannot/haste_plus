@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.12] - 2018-03-16
+
+### Fixed
+- `HeimrichHannot\Haste\Util\Url::getUriWithoutParameters()`  now supports non scheme urls like //youtube.com/embed/…
+
 ## [1.9.11] - 2018-03-16
 
 ### Fixed
