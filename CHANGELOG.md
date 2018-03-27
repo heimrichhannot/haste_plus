@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.13] - 2018-03-27
+
+### Fixed
+- `$` (jQuery ) undefined error in `dlh_googlemaps_haste.html5` template
+
 ## [1.9.12] - 2018-03-16
 
 ### Fixed

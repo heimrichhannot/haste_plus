@@ -189,19 +189,18 @@
         window.addEvent('domready', function () {
             gmap<?= $this->map['id']; ?>_initialize();
         });
-    } else if (typeof jQuery == "function") {
+    } else if (typeof jQuery === "function") {
         jQuery(document).ready(function () {
             gmap<?= $this->map['id']; ?>_initialize();
+        });
+
+        jQuery(document).on('shown.bs.modal', function () {
+            google.maps.event.trigger(gmap<?= $this->map['id']; ?>, "resize");
+            gmap<?= $this->map['id']; ?>.setCenter(new google.maps.LatLng(<?= $this->map['elements'][0]['data']['singleCoords']; ?>));
         });
     } else {
         window.setTimeout("gmap<?= $this->map['id']; ?>_initialize()", 500);
     }
-
-    $(document).on('shown.bs.modal', function () {
-        google.maps.event.trigger(gmap<?= $this->map['id']; ?>, "resize");
-        gmap<?= $this->map['id']; ?>.setCenter(new google.maps.LatLng(<?= $this->map['elements'][0]['data']['singleCoords']; ?>));
-    });
-
 </script>
 
 </div>
