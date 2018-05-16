@@ -12,6 +12,7 @@
 namespace HeimrichHannot\Haste\Security;
 
 use HeimrichHannot\Haste\Util\StringUtil;
+use PWGen\PWGen;
 
 class CodeGenerator extends \Controller
 {
@@ -42,7 +43,7 @@ class CodeGenerator extends \Controller
 		$arrRules = is_array($arrRules) ? $arrRules : static::$arrRules;
 		$strAllowedSpecialChars = $strAllowedSpecialChars !== null ? $strAllowedSpecialChars : static::$strAllowedSpecialChars;
 
-		$pwGen = new \PWGen(
+		$pwGen = new PWGen(
 			$intLength,
 			false,
 			in_array(CodeGenerator::NUMBERS, $arrAlphabets) && in_array(CodeGenerator::NUMBERS, $arrRules),

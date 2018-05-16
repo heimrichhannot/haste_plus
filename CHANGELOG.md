@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.9.14] - 2018-05-16
+
+### Fixed
+- `HeimrichHannot\Haste\Util\StringUtil::generate()`
+
 ## [1.9.13] - 2018-03-27
 
 ### Fixed
