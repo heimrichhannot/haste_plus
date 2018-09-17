@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.10.0] - 2018-09-17
+
+### Added
+- `PaymentUtil` class
+- `PaymentUtil::generateSEPAMandateReference`
+- `InvalidArgumentException`
+- `InputRangeException`
+
 ## [1.9.14] - 2018-05-16
 
 ### Fixed
