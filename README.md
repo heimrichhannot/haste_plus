@@ -66,10 +66,11 @@ maxlength | maxlength::120 | Validate the user input without html elements again
 
 The following Classes and Methods are helpers that ease the working with Contao.
 
-Class                                  | Description
--------------------------------------- | -------------
-[StringUtils](docs/Util/StringUtil.md) | Contains helper function for working with strings.
-[Files](docs/Util/Files.md)            | Contains helper function for working with files and filenames.
+Class                                   | Description
+--------------------------------------- | -------------
+[Files](docs/Util/Files.md)             | Contains helper function for working with files and filenames.
+[PaymentUtils](docs/Util/PaymentUtil.md)| Contains helper functions for payment relevant use cases.
+[StringUtils](docs/Util/StringUtil.md)  | Contains helper function for working with strings.
 
 Type | Name | Method | Description
 ---- | ---- | ---- | ----
