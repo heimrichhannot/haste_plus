@@ -16,7 +16,7 @@ $dc = &$GLOBALS['TL_DCA']['tl_settings'];
 
 $strPalette = '{haste_legend},loadGoogleMapsAssetsOnDemand,headerAddXFrame,headerXFrameSkipPages,headerAllowOrigins,hpProxy;';
 
-$dc['palettes']['default'] = str_replace('{chmod_legend', $strPalette . ';{chmod_legend', $dc['palettes']['default']);
+$dc['palettes']['default'] = str_replace('{chmod_legend', $strPalette . '{chmod_legend', $dc['palettes']['default']);
 
 $arrFields = [
     'loadGoogleMapsAssetsOnDemand' => [

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.10.1] - 2018-10-16
+
+### Fixed
+- fixed an palette error in tl_settings (#11)
+
 ## [1.10.0] - 2018-09-17
 
 ### Added
