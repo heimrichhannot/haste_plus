@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.11.0] - 2018-10-25
+
+### Changed 
+- updated `General::findAddressOnGoogleMaps` api url and add api key if `dlh_googlemaps` is installed and key provided in settings
+
 ## [1.10.1] - 2018-10-16
 
 ### Fixed

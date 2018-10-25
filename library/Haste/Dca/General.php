@@ -11,11 +11,13 @@
 
 namespace HeimrichHannot\Haste\Dca;
 
+use Contao\Config;
 use Contao\Controller;
 use Contao\DataContainer;
 use Contao\Model;
 use Contao\Model\Collection;
 use Haste\Geodesy\Datum\WGS84;
+use Haste\Util\Url;
 use HeimrichHannot\Haste\Util\Curl;
 
 class General extends \Backend
@@ -27,6 +29,8 @@ class General extends \Backend
     const AUTHOR_TYPE_NONE   = 'none';
     const AUTHOR_TYPE_MEMBER = 'member';
     const AUTHOR_TYPE_USER   = 'user';
+
+	const GOOGLE_MAPS_GEOCODE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false';
 
     /**
      * Set initial $varData from dca
@@ -442,14 +446,20 @@ class General extends \Backend
 
     public static function findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry)
     {
-        $strAddress = sprintf('%s, %s %s %s', $strStreet, $strPostal, $strCity, $strCountry);
-        $strAddress = urlencode($strAddress);
+        $address = sprintf('%s, %s %s %s', $strStreet, $strPostal, $strCity, $strCountry);
 
-        $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . $strAddress . '&sensor=false');
+		$url = sprintf(static::GOOGLE_MAPS_GEOCODE_URL, urlencode($address));
+
+		if (in_array('dlh_googlemaps', \ModuleLoader::getActive()) && Config::get('dlh_googlemaps_apikey')) {
+			$apiKey = Config::get('dlh_googlemaps_apikey');
+			$url = Url::addQueryString('key='.$apiKey, $url);
+		}
+
+        $strResult = Curl::request($url);
 
         // Request failed
         if (!$strResult) {
-            \System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
+            \System::log('Could not get coordinates for: ' . $address, __METHOD__, TL_ERROR);
 
             return null;
         }
