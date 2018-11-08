@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.11.1] - 2018-11-08
+
+### Changed
+- apply change from 1.11.0 to `General::findFuzzyAddressOnGoogleMaps`
+
 ## [1.11.0] - 2018-10-25
 
 ### Changed 

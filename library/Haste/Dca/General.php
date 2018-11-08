@@ -447,7 +447,13 @@ class General extends \Backend
     public static function findAddressOnGoogleMaps($strStreet, $strPostal, $strCity, $strCountry)
     {
         $address = sprintf('%s, %s %s %s', $strStreet, $strPostal, $strCity, $strCountry);
+        return static::findFuzzyAddressOnGoogleMaps($address);
+    }
 
+
+
+    public static function findFuzzyAddressOnGoogleMaps($address)
+    {
 		$url = sprintf(static::GOOGLE_MAPS_GEOCODE_URL, urlencode($address));
 
 		if (in_array('dlh_googlemaps', \ModuleLoader::getActive()) && Config::get('dlh_googlemaps_apikey')) {
@@ -455,34 +461,18 @@ class General extends \Backend
 			$url = Url::addQueryString('key='.$apiKey, $url);
 		}
 
-        $strResult = Curl::request($url);
+		$strResult = Curl::request($url);
 
-        // Request failed
-        if (!$strResult) {
-            \System::log('Could not get coordinates for: ' . $address, __METHOD__, TL_ERROR);
+		// Request failed
+		if (!$strResult) {
+			\System::log('Could not get coordinates for: ' . $address, __METHOD__, TL_ERROR);
 
-            return null;
-        }
+			return null;
+		}
 
-        $objResponse = json_decode($strResult);
+		$objResponse = json_decode($strResult);
 
-        return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
-    }
-
-    public static function findFuzzyAddressOnGoogleMaps($strAddress)
-    {
-        $strResult = Curl::request('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($strAddress) . '&sensor=false');
-
-        // Request failed
-        if (!$strResult) {
-            \System::log('Could not get coordinates for: ' . $strAddress, __METHOD__, TL_ERROR);
-
-            return null;
-        }
-
-        $objResponse = json_decode($strResult);
-
-        return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
+		return new WGS84($objResponse->results[0]->geometry->location->lat, $objResponse->results[0]->geometry->location->lng);
     }
 
     public static function setCoordinatesForDc($varValue, $objDc)
