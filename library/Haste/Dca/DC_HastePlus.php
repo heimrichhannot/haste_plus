@@ -3,6 +3,8 @@
 namespace HeimrichHannot\Haste\Dca;
 
 
+use Contao\Controller;
+
 class DC_HastePlus extends \DC_Table
 {
     /**
@@ -33,6 +35,8 @@ class DC_HastePlus extends \DC_Table
             $this->Session->set('CLIPBOARD', array());
             $this->redirect($this->getReferer());
         }
+
+        Controller::loadDataContainer($strTable);
 
         // Check whether the table is defined
         if ($strTable == '' || !isset($GLOBALS['TL_DCA'][$strTable]))

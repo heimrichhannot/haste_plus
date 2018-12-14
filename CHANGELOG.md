@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.11.2] - 2018-12-14
+
+### Fixed
+- could not load data container error even if data container defined
+
 ## [1.11.1] - 2018-11-08
 
 ### Changed
