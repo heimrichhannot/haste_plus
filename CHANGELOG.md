@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.11.3] - 2019-01-30
+
+### Fixed
+- `FormSubmission` prevent outlook line break remover within text emails (add "\t\n" for new lines after each line instead of "\n" that will be removed on lines less than 40 characters (see: https://stackoverflow.com/a/1638608)
+
 ## [1.11.2] - 2018-12-14
 
 ### Fixed

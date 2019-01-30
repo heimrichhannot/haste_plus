@@ -64,8 +64,8 @@ class FormSubmission
                         continue;
                     }
 
-                    // new line
-                    $strSubmission .= "\n";
+                    // new line - add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+                    $strSubmission .= "\t\n";
 
                     foreach ($arrSet as $strSetName => $strSetValue)
                     {
@@ -75,8 +75,8 @@ class FormSubmission
                         $strSubmission .= "\t" . $arrFieldData['submission'];
                     }
 
-                    // new line
-                    $strSubmission .= "\n";
+                    // new line - add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+                    $strSubmission .= "\t\n";
                 }
             }
 
@@ -120,7 +120,8 @@ class FormSubmission
 
         if (!empty($varValue))
         {
-            $strSubmission = $strLabel . ": " . $strOutput . "\n";
+            // add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+            $strSubmission = $strLabel . ": " . $strOutput . "\t\n";
         }
 
         return ['value' => $varValue, 'output' => $strOutput, 'submission' => $strSubmission];
@@ -166,7 +167,8 @@ class FormSubmission
                         }
                         break;
                     case 'submission':
-                        $arrTokens[$strPrefix . '_submission_' . $strName] = rtrim($varValue, "\n");
+                        // add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+                        $arrTokens[$strPrefix . '_submission_' . $strName] = rtrim($varValue, "\t\n");
                         break;
                 }
             }
@@ -437,4 +439,5 @@ class FormSubmission
         return $varValue;
     }
 }
+
 
