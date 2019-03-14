@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.0] - 2019-03-14
+
+### Changed
+- updated dependency `tijsverkoyen/css-to-inline-styles` to ^2.2
+
 ## [1.11.3] - 2019-01-30
 
 ### Fixed

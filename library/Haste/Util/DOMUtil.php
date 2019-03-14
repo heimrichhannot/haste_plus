@@ -37,16 +37,12 @@ class DOMUtil
      * @param       $strText
      * @param array $strCssText the css as text (no paths allowed atm)
      *
-     * @throws \TijsVerkoyen\CssToInlineStyles\Exception
      */
-    public static function convertToInlineCss($strText, $strCssText)
+    public static function convertToInlineCss($strText, $strCssText = null)
     {
-        // prevent inlining inside conditional comments, see https://github.com/tijsverkoyen/CssToInlineStyles/issues/133
-        $strCssText = preg_replace('/<!--(.*?)-->/Uis', '', $strCssText);
-
         // apply the css inliner
-        $objCssInliner = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles($strText, $strCssText);
+        $objCssInliner = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
 
-        return $objCssInliner->convert();
+        return $objCssInliner->convert($strText, $strCssText);
     }
 }
