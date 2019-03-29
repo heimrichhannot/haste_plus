@@ -28,10 +28,6 @@ class GoogleChartWrapper
 
 		$objTemplate = new \FrontendTemplate($this->arrOptions['google_chart_template']);
 
-		if (!isset($GLOBALS['TL_JAVASCRIPT']['vendor_vis_charts_loader'])) {
-			$GLOBALS['TL_JAVASCRIPT']['vendor_vis_charts_loader'] = 'https://www.gstatic.com/charts/loader.js';
-		}
-
 		$objTemplate->chart  = $arrData;
 		$objTemplate->labels = $GLOBALS['TL_LANG']['google_charts']['labels'];
 

@@ -11,6 +11,9 @@
 
 namespace HeimrichHannot\Haste\Map;
 
+use Contao\FilesModel;
+use Contao\Validator;
+
 class GoogleMapOverlay
 {
     protected $arrOptions = [];
@@ -243,9 +246,14 @@ class GoogleMapOverlay
         //supporting insertags
         $arrData['kmlUrl'] = \Controller::replaceInsertTags($arrData['kmlUrl'], false);
 
-        if($arrData['kmlUrl'] > 0)
+        if(Validator::isUuid($arrData['kmlUrl']))
         {
-            $objFile           = \FilesModel::findByPk($arrData['kmlUrl']);
+            $objFile = FilesModel::findByUuid($arrData['kmlUrl']);
+        }else if($arrData['kmlUrl'] > 0){
+            $objFile           = FilesModel::findByPk($arrData['kmlUrl']);
+        }
+
+        if(null !== $objFile){
             $arrData['kmlUrl'] = $objFile->path;
         }
 

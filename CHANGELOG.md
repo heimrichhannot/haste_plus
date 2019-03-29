@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.2] - 2019-03-29
+
+### Fixed
+- include google chart `loader.js` only once
+- `uuid` support for kml files in `GoogleMapOverlay`
+- check in `dlh_googlemaps_haste.html5` if marker is defined before `markers.push` is called
+
 ## [1.12.1] - 2019-03-14
 
 ### Changed

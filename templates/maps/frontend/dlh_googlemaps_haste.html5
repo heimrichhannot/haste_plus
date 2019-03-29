@@ -157,11 +157,12 @@
         <?php foreach($this->map['elements'] AS $element): ?>
         //extend the bounds to include each marker's position
         <?= $element['parsed']; ?>
-        markers.push(gmap<?= $element['data']['id'] ?>_marker);
         // extend the bounds with current marker position
-        if (typeof gmap<?= $element['data']['id'] ?>_marker !== 'undefined')
+        if (typeof gmap<?= $element['data']['id'] ?>_marker !== 'undefined'){
+            markers.push(gmap<?= $element['data']['id'] ?>_marker);
             if (typeof gmap<?= $element['data']['id'] ?>_marker.position !== 'undefined')
                 bounds.extend(gmap<?= $element['data']['id'] ?>_marker.position);
+        }
         <?php endforeach; ?>
 
         <?php if($this->map['cluster']): ?>
@@ -205,3 +206,4 @@
 
 </div>
 <!-- indexer::continue -->
+
