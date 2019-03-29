@@ -8,7 +8,7 @@
 
 		function gchart<?= $this->chart['id']; ?>_initialize()
 		{
-			google.charts.load('current', {'packages':['corechart']}); // Don't need to specify chart libraries!
+			google.charts.load('current', {'packages':['corechart', 'line']});
 			google.charts.setOnLoadCallback(drawChart);
 		}
 

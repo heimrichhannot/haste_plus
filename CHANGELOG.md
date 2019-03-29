@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.3] - 2019-03-29
+
+### Fixed
+- added missing package `line` to `google_chart.html5`
+- added missing package `bar` to `google_chart_column.html5`
+
 ## [1.12.2] - 2019-03-29
 
 ### Fixed
