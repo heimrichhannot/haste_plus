@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.4] - 2019-04-09
+
+### Fixed
+- `FormSubmission::prepareSpecialValueForPrint` multiColumnEditor support when using `HeimrichHannotContaoMultiColumnEditorBundle`
+
 ## [1.12.3] - 2019-03-29
 
 ### Fixed

@@ -253,7 +253,7 @@ class FormSubmission
         {
             $varValue = \Date::parse(\Config::get('datimFormat'), $varValue);
         }
-        elseif ($arrData['inputType'] == 'multiColumnEditor' && in_array('multi_column_editor', \ModuleLoader::getActive()))
+        elseif ($arrData['inputType'] == 'multiColumnEditor' && (in_array('multi_column_editor', \ModuleLoader::getActive()) || in_array('HeimrichHannotContaoMultiColumnEditorBundle',  \ModuleLoader::getActive())))
         {
             if (is_array($varValue))
             {
@@ -427,17 +427,18 @@ class FormSubmission
         {
             $varValue = \Encryption::encrypt($varValue);
         }
-    
+
         $allowHtml = ($arrData['eval']['allowHtml'] || strlen($arrData['eval']['rte']) || $arrData['eval']['preserveTags']) ? true : false;
-    
+
         // Decode entities if HTML is allowed
         if ($allowHtml || $arrData['inputType'] == 'fileTree')
         {
             $varValue = Request::cleanHtml($varValue, true, true, $arrData['eval']['allowedTags'] ?: \Config::get('allowedTags'));
         }
-        
+
         return $varValue;
     }
 }
+
 
 
