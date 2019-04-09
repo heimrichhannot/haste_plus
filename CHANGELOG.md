@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.12.5] - 2019-04-09
 
 ### Changed
-- `FormSubmission::prepareSpecialValueForOutput` values for `multiColumnEditor` inputType formatted with linebreaks and tabs 
+- `FormSubmission::prepareSpecialValueForOutput` values for `multiColumnEditor` inputType formatted with linebreaks and tabs  
 
 ## [1.12.4] - 2019-04-09
 
