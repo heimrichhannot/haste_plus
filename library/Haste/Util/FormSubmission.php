@@ -257,21 +257,24 @@ class FormSubmission
         {
             if (is_array($varValue))
             {
-                $arrRows = [];
+                $formatted = '';
 
                 foreach ($varValue as $arrRow)
                 {
-                    $arrFields = [];
-
                     if(!is_array($arrRow)){
                         continue;
                     }
+
+                    // new line - add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+                    $formatted .= "\t\n";
 
                     foreach ($arrRow as $strField => $varFieldValue)
                     {
                         $arrDca = $arrData['eval']['multiColumnEditor']['fields'][$strField];
 
-                        $arrFields[] = ($arrDca['label'][0] ?: $strField) . ': ' . static::prepareSpecialValueForPrint(
+
+                        // intend new line
+                        $formatted .= "\t" . ($arrDca['label'][0] ?: $strField) . ': ' . static::prepareSpecialValueForPrint(
                                 $varFieldValue,
                                 $arrDca,
                                 $strTable,
@@ -280,10 +283,11 @@ class FormSubmission
                             );
                     }
 
-                    $arrRows[] = '[' . implode(', ', $arrFields) . ']';
+                    // new line - add "\t\n" after each line and not only "\n" to prevent outlook line break remover
+                    $formatted .= "\t\n";
                 }
 
-                $varValue = implode(', ', $arrRows);
+                $varValue = $formatted;
             }
         }
         elseif ($arrData['inputType'] == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
