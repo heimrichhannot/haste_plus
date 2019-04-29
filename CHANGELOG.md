@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.0] - 2019-04-29
+
+### Changed
+* replaced `html2text/html2text` with `soundasleep/html2text` due to GPL licence (`html2text/html2text`) incompatibility
+* replaced `roderik/pwgen-php` with `hackzilla/password-generator` due to GPL licence (`roderik/pwgen-php`) incompatibility
+
+### Added
+* GNU LESSER GENERAL PUBLIC LICENSE  
+
 ## [1.12.5] - 2019-04-09
 
 ### Changed

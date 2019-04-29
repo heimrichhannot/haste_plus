@@ -11,8 +11,8 @@
 
 namespace HeimrichHannot\Haste\Security;
 
+use Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 use HeimrichHannot\Haste\Util\StringUtil;
-use PWGen\PWGen;
 
 class CodeGenerator extends \Controller
 {
@@ -43,17 +43,16 @@ class CodeGenerator extends \Controller
 		$arrRules = is_array($arrRules) ? $arrRules : static::$arrRules;
 		$strAllowedSpecialChars = $strAllowedSpecialChars !== null ? $strAllowedSpecialChars : static::$strAllowedSpecialChars;
 
-		$pwGen = new PWGen(
-			$intLength,
-			false,
-			in_array(CodeGenerator::NUMBERS, $arrAlphabets) && in_array(CodeGenerator::NUMBERS, $arrRules),
-			in_array(CodeGenerator::CAPITAL_LETTERS, $arrAlphabets) && in_array(CodeGenerator::CAPITAL_LETTERS, $arrRules),
-			$blnPreventAmbiguous,
-			false,
-			in_array(CodeGenerator::SPECIAL_CHARS, $arrAlphabets) && in_array(CodeGenerator::SPECIAL_CHARS, $arrRules)
-		);
 
-		$strCode = $pwGen->generate();
+        $generator = new ComputerPasswordGenerator();
+        $generator
+            ->setLength($intLength)
+            ->setNumbers(\in_array(static::NUMBERS, $arrAlphabets, true) && \in_array(static::NUMBERS, $arrRules, true))
+            ->setUppercase(\in_array(static::CAPITAL_LETTERS, $arrAlphabets, true) && \in_array(static::CAPITAL_LETTERS, $arrRules, true))
+            ->setAvoidSimilar($blnPreventAmbiguous)
+            ->setSymbols(\in_array(static::SPECIAL_CHARS, $arrAlphabets, true) && \in_array(static::SPECIAL_CHARS, $arrRules, true));
+
+        $strCode = $generator->generatePassword();
 
 		// replace remaining ambiguous characters
 		if ($blnPreventAmbiguous)

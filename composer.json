@@ -27,8 +27,8 @@
     "codefog/contao-haste": ">=4.10,<5-dev",
     "tijsverkoyen/css-to-inline-styles": "^2.2",
     "phpFastCache/phpFastCache": "^5.0",
-    "roderik/pwgen-php": ">=0.1.5",
-    "html2text/html2text": "~4.0",
+    "hackzilla/password-generator": "^1.4",
+    "soundasleep/html2text": "^1.1",
     "globalcitizen/php-iban": "~2.0",
     "heimrichhannot/contao-components": "^2.0"
   },

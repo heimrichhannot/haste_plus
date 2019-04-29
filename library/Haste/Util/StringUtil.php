@@ -11,8 +11,7 @@
 
 namespace HeimrichHannot\Haste\Util;
 
-
-use Html2Text\Html2Text;
+use Soundasleep\Html2Text;
 
 class StringUtil extends \Haste\Util\StringUtil
 {
@@ -46,18 +45,19 @@ class StringUtil extends \Haste\Util\StringUtil
 
     /**
      * Convert html 2 text with Html2Text\Html2Text
-     * @param       $strHtml The html
+     * @param string $strHtml The html
      * @param array $arrOptions Html2Text\Html2Text options
+     *
+     * @throws \Soundasleep\Html2TextException
      *
      * @return mixed The converted text, ready for mail delivery for example
      */
     public static function html2Text($strHtml, $arrOptions = [])
     {
-        $strHtml      = str_replace("\n", "", $strHtml); // remove white spaces from html
-        $strHtml      = str_replace("</p>", "<br /></p>", $strHtml); // Html2Text will replace paragraph by only one break
-        $objConverter = new Html2Text($strHtml, $arrOptions);
-
-        return $objConverter->getText();
+        $strHtml = str_replace("\n", '', $strHtml); // remove white spaces from html
+        $strHtml = str_replace('</p>', '<br /></p>', $strHtml); // interpret paragrah as block element
+        $strHtml = str_replace('</div>', '<br /></div>', $strHtml); // interpret div as block element
+        return Html2Text::convert($strHtml, $arrOptions);
     }
 
     /**
