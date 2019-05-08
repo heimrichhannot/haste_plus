@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.1] - 2019-05-08
+
+### Fixed
+- `FormSubmission::prepareSpecialValueForOutput` values with no reference check only against key if `isAssociative` from dca eval or `array_is_assoc($arrOptions)` is true, otherwise array_search will performed
+
 ## [1.13.0] - 2019-04-29
 
 ### Changed

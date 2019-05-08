@@ -331,9 +331,13 @@ class FormSubmission
             if (!$arrReference)
             {
                 $varValue = array_map(
-                    function ($varValue) use ($arrOptions)
+                    function ($varValue) use ($arrOptions, $arrData)
                     {
-                        return isset($arrOptions[$varValue]) ? $arrOptions[$varValue] : $varValue;
+                        if($arrData['eval']['isAssociative'] || array_is_assoc($arrOptions)){
+                            return isset($arrOptions[$varValue]) ? $arrOptions[$varValue] : $varValue;
+                        }
+
+                        return false !== ($index = array_search($varValue, $arrOptions)) ? $arrOptions[$index] : $varValue;
                     },
                     $varValue
                 );
