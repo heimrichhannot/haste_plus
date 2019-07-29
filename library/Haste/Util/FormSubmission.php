@@ -328,7 +328,7 @@ class FormSubmission
                 $varValue
             );
 
-            if (!$arrReference)
+            if (!$arrReference && is_array($arrOptions))
             {
                 $varValue = array_map(
                     function ($varValue) use ($arrOptions, $arrData)

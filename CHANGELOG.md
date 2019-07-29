@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.2] - 2019-07-29
+
+### Fixed
+- array_search Error thown by 1.13.1
+
 ## [1.13.1] - 2019-05-08
 
 ### Fixed
