@@ -16,23 +16,24 @@ if (TL_MODE == 'BE') {
     if (isset($GLOBALS['TL_JAVASCRIPT']['jquery-noconflict'])) {
         unset($GLOBALS['TL_JAVASCRIPT']['jquery-noconflict']);
     }
+
     array_insert($GLOBALS['TL_JAVASCRIPT'], 0, [
-        'jquery'            => $strJQueryPath,
-        'jquery-noconflict' => 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js',
+        'jquery'            => $strJQueryPath . '|static',
+        'jquery-noconflict' => 'system/modules/haste_plus/assets/js/jquery-noconflict.min.js|static',
     ]);
 }
 
 /**
  * Assets
  */
-array_insert($GLOBALS['TL_JAVASCRIPT'], 1, [
-    'haste_plus'             => '/system/modules/haste_plus/assets/js/haste_plus.min.js|static',
-    'haste_plus_environment' => '/system/modules/haste_plus/assets/js/environment.min.js|static',
-    'haste_plus_files'       => '/system/modules/haste_plus/assets/js/files.min.js|static',
-    'haste_plus_arrays'      => '/system/modules/haste_plus/assets/js/arrays.min.js|static',
-    'haste_plus_dom'         => '/system/modules/haste_plus/assets/js/dom.min.js|static',
-    'haste_plus_geo'         => '/system/modules/haste_plus/assets/js/geo.min.js|static',
-    'haste_plus_util'        => '/system/modules/haste_plus/assets/js/util.min.js|static',
+array_insert($GLOBALS['TL_JAVASCRIPT'], 2, [
+    'haste_plus'             => 'system/modules/haste_plus/assets/js/haste_plus.min.js|static',
+    'haste_plus_environment' => 'system/modules/haste_plus/assets/js/environment.min.js|static',
+    'haste_plus_files'       => 'system/modules/haste_plus/assets/js/files.min.js|static',
+    'haste_plus_arrays'      => 'system/modules/haste_plus/assets/js/arrays.min.js|static',
+    'haste_plus_dom'         => 'system/modules/haste_plus/assets/js/dom.min.js|static',
+    'haste_plus_geo'         => 'system/modules/haste_plus/assets/js/geo.min.js|static',
+    'haste_plus_util'        => 'system/modules/haste_plus/assets/js/util.min.js|static',
     'google_charts_loader'   => 'system/modules/haste_plus/assets/js/vendor/visualization/charts/loader.js|static',
     'google_charts'          => 'system/modules/haste_plus/assets/js/vendor/load-charts.js|static',
     'geoxml3'                => 'system/modules/haste_plus/assets/js/vendor/geoxml3.js|static',
@@ -104,6 +105,3 @@ $GLOBALS['TL_PURGE']['folders']['phpfastcache'] = [
     'affected' => [\Config::get('phpfastcachePath')],
     'callback' => ['\\HeimrichHannot\\Haste\\Backend\\Automator', 'purgePhpFastCache'],
 ];
-
-
-
