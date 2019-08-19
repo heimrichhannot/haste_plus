@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.3] - 2019-08-19
+
+#### Fixed
+- loading order in debug mode (#15) (thanks to fritzmg)
+
 ## [1.13.2] - 2019-07-29
 
 ### Fixed
