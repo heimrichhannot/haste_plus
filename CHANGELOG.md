@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.0] - 2020-08-11
+
+- added support for divers gender-based salutations
+
 ## [1.13.3] - 2019-08-19
 
 #### Fixed

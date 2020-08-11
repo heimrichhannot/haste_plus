@@ -94,75 +94,86 @@ class Salutations
             \Controller::loadLanguageFile('default', $strLanguage, true);
         }
 
-        switch ($strLanguage)
-        {
+        switch ($strLanguage) {
             case 'en':
-                if ($blnInformal)
-                {
-                    if ($blnHasFirstname && $blnInformalFirstname)
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] . ' ' . $varEntity->firstname;
+                if ($varEntity->gender === 'divers') {
+                    if ($blnInformal) {
+                        if ($blnHasFirstname && $blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'] .' '. $varEntity->firstname;
+                        } elseif ($blnHasFirstname && $blnHasLastname && !$blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'] .' '. $varEntity->firstname . ' ' . $varEntity->lastname;
+                        } else {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'];
+                        }
+                    } else {
+                        $suffix = $varEntity->firstname && $varEntity->lastname ? ' '. $varEntity->firstname . ' ' . $varEntity->lastname : '';
+                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'] . $suffix;
                     }
-                    elseif ($blnHasLastname && !$blnInformalFirstname)
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] . ' ' . $varEntity->lastname;
-                    }
-                    else
-                    {
+                } else {
+                    if ($blnInformal) {
+                        if ($blnHasFirstname && $blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'].' '.$varEntity->firstname;
+                        } elseif ($blnHasLastname) {
+                            $strSalutationPart = $GLOBALS['TL_LANG']['MSC']['haste_plus']['gender' . ('female' == $varEntity->gender ? 'Female' : 'Male')];
+
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'].' '.$strSalutationPart.' '.$varEntity->lastname;
+                        } else {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'];
+                        }
+                    } elseif ($blnHasLastname) {
+                        if ($blnHasTitle) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'].' '.($varEntity->title ?: $varEntity->academicTitle);
+                        } else {
+                            $strSalutation =
+                                $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'.('female' == $varEntity->gender ? 'Female' : 'Male')];
+                        }
+
+                        $strSalutation = $strSalutation.' '.$varEntity->lastname;
+                    } else {
                         $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'];
                     }
                 }
-                elseif ($blnHasLastname)
-                {
-                    if ($blnHasTitle)
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'] . ' ' . ($varEntity->title ?: $varEntity->academicTitle);
-                    }
-                    else
-                    {
-                        $strSalutation =
-                            $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation' . ($varEntity->gender == 'female' ? 'Female' : 'Male')];
-                    }
 
-                    $strSalutation = $strSalutation . ' ' . $varEntity->lastname;
-                }
-                else
-                {
-                    $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'];
-                }
                 break;
+
             default:
                 // de
-                if ($blnInformal)
-                {
-                    if ($blnHasFirstname && $blnInformalFirstname)
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] . ' ' . $varEntity->firstname;
+                if ($varEntity->gender === 'divers') {
+                    if ($blnInformal) {
+                        if ($blnHasFirstname && $blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] .' '. $varEntity->firstname;
+                        } elseif ($blnHasFirstname && $blnHasLastname && !$blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] .' '. $varEntity->firstname . ' ' . $varEntity->lastname;
+                        } else {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'];
+                        }
+                    } else {
+                        $suffix = $varEntity->firstname && $varEntity->lastname ? ', '. $varEntity->firstname . ' ' . $varEntity->lastname : '';
+                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'] . $suffix;
                     }
-                    elseif ($blnHasLastname && !$blnInformalFirstname)
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'] . ' ' . $varEntity->lastname;
-                    }
-                    else
-                    {
-                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'];
-                    }
-                }
-                elseif ($blnHasLastname && !$blnInformal)
-                {
-                    $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation' . ($varEntity->gender == 'female' ? 'Female' : 'Male')];
+                } else {
+                    if ($blnInformal) {
+                        if ($blnHasFirstname && $blnInformalFirstname) {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'].' '.$varEntity->firstname;
+                        } elseif ($blnHasLastname && !$blnInformalFirstname) {
+                            $strSalutationPart = $GLOBALS['TL_LANG']['MSC']['haste_plus']['gender' . ('female' == $varEntity->gender ? 'Female' : 'Male')];
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'].' '.$strSalutationPart.' '.$varEntity->lastname;
+                        } else {
+                            $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'];
+                        }
+                    } elseif ($blnHasLastname && !$blnInformal) {
+                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutation'.('female' == $varEntity->gender ? 'Female' : 'Male')];
 
-                    if ($blnHasTitle)
-                    {
-                        $strSalutation .= ' ' . ($varEntity->title ?: $varEntity->academicTitle);
-                    }
+                        if ($blnHasTitle) {
+                            $strSalutation .= ' '.($varEntity->title ?: $varEntity->academicTitle);
+                        }
 
-                    $strSalutation = $strSalutation . ' ' . $varEntity->lastname;
+                        $strSalutation = $strSalutation.' '.$varEntity->lastname;
+                    } else {
+                        $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'];
+                    }
                 }
-                else
-                {
-                    $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGeneric'];
-                }
+
                 break;
         }
 
