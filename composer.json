@@ -38,7 +38,7 @@
   },
   "autoload": {
     "psr-0": {
-      "HeimrichHannot\\Haste\\": [
+      "HeimrichHannot\\": [
         "library/"
       ]
     }
