@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.1] - 2021-06-11
+
+- fixed `composer.json`
+- increased dependency to contao 4.4.52 (security)
+
 ## [1.14.0] - 2020-08-11
 
 - added support for divers gender-based salutations
