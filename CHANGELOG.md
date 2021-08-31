@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.0] - 2021-08-31
+
+- Added: support for php 8
+
 ## [1.14.1] - 2021-06-11
 
 - fixed `composer.json`
