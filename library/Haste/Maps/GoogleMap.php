@@ -474,7 +474,7 @@ class GoogleMap
             return $this->arrOptions[$strKey];
         }
 
-        return parent::__get($strKey);
+        return null;
     }
 
 
