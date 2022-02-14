@@ -94,8 +94,8 @@ class DC_HastePlus extends \DC_Table
         }
 
         $this->strTable = $strTable;
-        $this->ptable = $GLOBALS['TL_DCA'][$this->strTable]['config']['ptable'];
-        $this->ctable = $GLOBALS['TL_DCA'][$this->strTable]['config']['ctable'];
+        $this->ptable = $GLOBALS['TL_DCA'][$this->strTable]['config']['ptable'] ?? null;
+        $this->ctable = $GLOBALS['TL_DCA'][$this->strTable]['config']['ctable'] ?? null;
         $this->treeView = in_array($GLOBALS['TL_DCA'][$this->strTable]['list']['sorting']['mode'], array(5, 6));
         $this->root = null;
         $this->arrModule = $arrModule;
@@ -127,7 +127,7 @@ class DC_HastePlus extends \DC_Table
         }
 
         // Get the IDs of all root records (list view or parent view)
-        elseif (is_array($GLOBALS['TL_DCA'][$this->strTable]['list']['sorting']['root']))
+        elseif (isset($GLOBALS['TL_DCA'][$this->strTable]['list']['sorting']['root']) && is_array($GLOBALS['TL_DCA'][$this->strTable]['list']['sorting']['root']))
         {
             $this->root = array_unique($GLOBALS['TL_DCA'][$this->strTable]['list']['sorting']['root']);
         }

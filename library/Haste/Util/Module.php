@@ -29,7 +29,7 @@ class Module
 		{
 			if (isset($GLOBALS[$strIndex][$strModuleGroup][$strModuleType]) &&
 				($GLOBALS[$strIndex][$strModuleGroup][$strModuleType] == $strParentModuleClass) ||
-				is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleClass))
+                (isset($GLOBALS[$strIndex][$strModuleGroup][$strModuleType]) && is_subclass_of($GLOBALS[$strIndex][$strModuleGroup][$strModuleType], $strParentModuleClass)))
 				return true;
 		}
 

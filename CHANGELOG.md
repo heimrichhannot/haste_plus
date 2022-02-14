@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.2] - 2022-02-14
+
+- Fixed: array index issues in php 8+
+
 ## [1.15.1] - 2021-09-01
 
 - Fixed: static call in GoogleMaps

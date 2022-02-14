@@ -195,12 +195,13 @@ class FormSubmission
     public static function prepareSpecialValueForPrint($varValue, $arrData, $strTable, $objDc, $objItem = null)
     {
         $varValue     = deserialize($varValue);
-        $arrOptions   = $arrData['options'];
-        $arrReference = $arrData['reference'];
-        $strRegExp    = $arrData['eval']['rgxp'];
+        $arrOptions   = $arrData['options'] ?? [];
+        $arrReference = $arrData['reference'] ?? [];
+        $strRegExp    = $arrData['eval']['rgxp'] ?? null;
+        $inputType = $arrData['inputType'] ?? null;
 
         // get options
-        if ((is_array($arrData['options_callback']) || is_callable($arrData['options_callback'])) && !$arrData['reference'])
+        if ((isset($arrData['options_callback']) && (is_array($arrData['options_callback']) || is_callable($arrData['options_callback']))) && !$arrData['reference'])
         {
             $arrOptionsCallback = null;
 
@@ -237,7 +238,7 @@ class FormSubmission
             }
         }
 
-        if ($arrData['inputType'] == 'explanation')
+        if ($inputType == 'explanation')
         {
             $varValue = $arrData['eval']['text'];
         }
@@ -253,7 +254,7 @@ class FormSubmission
         {
             $varValue = \Date::parse(\Config::get('datimFormat'), $varValue);
         }
-        elseif ($arrData['inputType'] == 'multiColumnEditor' && (in_array('multi_column_editor', \ModuleLoader::getActive()) || in_array('HeimrichHannotContaoMultiColumnEditorBundle',  \ModuleLoader::getActive())))
+        elseif ($inputType == 'multiColumnEditor' && (in_array('multi_column_editor', \ModuleLoader::getActive()) || in_array('HeimrichHannotContaoMultiColumnEditorBundle',  \ModuleLoader::getActive())))
         {
             if (is_array($varValue))
             {
@@ -290,7 +291,7 @@ class FormSubmission
                 $varValue = $formatted;
             }
         }
-        elseif ($arrData['inputType'] == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
+        elseif ($inputType == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
         {
             if (($arrTags = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $objItem->id)) !== null)
             {
@@ -363,7 +364,7 @@ class FormSubmission
         // Replace boolean checkbox value with "yes" and "no"
         else
         {
-            if ($arrData['eval']['isBoolean'] || ($arrData['inputType'] == 'checkbox' && !$arrData['eval']['multiple']))
+            if ((isset($arrData['eval']['isBoolean']) && $arrData['eval']['isBoolean']) || ($inputType == 'checkbox' && !$arrData['eval']['multiple']))
             {
                 $varValue = ($varValue != '') ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no'];
             }
@@ -384,7 +385,7 @@ class FormSubmission
             $varValue = implode(', ', $varValue);
         }
 
-        if ($arrData['eval']['encrypt'])
+        if ($arrData['eval']['encrypt'] ?? false)
         {
             $varValue = \Encryption::decrypt($varValue);
         }
@@ -401,6 +402,8 @@ class FormSubmission
         $varDefault = null,
         &$arrWidgetErrors = []
     ) {
+        $inputType = $arrData['inputType'] ?? null;
+
         if ($arrData['eval']['skipPrepareForSave'])
         {
             return $varValue;
@@ -426,7 +429,7 @@ class FormSubmission
             $varValue = implode($arrData['eval']['csv'], deserialize($varValue, true));
         }
 
-        if ($arrData['inputType'] == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
+        if ($inputType == 'tag' && in_array('tags_plus', \ModuleLoader::getActive()))
         {
             $varValue = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $intId);
         }
@@ -439,7 +442,7 @@ class FormSubmission
         $allowHtml = ($arrData['eval']['allowHtml'] || strlen($arrData['eval']['rte']) || $arrData['eval']['preserveTags']) ? true : false;
 
         // Decode entities if HTML is allowed
-        if ($allowHtml || $arrData['inputType'] == 'fileTree')
+        if ($allowHtml || $inputType == 'fileTree')
         {
             $varValue = Request::cleanHtml($varValue, true, true, $arrData['eval']['allowedTags'] ?: \Config::get('allowedTags'));
         }
