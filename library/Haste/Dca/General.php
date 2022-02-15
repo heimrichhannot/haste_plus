@@ -205,7 +205,7 @@ class General extends \Backend
      */
     public static function setDateAdded(\DataContainer $objDc)
     {
-        if ($objDc === null || !$objDc->id || $objDc->activeRecord->dateAdded > 0) {
+        if ($objDc === null || !$objDc->id || ($objDc->activeRecord && $objDc->activeRecord->dateAdded > 0)) {
             return false;
         }
 
@@ -501,7 +501,7 @@ class General extends \Backend
         foreach ($GLOBALS['BE_MOD'] as $arrSection) {
             foreach ($arrSection as $strModule => $arrModule) {
                 foreach ($arrModule as $strKey => $varValue) {
-                    if (is_array($arrModule['tables'])) {
+                    if (isset($arrModule['tables']) && is_array($arrModule['tables'])) {
                         $dca = array_merge($dca, $arrModule['tables']);
                     }
                 }
