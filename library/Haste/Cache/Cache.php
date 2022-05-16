@@ -43,7 +43,7 @@ abstract class Cache extends phpFastCacheAbstractProxy
         return static::$objInstance;
     }
 
-    protected function extendOptions(array $arrOptions = [])
+    protected static function extendOptions(array $arrOptions = [])
     {
         return $arrOptions;
     }

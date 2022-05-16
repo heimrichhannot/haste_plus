@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.5] - 2022-05-16
+- Fixed: static call of non static method in cache component
+
 ## [1.15.4] - 2022-03-23
 
 - Fixed: clear php fast cache issue
