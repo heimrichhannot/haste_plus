@@ -37,7 +37,9 @@ class FormSubmission
             $arrDca = $GLOBALS['TL_DCA'][$objModel->getTable()];
         }
 
-        $arrSubmissionData = [];
+        $arrSubmissionData = [
+            'submission_all' => ''
+        ];
         $arrRow            = $objModel->row();
         $arrSubmission     = [];
 
@@ -55,7 +57,7 @@ class FormSubmission
             $varValue = deserialize($varValue);
 
             // multicolumnwizard support
-            if ($arrData['inputType'] == 'multiColumnWizard')
+            if (isset($arrData['inputType']) && $arrData['inputType'] == 'multiColumnWizard')
             {
                 foreach ($varValue as $arrSet)
                 {
@@ -80,7 +82,7 @@ class FormSubmission
                 }
             }
 
-            $arrSubmissionData['submission_all'] .= $strSubmission;
+            $arrSubmissionData['submission_all'] = $strSubmission;
 
             if (in_array($strName, $arrFields) && !in_array($strName, $arrSkipFields))
             {
@@ -201,7 +203,7 @@ class FormSubmission
         $inputType = $arrData['inputType'] ?? null;
 
         // get options
-        if ((isset($arrData['options_callback']) && (is_array($arrData['options_callback']) || is_callable($arrData['options_callback']))) && !$arrData['reference'])
+        if ((isset($arrData['options_callback']) && (is_array($arrData['options_callback']) || is_callable($arrData['options_callback']))) && empty($arrReference))
         {
             $arrOptionsCallback = null;
 
@@ -364,7 +366,7 @@ class FormSubmission
         // Replace boolean checkbox value with "yes" and "no"
         else
         {
-            if ((isset($arrData['eval']['isBoolean']) && $arrData['eval']['isBoolean']) || ($inputType == 'checkbox' && !$arrData['eval']['multiple']))
+            if ((isset($arrData['eval']['isBoolean']) && $arrData['eval']['isBoolean']) || ($inputType == 'checkbox' && !($arrData['eval']['multiple'] ?? false)))
             {
                 $varValue = ($varValue != '') ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no'];
             }
@@ -404,13 +406,13 @@ class FormSubmission
     ) {
         $inputType = $arrData['inputType'] ?? null;
 
-        if ($arrData['eval']['skipPrepareForSave'])
+        if ($arrData['eval']['skipPrepareForSave'] ?? false)
         {
             return $varValue;
         }
 
         // Convert date formats into timestamps
-        if ($varValue != '' && in_array($arrData['eval']['rgxp'], ['date', 'time', 'datim']))
+        if (!empty($varValue) && isset($arrData['eval']['rgxp']) && in_array($arrData['eval']['rgxp'], ['date', 'time', 'datim']))
         {
             try
             {
@@ -424,7 +426,7 @@ class FormSubmission
             }
         }
 
-        if ($arrData['eval']['multiple'] && isset($arrData['eval']['csv']))
+        if ($arrData['eval']['multiple'] ?? false && isset($arrData['eval']['csv']))
         {
             $varValue = implode($arrData['eval']['csv'], deserialize($varValue, true));
         }
@@ -434,17 +436,17 @@ class FormSubmission
             $varValue = \HeimrichHannot\TagsPlus\TagsPlus::loadTags($strTable, $intId);
         }
 
-        if ($arrData['eval']['encrypt'])
+        if ($arrData['eval']['encrypt'] ?? false)
         {
             $varValue = \Encryption::encrypt($varValue);
         }
 
-        $allowHtml = ($arrData['eval']['allowHtml'] || strlen($arrData['eval']['rte']) || $arrData['eval']['preserveTags']) ? true : false;
+        $allowHtml = ($arrData['eval']['allowHtml'] ?? false || strlen($arrData['eval']['rte'] ?? '') || ($arrData['eval']['preserveTags'] ?? false)) ? true : false;
 
         // Decode entities if HTML is allowed
         if ($allowHtml || $inputType == 'fileTree')
         {
-            $varValue = Request::cleanHtml($varValue, true, true, $arrData['eval']['allowedTags'] ?: \Config::get('allowedTags'));
+            $varValue = Request::cleanHtml($varValue, true, true, ($arrData['eval']['allowedTags'] ?? null) ?: \Config::get('allowedTags'));
         }
 
         return $varValue;

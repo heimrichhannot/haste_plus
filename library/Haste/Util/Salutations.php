@@ -80,9 +80,9 @@ class Salutations
             $varEntity = Arrays::arrayToObject($varEntity);
         }
 
-        $blnHasFirstname = $varEntity->firstname;
-        $blnHasLastname  = $varEntity->lastname;
-        $blnHasTitle     = $varEntity->title && $varEntity->title != '-' && $varEntity->title != 'Titel' && $varEntity->title != 'Title';
+        $blnHasFirstname = $varEntity->firstname ?? false;
+        $blnHasLastname  = $varEntity->lastname ?? false;
+        $blnHasTitle     = ($varEntity->title ?? null) && $varEntity->title != '-' && $varEntity->title != 'Titel' && $varEntity->title != 'Title';
 
         if (!$blnHasTitle)
         {
@@ -148,7 +148,7 @@ class Salutations
                             $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationGenericInformal'];
                         }
                     } else {
-                        $suffix = $varEntity->firstname && $varEntity->lastname ? ', '. $varEntity->firstname . ' ' . $varEntity->lastname : '';
+                        $suffix = $blnHasFirstname && $blnHasLastname ? ', '. $varEntity->firstname . ' ' . $varEntity->lastname : '';
                         $strSalutation = $GLOBALS['TL_LANG']['MSC']['haste_plus']['salutationDivers'] . $suffix;
                     }
                 } else {

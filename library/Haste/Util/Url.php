@@ -103,7 +103,7 @@ class Url extends \Haste\Util\Url
     {
         $arrParsed = parse_url($uri);
 
-        return $arrParsed['fragment'];
+        return $arrParsed['fragment'] ?? null;
     }
 
     public static function removeParameterFromUri($uri, $key)
