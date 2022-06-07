@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.7] - 2022-06-07
+- Fixed: warnings in php 8
+- 
 ## [1.15.6] - 2022-06-02
 - Fixed: warnings in php 8
 

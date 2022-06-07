@@ -94,7 +94,7 @@ class FormSubmission
         $strSubmissionAll = '';
         foreach ($arrFields as $strName)
         {
-            $strSubmissionAll .= $arrSubmission[$strName];
+            $strSubmissionAll .= $arrSubmission[$strName] ?? '';
         }
 
         $arrSubmissionData['submission'] = $strSubmissionAll;
@@ -336,7 +336,7 @@ class FormSubmission
                 $varValue = array_map(
                     function ($varValue) use ($arrOptions, $arrData)
                     {
-                        if($arrData['eval']['isAssociative'] || array_is_assoc($arrOptions)){
+                        if(($arrData['eval']['isAssociative'] ?? false) || array_is_assoc($arrOptions)){
                             return isset($arrOptions[$varValue]) ? $arrOptions[$varValue] : $varValue;
                         }
 
@@ -426,7 +426,7 @@ class FormSubmission
             }
         }
 
-        if ($arrData['eval']['multiple'] ?? false && isset($arrData['eval']['csv']))
+        if (($arrData['eval']['multiple'] ?? false) && isset($arrData['eval']['csv']))
         {
             $varValue = implode($arrData['eval']['csv'], deserialize($varValue, true));
         }
