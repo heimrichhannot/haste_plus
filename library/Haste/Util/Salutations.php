@@ -86,7 +86,7 @@ class Salutations
 
         if (!$blnHasTitle)
         {
-            $blnHasTitle = $varEntity->academicTitle && $varEntity->academicTitle != '-' && $varEntity->academicTitle != 'Titel' && $varEntity->academicTitle != 'Title';
+            $blnHasTitle = property_exists($varEntity, 'academicTitle') && $varEntity->academicTitle != '-' && $varEntity->academicTitle != 'Titel' && $varEntity->academicTitle != 'Title';
         }
 
         if ($strLanguage)
