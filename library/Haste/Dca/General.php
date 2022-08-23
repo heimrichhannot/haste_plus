@@ -515,6 +515,15 @@ class General extends \Backend
         return array_values($dca);
     }
 
+    /**
+     * @param $strTable
+     * @param $blnLocalized
+     * @param array|string|null $varInputType
+     * @param $arrEvalFilters
+     * @param $blnSort
+     * @param array $arrSkipFields
+     * @return array
+     */
     public static function getFields(
         $strTable,
         $blnLocalized = true,
@@ -535,10 +544,14 @@ class General extends \Backend
             }
 
             // input type
-            if ($varInputType
-                && (is_array($varInputType) && !empty($varInputType) ? !in_array($arrData['inputType'], $varInputType) : $arrData['inputType'] != $varInputType)
-            ) {
-                continue;
+            if (!empty($varInputType)) {
+                if (
+                    empty($arrData['inputType'])
+                    || (is_array($varInputType) && in_array($arrData['inputType'], $varInputType))
+                    || (is_string($varInputType) && ($arrData['inputType'] != $varInputType))
+                ) {
+                    continue;
+                }
             }
 
             // eval filters

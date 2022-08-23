@@ -1,3 +1,7 @@
+> **Please note:**
+> 
+> This bundle is deprecated and not actively maintained anymore!
+
 # Haste Plus
 
 Haste plus extends [codefog/contao-haste](https://packagist.org/packages/codefog/contao-haste) as a collection of tools and classes to ease working with Contao.
