@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.10] - 2022-09-06
+- Fixed: General::getFields() inputType filter returned wrong values
+
 ## [1.15.9] - 2022-08-23
 - Fixed: warnings in php 8
 

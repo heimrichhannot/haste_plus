@@ -537,6 +537,14 @@ class General extends \Backend
 
         $arrOptions = [];
 
+        $evaluateInputType = false;
+        if (!empty($varInputType)) {
+            if (is_string($varInputType)) {
+                $varInputType = [$varInputType];
+            }
+            $evaluateInputType = true;
+        }
+
         foreach ($GLOBALS['TL_DCA'][$strTable]['fields'] as $strField => $arrData) {
             // skip special fields
             if (in_array($strField, $arrSkipFields)) {
@@ -544,12 +552,8 @@ class General extends \Backend
             }
 
             // input type
-            if (!empty($varInputType)) {
-                if (
-                    empty($arrData['inputType'])
-                    || (is_array($varInputType) && in_array($arrData['inputType'], $varInputType))
-                    || (is_string($varInputType) && ($arrData['inputType'] != $varInputType))
-                ) {
+            if ($evaluateInputType) {
+                if (empty($arrData['inputType']) || !in_array($arrData['inputType'], $varInputType)) {
                     continue;
                 }
             }
