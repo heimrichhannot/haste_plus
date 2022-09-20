@@ -12,4 +12,4 @@
  * Purge Data
  */
 $GLOBALS['TL_LANG']['tl_maintenance_jobs']['phpfastcache'][0] = 'phpfastcache-Ordner leeren';
-$GLOBALS['TL_LANG']['tl_maintenance_jobs']['less'][1] = 'Löscht die automatisch erstellten phpfastcache Dateien.';
+$GLOBALS['TL_LANG']['tl_maintenance_jobs']['phpfastcache'][1] = 'Löscht die automatisch erstellten phpfastcache Dateien.';

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.11] - 2022-09-20
+- Changed: allow phpfastcache 6 due security issues with version 5
+- Fixed: translation issue
+
 ## [1.15.10] - 2022-09-06
 - Fixed: General::getFields() inputType filter returned wrong values
 
