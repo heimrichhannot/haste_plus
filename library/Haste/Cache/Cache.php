@@ -27,7 +27,7 @@ abstract class Cache extends PhpfastcacheAbstractProxy
      */
     public function __construct(string $driver = 'auto', $config = null)
     {
-        $this->instance = parent::__construct($driver, self::getOptions($config));
+        $this->instance = parent::__construct($driver, self::getOptions());
     }
 
     /**
