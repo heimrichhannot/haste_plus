@@ -11,10 +11,11 @@
 
 namespace HeimrichHannot\Haste\Cache;
 
-use phpFastCache\CacheManager;
-use phpFastCache\Proxy\phpFastCacheAbstractProxy;
+use Phpfastcache\CacheManager;
+use Phpfastcache\Config\ConfigurationOption;
+use Phpfastcache\Proxy\PhpfastcacheAbstractProxy;
 
-abstract class Cache extends phpFastCacheAbstractProxy
+abstract class Cache extends PhpfastcacheAbstractProxy
 {
     protected static $driver = 'files';
 
@@ -22,49 +23,45 @@ abstract class Cache extends phpFastCacheAbstractProxy
 
     /**
      * @param string $driver
-     * @param array $config
+     * @param ConfigurationOption $config
      */
-    public function __construct($driver = 'auto', array $config = [])
+    public function __construct(string $driver = 'auto', $config = null)
     {
-        $this->instance = parent::__construct($driver, self::getOptions());
+        $this->instance = parent::__construct($driver, self::getOptions($config));
     }
 
     /**
      * Return the object instance (Singleton)
      *
-     * @return \HeimrichHannot\Haste\Cache\Cache The object instance
+     * @return Cache The object instance
      */
-    public static function getInstance(array $arrOptions = [])
+    public static function getInstance($config = null): Cache
     {
         if (static::$objInstance === null) {
-            static::$objInstance = CacheManager::getInstance(static::$driver, self::getOptions($arrOptions));
+            static::$objInstance = CacheManager::getInstance(static::$driver, self::getOptions($config));
         }
 
         return static::$objInstance;
     }
 
-    protected static function extendOptions(array $arrOptions = [])
+    protected static function extendOptions($config = null): ConfigurationOption
     {
-        return $arrOptions;
+        return $config;
     }
 
-    public static function getOptions(array $arrOptions = [])
+    public static function getOptions($config = null): ConfigurationOption
     {
-        $arrOptions['storage']             = static::$driver;
-        $arrOptions['ignoreSymfonyNotice'] = true;
-
-        if (!isset($arrOptions['defaultTtl']) || !$arrOptions['defaultTtl'])
-        {
-            $arrOptions['defaultTtl'] = 86400;
+        if($config === null) {
+            $config = CacheManager::getDefaultConfig();
         }
 
-        $arrOptions = static::extendOptions($arrOptions);
+        if (!isset($config['defaultTtl']) || !$config['defaultTtl'])
+        {
+            $config['defaultTtl'] = 86400;
+        }
 
-        $arrOptions = array_merge(
-            CacheManager::getDefaultConfig(),
-            $arrOptions
-        );
+        $config = static::extendOptions($config);
 
-        return $arrOptions;
+        return $config;
     }
 }
