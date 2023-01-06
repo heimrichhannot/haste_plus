@@ -23,7 +23,7 @@ abstract class Cache extends PhpfastcacheAbstractProxy
 
     /**
      * @param string $driver
-     * @param ConfigurationOption $config
+     * @param ConfigurationOption|array $config
      */
     public function __construct(string $driver = 'auto', $config = null)
     {
@@ -53,6 +53,23 @@ abstract class Cache extends PhpfastcacheAbstractProxy
     {
         if($config === null) {
             $config = CacheManager::getDefaultConfig();
+        } elseif (is_array($config)) {
+            $configNew = CacheManager::getDefaultConfig();
+
+            if(empty($config['defaultTtl'])) $config['defaultTtl'] .= 86400;
+
+            $config['defaultChmod'] = $config['default_chmod'];
+            $config['limitedMemoryByObject'] = $config['limited_memory_each_object'];
+            $config['compressData'] = $config['compress_data'];
+            unset($config['default_chmod']);
+            unset($config['limited_memory_each_object']);
+            unset($config['compress_data']);
+
+            foreach ($config as $key => $value) {
+                $configNew[$key] = $value;
+            }
+
+            $config = $configNew;
         }
 
         if (!isset($config['defaultTtl']) || !$config['defaultTtl'])
