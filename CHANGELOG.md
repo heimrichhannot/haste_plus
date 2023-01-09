@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.12] - 2023-01-09
+- Changed: allow phpfastcache 7 for usage in projects with php 8
+- Changed: adapt usage of phpfastcache to work with the new version
+
 ## [1.15.11] - 2022-09-20
 - Changed: allow phpfastcache 6 due security issues with version 5
 - Fixed: translation issue
