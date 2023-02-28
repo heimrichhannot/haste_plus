@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.14] - 2023-02-28
+- Fixed: invalid return type
+
 ## [1.15.13] - 2023-02-22
 - Fixed: invalid syntax
 
