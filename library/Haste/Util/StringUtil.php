@@ -13,7 +13,7 @@ namespace HeimrichHannot\Haste\Util;
 
 use Soundasleep\Html2Text;
 
-class StringUtil extends \Haste\Util\StringUtil
+class StringUtil
 {
     const CAPITAL_LETTERS              = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const CAPITAL_LETTERS_NONAMBIGUOUS = 'ABCDEFGHJKLMNPQRSTUVWX';
