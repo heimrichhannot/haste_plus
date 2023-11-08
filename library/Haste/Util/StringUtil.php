@@ -17,7 +17,7 @@ if (class_exists(HeimrichHannot\Haste\Util\StringUtil)) {
     class StringUtilsParent extends \HeimrichHannot\Haste\Util\StringUtil {
     }
 } else {
-    class StringUtilsParent extends \HeimrichHannot\Haste\Neu\StringUtil {
+    class StringUtilsParent extends \Codefog\HasteBundle\StringParser {
     }
 }
 

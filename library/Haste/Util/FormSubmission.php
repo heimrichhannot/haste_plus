@@ -15,7 +15,7 @@ namespace HeimrichHannot\Haste\Util;
 use HeimrichHannot\Haste\DC_Table;
 use HeimrichHannot\Haste\Dca\General;
 use HeimrichHannot\Request\Request;
-use Codefog\HasteBundle\StringParser;
+use Contao\System;
 
 class FormSubmission
 {
@@ -155,8 +155,14 @@ class FormSubmission
                 {
                     case 'output':
                         $arrTokens[$strPrefix . '_' . $strName]       = $varValue;
-                        $arrTokens[$strPrefix . '_plain_' . $strName] =
-                            StringParser::convertToText(\StringUtil::decodeEntities($varValue), true);
+                        if(class_exists(HeimrichHannot\Haste\Util\StringUtil)) {
+                            $arrTokens[$strPrefix . '_plain_' . $strName] =
+                            \HeimrichHannot\Haste\Util\StringUtil::convertToText(\StringUtil::decodeEntities($varValue), true);
+                        } else {
+                            $container = System::getContainer();
+                            $arrTokens[$strPrefix . '_plain_' . $strName] =
+                                $container->get(\Codefog\HasteBundle\StringParser::class)->convertToText(\StringUtil::decodeEntities($varValue), true);
+                        }
                         break;
                     case 'value':
                         // check for values causing notification center's json_encode call to fail (unprintable characters like binary!)

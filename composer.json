@@ -22,14 +22,14 @@
     "issues": "https://github.com/heimrichhannot/contao-haste_plus/issues"
   },
   "require": {
-    "php": "~5.4 || ~7.0 || ^8.0",
-    "contao/core-bundle": "^3.5.1 || ^4.4.52",
-    "codefog/contao-haste": ">=4.10,<5-dev",
+    "php": "~7.0 || ^8.0",
+    "contao/core-bundle": "^4.4.52 || ^4.13",
+    "codefog/contao-haste": "^4.0 || ^5.0",
     "tijsverkoyen/css-to-inline-styles": "^2.2",
     "phpfastcache/phpfastcache": "^7.0",
     "hackzilla/password-generator": "^1.4",
     "soundasleep/html2text": "^1.1",
-    "globalcitizen/php-iban": "~2.0",
+    "globalcitizen/php-iban": "~4.0",
     "heimrichhannot/contao-components": "^2.0"
   },
   "suggest": {
