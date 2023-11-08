@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.0] - 2023-11-08
+- Added: support for haste 5
+- Changed: adapt StringUtil to haste 5 changes
+
 ## [1.15.12] - 2023-01-09
 - Changed: allow phpfastcache 7 for usage in projects with php 8
 - Changed: adapt usage of phpfastcache to work with the new version

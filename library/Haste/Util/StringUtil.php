@@ -13,11 +13,11 @@ namespace HeimrichHannot\Haste\Util;
 
 use Soundasleep\Html2Text;
 
-if (class_exists(HeimrichHannot\Haste\Util\StringUtil)) {
+if (class_exists('HeimrichHannot\Haste\Util\StringUtil')) {
     class StringUtilsParent extends \HeimrichHannot\Haste\Util\StringUtil {
     }
 } else {
-    class StringUtilsParent extends \Codefog\HasteBundle\StringParser {
+    class StringUtilsParent {
     }
 }
 
