@@ -13,7 +13,15 @@ namespace HeimrichHannot\Haste\Util;
 
 use Soundasleep\Html2Text;
 
-class StringUtil
+if (class_exists(HeimrichHannot\Haste\Util\StringUtil)) {
+    class StringUtilsParent extends \HeimrichHannot\Haste\Util\StringUtil {
+    }
+} else {
+    class StringUtilsParent extends \HeimrichHannot\Haste\Neu\StringUtil {
+    }
+}
+
+class StringUtil extends StringUtilsParent
 {
     const CAPITAL_LETTERS              = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const CAPITAL_LETTERS_NONAMBIGUOUS = 'ABCDEFGHJKLMNPQRSTUVWX';
