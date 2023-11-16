@@ -34,7 +34,7 @@ class StringUtil
      */
     public static function recursiveReplaceTokensAndTags($text, $tokens, $textFlags = 0)
     {
-        if (class_exists('HeimrichHannot\Haste\Util\StringUtil')) {
+        if (class_exists('\Haste\Util\StringUtil')) {
             $strBuffer = \Haste\Util\StringUtil::recursiveReplaceTokensAndTags($text, $tokens, $textFlags);
         } else {
             $container = \Contao\System::getContainer();
@@ -53,7 +53,7 @@ class StringUtil
      */
     public static function convertToText($value, $options)
     {
-        if (class_exists('HeimrichHannot\Haste\Util\StringUtil')) {
+        if (class_exists('\Haste\Util\StringUtil')) {
             $value = \Haste\Util\StringUtil::convertToText($value, $options);
         } else {
             $container = \Contao\System::getContainer();
@@ -72,7 +72,7 @@ class StringUtil
      */
     public static function flatten($value, $key, array & $data, $pattern = ', ')
     {
-        if (class_exists('HeimrichHannot\Haste\Util\StringUtil')) {
+        if (class_exists('\Haste\Util\StringUtil')) {
             \Haste\Util\StringUtil::flatten($value, $key, $data, $pattern);
         } else {
             $container = \Contao\System::getContainer();
