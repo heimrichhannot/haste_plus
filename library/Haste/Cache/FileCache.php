@@ -18,8 +18,12 @@ class FileCache extends Cache
 
     protected static $driver = 'files';
 
-    protected static function extendOptions($config = new ConfigurationOption): ConfigurationOption
+    protected static function extendOptions($config = null): ConfigurationOption
     {
+        if (!$config) {
+            $config = new ConfigurationOption();
+        }
+
         $filename = TL_ROOT . '/' . ltrim(self::$cacheDir, '/');
 
         if (!is_dir($filename)) {

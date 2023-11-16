@@ -35,7 +35,7 @@ abstract class Cache extends PhpfastcacheAbstractProxy
      *
      * @return Cache The object instance
      */
-    public static function getInstance($config = null): Cache
+    public static function getInstance($config = null)
     {
         if (static::$objInstance === null) {
             static::$objInstance = CacheManager::getInstance(static::$driver, self::getOptions($config));
