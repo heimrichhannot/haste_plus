@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.0] - 2023-11-08
+- Added: support for haste 5
+- Added: dynamically load either StringUtil or StringParser methods based on which version of contao-haste is installed
+- Changed: adapt StringUtil to haste 5 changes
+
 ## [1.15.14] - 2023-02-28
 - Fixed: invalid return type
 

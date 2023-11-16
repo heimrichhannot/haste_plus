@@ -13,7 +13,7 @@ namespace HeimrichHannot\Haste\Util;
 
 use Soundasleep\Html2Text;
 
-class StringUtil extends \Haste\Util\StringUtil
+class StringUtil
 {
     const CAPITAL_LETTERS              = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const CAPITAL_LETTERS_NONAMBIGUOUS = 'ABCDEFGHJKLMNPQRSTUVWX';
@@ -22,6 +22,63 @@ class StringUtil extends \Haste\Util\StringUtil
     const NUMBERS                      = '0123456789';
     const NUMBERS_NONAMBIGUOUS         = '23456789';
 
+
+    /**
+     * Recursively replace simple tokens and insert tags
+     *
+     * @param string $text
+     * @param array  $tokens    Array of Tokens
+     * @param int    $textFlags Filters the tokens and the text for a given set of options
+     *
+     * @return string
+     */
+    public static function recursiveReplaceTokensAndTags($text, $tokens, $textFlags = 0)
+    {
+        if (class_exists('\Haste\Util\StringUtil')) {
+            $strBuffer = \Haste\Util\StringUtil::recursiveReplaceTokensAndTags($text, $tokens, $textFlags);
+        } else {
+            $container = \Contao\System::getContainer();
+            $strBuffer = $container->get(\Codefog\HasteBundle\StringParser::class)->recursiveReplaceTokensAndTags($text, $tokens, $textFlags);
+        }
+        return $strBuffer;
+    }
+
+    /**
+     * Convert the given array or string to plain text using given options
+     *
+     * @param mixed $value
+     * @param int   $options
+     *
+     * @return mixed
+     */
+    public static function convertToText($value, $options)
+    {
+        if (class_exists('\Haste\Util\StringUtil')) {
+            $value = \Haste\Util\StringUtil::convertToText($value, $options);
+        } else {
+            $container = \Contao\System::getContainer();
+            $value = $container->get(\Codefog\HasteBundle\StringParser::class)->convertToText($value, $options);
+        }
+        return $value;
+    }
+
+    /**
+     * Flatten input data, Simple Tokens can't handle arrays
+     *
+     * @param mixed  $value
+     * @param string $key
+     * @param array  $data
+     * @param string $pattern
+     */
+    public static function flatten($value, $key, array & $data, $pattern = ', ')
+    {
+        if (class_exists('\Haste\Util\StringUtil')) {
+            \Haste\Util\StringUtil::flatten($value, $key, $data, $pattern);
+        } else {
+            $container = \Contao\System::getContainer();
+            $container->get(\Codefog\HasteBundle\StringParser::class)->flatten($value, $key, $data, $pattern);
+        }
+    }
 
     /**
      * Convert new line or br with <p> tags

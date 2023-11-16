@@ -12,6 +12,8 @@
 namespace HeimrichHannot\Haste\Util;
 
 
+use Contao\StringUtil;
+use Contao\System;
 use HeimrichHannot\Haste\DC_Table;
 use HeimrichHannot\Haste\Dca\General;
 use HeimrichHannot\Request\Request;
@@ -155,7 +157,7 @@ class FormSubmission
                     case 'output':
                         $arrTokens[$strPrefix . '_' . $strName]       = $varValue;
                         $arrTokens[$strPrefix . '_plain_' . $strName] =
-                            \HeimrichHannot\Haste\Util\StringUtil::convertToText(\StringUtil::decodeEntities($varValue), true);
+                            \HeimrichHannot\Haste\Util\StringUtil::convertToText(StringUtil::decodeEntities($varValue), true);
                         break;
                     case 'value':
                         // check for values causing notification center's json_encode call to fail (unprintable characters like binary!)
@@ -232,7 +234,7 @@ class FormSubmission
         // foreignKey
         if (isset($arrData['foreignKey']) && !is_array($varValue))
         {
-            list($strForeignTable, $strForeignField) = explode('.', $arrData['foreignKey']);
+            [$strForeignTable, $strForeignField] = explode('.', $arrData['foreignKey']);
 
             if (($objInstance = General::getModelInstance($strForeignTable, $varValue)) !== null)
             {
@@ -303,7 +305,7 @@ class FormSubmission
         elseif (!is_array($varValue) && \Validator::isBinaryUuid($varValue))
         {
             $strPath  = Files::getPathFromUuid($varValue);
-            $varValue = $strPath ? (\Environment::get('url') . '/' . $strPath) : \StringUtil::binToUuid($varValue);
+            $varValue = $strPath ? (\Environment::get('url') . '/' . $strPath) : StringUtil::binToUuid($varValue);
         }
         elseif (is_array($varValue))
         {
@@ -323,7 +325,7 @@ class FormSubmission
                             return \Environment::get('url') . '/' . $strPath;
                         }
 
-                        return \StringUtil::binToUuid($varValue);
+                        return StringUtil::binToUuid($varValue);
                     }
 
                     return $varValue;
