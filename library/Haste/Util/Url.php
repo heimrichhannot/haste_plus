@@ -11,7 +11,10 @@
 
 namespace HeimrichHannot\Haste\Util;
 
-class Url extends \Haste\Util\Url
+use Codefog\HasteBundle\UrlParser;
+use Contao\System;
+
+class Url
 {
     /**
      * Check an url for existing scheme and add if it is missing
@@ -372,6 +375,40 @@ class Url extends \Haste\Util\Url
         }
 
         exit;
+    }
+
+    public static function addQueryString($strQuery, $varUrl = null)
+    {
+        return static::mapCalls('addQueryString', $strQuery, ...func_get_args());
+    }
+
+    public static function removeQueryString(array $arrParams, $varUrl = null)
+    {
+        return static::mapCalls('removeQueryString', $varUrl, ...func_get_args());
+    }
+
+    public static function removeQueryStringCallback(callable $callback, $varUrl = null)
+    {
+        return static::mapCalls('removeQueryStringCallback', $varUrl, ...func_get_args());
+    }
+
+    protected static function prepareUrl($varUrl)
+    {
+        return static::mapCalls('prepareUrl', $varUrl, ...func_get_args());
+    }
+
+    private static function mapCalls(string $method, $default)
+    {
+        $arguments = func_get_args();
+        array_shift($arguments);
+        array_shift($arguments);
+        $container = System::getContainer();
+        if (class_exists(UrlParser::class) && $container->has(UrlParser::class)) {
+            return $container->get(UrlParser::class)->{$method}(...$arguments);
+        } elseif (class_exists(\Haste\Util\Url::class)) {
+            return \Haste\Util\Url::{$method}(...func_get_args());
+        }
+        return $default;
     }
 }
 
