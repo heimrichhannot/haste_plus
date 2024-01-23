@@ -402,12 +402,18 @@ class Url
         $arguments = func_get_args();
         array_shift($arguments);
         array_shift($arguments);
+
         $container = System::getContainer();
-        if (class_exists(UrlParser::class) && $container->has(UrlParser::class)) {
+
+        if (class_exists(UrlParser::class) && $container->has(UrlParser::class))
+        {
             return $container->get(UrlParser::class)->{$method}(...$arguments);
-        } elseif (class_exists(\Haste\Util\Url::class)) {
-            return \Haste\Util\Url::{$method}(...func_get_args());
         }
+        elseif (class_exists(\Haste\Util\Url::class))
+        {
+            return \Haste\Util\Url::{$method}(...$arguments);
+        }
+
         return $default;
     }
 }
