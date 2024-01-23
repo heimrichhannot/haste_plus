@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.2] - 2024-01-23
+- Fixed: Issue with removing query string parameters on Php8
+
 ## [1.16.1] - 2023-11-23
 - Fixed: compatibility issues with haste 5
 - Fixed: infinite loop in StringUtil
