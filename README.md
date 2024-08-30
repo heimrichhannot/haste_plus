@@ -117,3 +117,7 @@ encrypt | 1st: the value | {{encrypt::my secret value}}
 ## Developer notes
 
 - provide a minimum of 3 unit test for each test case of a util method
+
+## Notification Tokens
+
+- Added `##form_submission_html_all##`, an equivalent to `##formsubmission##` but for html format

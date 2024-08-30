@@ -185,9 +185,11 @@ class FormSubmission
         }
 
         // token: ##formsubmission##
+        // token: ##form_submission_html_all##
         if (isset($arrSubmissionData['submission']))
         {
             $arrTokens[$strPrefix . 'submission'] = $arrSubmissionData['submission'];
+            $arrTokens[$strPrefix . '_submission_html_all'] = str_replace("\t\n",'<br>',$arrSubmissionData['submission']);
         }
 
         // prepare attachments
