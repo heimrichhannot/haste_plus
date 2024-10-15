@@ -460,6 +460,10 @@ class General extends \Backend
 			$apiKey = Config::get('dlh_googlemaps_apikey');
 			$url = Url::addQueryString('key='.$apiKey, $url);
 		}
+        elseif (!empty($apiKey = $GLOBALS['TL_CONFIG']['googlemaps_apiKey'] ?? null))
+        {
+            $url .= '&key=' . $apiKey;
+        }
 
 		$strResult = Curl::request($url);
 
